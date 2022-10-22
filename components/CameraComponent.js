@@ -55,6 +55,7 @@ export default function CameraComponent({ navigation }) {
             });
         };
 
+        //this method will call in save picture touchableoecity for now it doesnot needed.
         let savePhoto = () => {
             MediaLibrary.saveToLibraryAsync(photo.uri).then(() => {
                 setPhoto(undefined);
@@ -63,32 +64,32 @@ export default function CameraComponent({ navigation }) {
 
         return (
             <View style={globalStyles.camera}>
-                <Image style={{ alignSelf: 'stretch', flex: 1}}
-                    source={{ uri: "data:image/jpg;base64," + photo.base64 }} 
+                <Image style={{ alignSelf: 'stretch', flex: 1 }}
+                    source={{ uri: "data:image/jpg;base64," + photo.base64 }}
                 />
 
-                <TouchableOpacity style={[ globalStyles.cameraButtns, { }]}
+                <TouchableOpacity style={[globalStyles.cameraButtns, {}]}
                     onPress={sharePic}
                 >
                     <Text style={globalStyles.submitChallan_Text}>Share Picture</Text>
                 </TouchableOpacity>
-            
-
-                {hasMediaLibraryPermission ?    
-                <TouchableOpacity style={[ globalStyles.cameraButtns, {  }]}
-                    onPress={savePhoto}
-                >
-                    <Text style={globalStyles.submitChallan_Text}>Save Picture</Text>
-                </TouchableOpacity>
-                : undefined}
 
 
-                <TouchableOpacity style={[ globalStyles.cameraButtns, { width: responsiveWidth(95) }]}
+                {hasMediaLibraryPermission ?
+                    <TouchableOpacity style={[globalStyles.cameraButtns, {}]}
+                        onPress={() => { navigation.navigate("Challan") }}
+                    >
+                        <Text style={globalStyles.submitChallan_Text}>Save Picture</Text>
+                    </TouchableOpacity>
+                    : undefined}
+
+
+                <TouchableOpacity style={[globalStyles.cameraButtns, { width: responsiveWidth(95) }]}
                     onPress={() => setPhoto(undefined)}
                 >
                     <Text style={globalStyles.submitChallan_Text}>Discard Picture</Text>
                 </TouchableOpacity>
-        
+
             </View>
         );
     }

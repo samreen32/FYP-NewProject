@@ -996,7 +996,16 @@ export const globalStyles = StyleSheet.create({
     borderRadius: responsiveWidth(6),
     marginTop: responsiveHeight(1), 
     marginLeft: responsiveWidth(0.5),
-
   },
-
+  pendingChallanImage:{
+    marginTop: responsiveHeight(1.5), 
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    width: responsiveWidth(38),
+    height: responsiveHeight(15),
+    marginLeft: responsiveWidth(3),
+    backgroundColor: 'rgba(217,217,217,1)',
+    borderRadius: responsiveWidth(6),
+  }
 });

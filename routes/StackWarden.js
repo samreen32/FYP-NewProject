@@ -9,6 +9,8 @@ import PayChallan from "../components/PayChallan";
 import WardenScreen from "../screens/WardenScreen";
 import PayChaSecond from "../components/PayChaSecond";
 import CameraComponent from "../components/CameraComponent";
+import Challan from "../components/Challan";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -47,6 +49,11 @@ export default function StackWarden() {
                 }}
                 />
                 <Stack.Screen name="CameraComponent" component={CameraComponent} 
+                options={{
+                    headerShown: false,
+                }}
+                />
+                <Stack.Screen name="Challan" component={Challan} 
                 options={{
                     headerShown: false,
                 }}
