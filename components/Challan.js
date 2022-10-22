@@ -26,7 +26,6 @@ export default function Challan({ navigation }) {
         
         <Text style={[globalStyles.locationTop_Text, 
           { marginTop: responsiveHeight(11), marginLeft: responsiveWidth(30) }]}>Capture Image</Text>
-
       </View>
 
 

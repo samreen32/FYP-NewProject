@@ -987,7 +987,16 @@ export const globalStyles = StyleSheet.create({
     borderRadius: responsiveWidth(20),
   },
   cameraButtns:{
-    backgroundColor: '#fff',
-    alignSelf: 'flex-end'
-  }
+    position: 'relative',
+    width: responsiveWidth(95), 
+    height: responsiveHeight(8),
+    backgroundColor: 'rgba(215,152,246,1)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: responsiveWidth(6),
+    marginTop: responsiveHeight(1), 
+    marginLeft: responsiveWidth(0.5),
+
+  },
+
 });

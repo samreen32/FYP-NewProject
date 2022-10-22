@@ -54,7 +54,7 @@ export default function CameraComponent({ navigation }) {
                 setPhoto(undefined);
             });
         };
-        
+
         let savePhoto = () => {
             MediaLibrary.saveToLibraryAsync(photo.uri).then(() => {
                 setPhoto(undefined);
@@ -62,22 +62,48 @@ export default function CameraComponent({ navigation }) {
         };
 
         return (
-        <SafeAreaView style={globalStyles.camera}>
-            <Image style={{ alignSelf: 'stretch', flex: 1}} 
-                source={{ uri: "data:image/jpg;base64," + photo.base64 }} 
-            />
-            <Button title="Share" onPress={sharePic} />
-            {hasMediaLibraryPermission ? <Button title="Save" onPress={savePhoto} /> : undefined}
-            <Button title="Discard" onPress={() => setPhoto(undefined)} />
-        </SafeAreaView>
+            <View style={globalStyles.camera}>
+                <Image style={{ alignSelf: 'stretch', flex: 1}}
+                    source={{ uri: "data:image/jpg;base64," + photo.base64 }} 
+                />
+
+                <TouchableOpacity style={[ globalStyles.cameraButtns, { }]}
+                    onPress={sharePic}
+                >
+                    <Text style={globalStyles.submitChallan_Text}>Share Picture</Text>
+                </TouchableOpacity>
+            
+
+                {hasMediaLibraryPermission ?    
+                <TouchableOpacity style={[ globalStyles.cameraButtns, {  }]}
+                    onPress={savePhoto}
+                >
+                    <Text style={globalStyles.submitChallan_Text}>Save Picture</Text>
+                </TouchableOpacity>
+                : undefined}
+
+
+                <TouchableOpacity style={[ globalStyles.cameraButtns, { width: responsiveWidth(95) }]}
+                    onPress={() => setPhoto(undefined)}
+                >
+                    <Text style={globalStyles.submitChallan_Text}>Discard Picture</Text>
+                </TouchableOpacity>
+        
+            </View>
         );
     }
 
     return (
         <Camera style={globalStyles.camera} ref={cameraRef}>
-            <View style={globalStyles.camera}>
-                <Button title='Take Picture' onPress={takePicture} />
+
+            <View style={[globalStyles.camera, { marginTop: responsiveHeight(65) }]}>
+                <TouchableOpacity style={[globalStyles.cameraButtns, { width: responsiveWidth(95) }]}
+                    onPress={takePicture}
+                >
+                    <Text style={globalStyles.submitChallan_Text}>Take Picture</Text>
+                </TouchableOpacity>
             </View>
+
         </Camera>
     );
 }
