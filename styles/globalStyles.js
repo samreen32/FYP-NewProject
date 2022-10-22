@@ -1007,5 +1007,15 @@ export const globalStyles = StyleSheet.create({
     marginLeft: responsiveWidth(3),
     backgroundColor: 'rgba(217,217,217,1)',
     borderRadius: responsiveWidth(6),
-  }
+  },
+  NotificationItem: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: responsiveWidth(92),
+    height: responsiveHeight(10),
+    marginVertical: responsiveHeight(0.5),
+    marginHorizontal: responsiveWidth(4),
+    borderRadius: responsiveWidth(6),
+    backgroundColor: 'rgba(217,217,217,1)',
+  },
 });

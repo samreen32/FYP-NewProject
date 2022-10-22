@@ -3,43 +3,43 @@ import { View, Text, ScrollView, SafeAreaView, FlatList } from "react-native";
 import { Appbar } from 'react-native-paper';
 import { globalStyles } from '../styles/globalStyles';
 
-export default function Notifications({ navigation }) {
+export default function Search({ navigation }) {
   const DATA = [
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'First Notification',
+      title: 'First',
     },
     {
       id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: 'Second Notification',
+      title: 'Second',
     },
     {
       id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: 'Third Notification',
+      title: 'Third',
     },
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'Fourth Notification',
+      title: 'Fourth',
     },
     {
       id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: 'Fiveth Notification',
+      title: 'Fiveth',
     },
     {
       id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: 'Sixeth Notification',
+      title: 'Sixeth',
     },
      {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'Seventh Notification',
+      title: 'Seventh',
     },
     {
       id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: 'Eigth Notification',
+      title: 'Eigth',
     },
     {
       id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: 'Nineth Notification',
+      title: 'Nineth',
     },
   ];
 

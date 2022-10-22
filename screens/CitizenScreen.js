@@ -65,7 +65,7 @@ export default function CitizenScreen({ navigation }) {
       </View>
 
       <View style={globalStyles.searchIcon}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>{navigation.navigate("Search")}}>
           <Ionicons name="search" size={30} color="black" />
         </TouchableOpacity>
       </View>
