@@ -5,7 +5,7 @@ import { globalStyles } from "../styles/globalStyles";
 import DateTimePicker, { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import { FontAwesome } from '@expo/vector-icons';
 
-export default function Challan({ navigation }) {
+export default function PayChaSecond({ navigation }) {
     const [text, setText] = useState('');
     const [date, setDate] = useState(new Date());
     const [curDateTime, setCurDateTime] = useState(new Date());
@@ -83,7 +83,7 @@ export default function Challan({ navigation }) {
 
             </View>
             <TouchableOpacity style={globalStyles.printChallan_btn}>
-                <Text style={globalStyles.submitChallan_Text}>Print</Text>
+                <Text style={globalStyles.submitChallan_Text}>Pay</Text>
             </TouchableOpacity>
         </View>
 

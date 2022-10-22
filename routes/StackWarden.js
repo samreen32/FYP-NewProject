@@ -5,6 +5,10 @@ import ChallanSecond from "../components/ChallanSecond";
 import CitizenScreen from "../screens/CitizenScreen";
 import ViewPlaceWarden from "../screens/ViewPlaceWarden";
 import Notifications from "../components/Notifications";
+import PayChallan from "../components/PayChallan";
+import WardenScreen from "../screens/WardenScreen";
+import PayChaSecond from "../components/PayChaSecond";
+import CameraComponent from "../components/CameraComponent";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,6 +32,21 @@ export default function StackWarden() {
                 }}
                 />
                 <Stack.Screen name="ChallanSecond" component={ChallanSecond} 
+                options={{
+                    headerShown: false,
+                }}
+                />
+                <Stack.Screen name="PayChallan" component={PayChallan} 
+                options={{
+                    headerShown: false,
+                }}
+                />
+                <Stack.Screen name="PayChaSecond" component={PayChaSecond} 
+                options={{
+                    headerShown: false,
+                }}
+                />
+                <Stack.Screen name="CameraComponent" component={CameraComponent} 
                 options={{
                     headerShown: false,
                 }}

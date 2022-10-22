@@ -11,13 +11,16 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { globalStyles } from "../styles/globalStyles";
+import {
+  responsiveFontSize, responsiveHeight, responsiveWidth
+} from "react-native-responsive-dimensions";
 // import SearchBar from './SearchBar';
 
 
 export default function CitizenScreen({ navigation }) {
   return (
     <View style={globalStyles.twMain}>
-      <View style={globalStyles.menuIcon}>
+      <View style={[globalStyles.Notifi_MenuIcon, { marginLeft: responsiveWidth(6) }]}>
         <TouchableOpacity
           onPress={() => {
             navigation.openDrawer("WardenDrawer");
@@ -27,7 +30,7 @@ export default function CitizenScreen({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      <View style={globalStyles.notificationIcon}>
+      <View style={[globalStyles.Notifi_MenuIcon, { marginLeft: responsiveWidth(85) }]}>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("Notifications");
@@ -78,7 +81,7 @@ export default function CitizenScreen({ navigation }) {
         <View style={globalStyles.viewPlaces}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("");
+              navigation.navigate("PayChallan");
             }}
           >
             <Text style={globalStyles.viewPlaces_Text}>Pay Challan</Text>
@@ -99,34 +102,24 @@ export default function CitizenScreen({ navigation }) {
           </TouchableOpacity>
         </View>
       </View>
-      {/* <Image
-         style={globalStyles.challanIcon}
-         source={require("../assets/images/asynStorage.png")}
-       />
 
-        <Image
-         style={globalStyles.challanImage}
-         source={require("../assets/images/asynStorage.png")}
-       /> */}
-
-      <View style={globalStyles.fileComplaints_Rect}>
+      <View style={[globalStyles.fileHistory_Complaints_Rect, { marginTop: responsiveHeight(45) }]}>
         <View>
           <TouchableOpacity>
-            <Text style={globalStyles.fileComplaints_Text}>                   File {'\n'}Complaints</Text>
+            <Text style={[globalStyles.fileHistoryComplaints_Text, { marginLeft: responsiveWidth(12) }]}>                   File {'\n'}Complaints</Text>
           </TouchableOpacity>
         </View>
       </View>
 
-      <View style={globalStyles.challanHistory_Rect}>
+      <View style={[globalStyles.fileHistory_Complaints_Rect, { marginTop: responsiveHeight(60) }]}>
         <View>
           <TouchableOpacity>
-            <Text style={globalStyles.challanHistory_Text}>Challan {'\n'} History</Text>
+            <Text style={[globalStyles.fileHistoryComplaints_Text, { marginLeft: responsiveWidth(20) }]}>Challan {'\n'} History</Text>
           </TouchableOpacity>
         </View>
       </View>
 
-
-      <View style={globalStyles.bottomGroup_Edited}>
+      <View style={[globalStyles.bottomGroup, { marginTop: responsiveHeight(0), marginLeft: responsiveWidth(2), width: responsiveWidth(35) }]}>
         <View style={globalStyles.settingCircle}>
           <View style={globalStyles.settingIcon}>
             <TouchableOpacity>
