@@ -2,14 +2,17 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ChallanSecond from "../components/ChallanSecond";
-import WardenScreen from "../screens/WardenScreen";
+import CitizenScreen from "../screens/CitizenScreen";
+// import ViewPlaceWarden from "../screens/ViewPlaceWarden";
 import Places from "../components/Places";
 import Notifications from "../components/Notifications";
+import PayChallan from "../components/PayChallan";
+import PayChaSecond from "../components/PayChaSecond";
 import CameraComponent from "../components/CameraComponent";
 import Challan from "../components/Challan";
 import Search from "../components/Search";
 import Help from "../components/Help";
-import ViewComplaints from "../components/ViewComplaints";
+import FileComplaint from "../components/FileComplaint";
 import ChallanHistory from "../components/ChallanHistory";
 import Profile from "../components/Profile";
 import EditProfile from "../components/editProfile";
@@ -22,12 +25,12 @@ const Stack = createNativeStackNavigator();
 export default function StackWarden() {
     return (
 
-            <Stack.Navigator initialRouteName="WardenScreen"
+            <Stack.Navigator initialRouteName="CitizenScreen"
                 screenOptions={{
                     headerShown: false,
                 }}
             >
-                <Stack.Screen name="WardenScreen" component={WardenScreen} />
+                <Stack.Screen name="CitizenScreen" component={CitizenScreen} />
                 <Stack.Screen name="Places" component={Places} 
                 options={{
                     headerShown: true,
@@ -39,14 +42,22 @@ export default function StackWarden() {
                     headerShown: true,
                 }}
                 />
-               
                 <Stack.Screen name="ChallanSecond" component={ChallanSecond} 
                 options={{
                     headerShown: false,
                 }}
                 />
-               
-                 <Stack.Screen name="ViewComplaints" component={ViewComplaints} 
+                <Stack.Screen name="PayChallan" component={PayChallan} 
+                options={{
+                    headerShown: false,
+                }}
+                />
+                <Stack.Screen name="PayChaSecond" component={PayChaSecond} 
+                options={{
+                    headerShown: false,
+                }}
+                />
+                 <Stack.Screen name="FileComplaint" component={FileComplaint} 
                 options={{
                     headerShown: false,
                 }}

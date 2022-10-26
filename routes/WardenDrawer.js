@@ -7,7 +7,7 @@ import FileComplaint from "../components/FileComplaint";
 import Setting from "../components/Setting";
 import Sign_Out from "../components/Sign_Out";
 import Help from "../components/Help";
-import Tabs from "./Tabs";
+import WardenTabs from "./WardenTabs";
 import CustomDrawer from "./CustomeDrawer";
 
 
@@ -38,7 +38,7 @@ export default function WardenDrawer() {
       >
         <Drawer.Screen
           name="Profile"
-          component={Tabs}
+          component={WardenTabs}
           options={{
             title: "Profile",
             drawerIcon: ({ focused }) => (
