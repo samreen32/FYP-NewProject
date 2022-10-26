@@ -2,6 +2,7 @@ import React from "react";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
 import StackWarden from "./routes/WardenDrawer";
+// import MainStack from "./routes/MainStack";
 // import "react-native-reanimated";
 
 // global.__reanimatedWorkletInit = () => {};

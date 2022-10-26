@@ -20,7 +20,7 @@ import {
 export default function CitizenScreen({ navigation }) {
   return (
     <View style={globalStyles.twMain}>
-      <View style={[globalStyles.Notifi_MenuIcon, { marginLeft: responsiveWidth(6) }]}>
+      <View style={[globalStyles.Notifi_MenuIcon, { marginLeft: responsiveWidth(6), width: responsiveWidth(10), }]}>
         <TouchableOpacity
           onPress={() => {
             navigation.openDrawer("WardenDrawer");
@@ -43,7 +43,7 @@ export default function CitizenScreen({ navigation }) {
       <View style={globalStyles.locationTop}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("ViewPlaceWarden");
+            navigation.navigate("Places");
           }}
         >
           <Text style={globalStyles.locationTop_Text}>
@@ -59,7 +59,10 @@ export default function CitizenScreen({ navigation }) {
         <View>
           <Text style={globalStyles.tw_Profile_goodMorning}>Good Morning</Text>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity 
+        onPress={()=>{
+          navigation.navigate("Profile")
+        }}>
           <Ionicons name="md-person-circle-outline" size={50} />
         </TouchableOpacity>
       </View>
@@ -94,35 +97,50 @@ export default function CitizenScreen({ navigation }) {
          style={globalStyles.carImage}
          source={require("./assets/images/car.jpg")}
        /> */}
-
-      <View style={globalStyles.payChallan_Rect}>
-        <View>
-          <TouchableOpacity>
-            <Text style={globalStyles.payChallan_Text}>     Pay{'\n'}Challan</Text>
-          </TouchableOpacity>
+     
+        <View style={globalStyles.payChallan_Rect}>
+            <TouchableOpacity onPress={() => {
+              navigation.navigate("PayChallan");
+            }}>
+              <Text style={globalStyles.payChallan_Text}>     Pay{'\n'}Challan</Text>
+            </TouchableOpacity> 
+        
         </View>
-      </View>
 
-      <View style={[globalStyles.fileHistory_Complaints_Rect, { marginTop: responsiveHeight(45) }]}>
-        <View>
-          <TouchableOpacity>
-            <Text style={[globalStyles.fileHistoryComplaints_Text, { marginLeft: responsiveWidth(12) }]}>                   File {'\n'}Complaints</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+    
 
-      <View style={[globalStyles.fileHistory_Complaints_Rect, { marginTop: responsiveHeight(60) }]}>
-        <View>
-          <TouchableOpacity>
-            <Text style={[globalStyles.fileHistoryComplaints_Text, { marginLeft: responsiveWidth(20) }]}>Challan {'\n'} History</Text>
-          </TouchableOpacity>
+        <View style={[globalStyles.fileHistory_Complaints_Rect, { marginTop: responsiveHeight(45) }]}>
+          <View>
+            <TouchableOpacity onPress={() => {
+              navigation.navigate("FileComplaint");
+            }}>
+              <Text style={[globalStyles.fileHistoryComplaints_Text, { marginLeft: responsiveWidth(12) }]}>                   File {'\n'}Complaints</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+ 
+
+
+      
+        <View style={[globalStyles.fileHistory_Complaints_Rect, { marginTop: responsiveHeight(60) }]}>
+          <View>
+            <TouchableOpacity onPress={() => {
+              navigation.navigate("ChallanHistory");
+            }}>
+              <Text style={[globalStyles.fileHistoryComplaints_Text, { marginLeft: responsiveWidth(20) }]}>Challan {'\n'} History</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
 
       <View style={[globalStyles.bottomGroup, { marginTop: responsiveHeight(0), marginLeft: responsiveWidth(2), width: responsiveWidth(35) }]}>
         <View style={globalStyles.settingCircle}>
           <View style={globalStyles.settingIcon}>
-            <TouchableOpacity>
+            <TouchableOpacity
+             onPress={() => {
+              navigation.navigate("Setting")
+            }}
+            >
               <Ionicons name="settings" size={30} color="black" />
             </TouchableOpacity>
           </View>
@@ -134,7 +152,7 @@ export default function CitizenScreen({ navigation }) {
         <View style={globalStyles.placesCircle}>
           <View style={globalStyles.placesIcon}>
             <TouchableOpacity onPress={() => {
-              navigation.navigate("ViewPlaceWarden");
+              navigation.navigate("Places");
             }}
             >
               <Ionicons name="location" size={30} color="black" />
@@ -147,7 +165,11 @@ export default function CitizenScreen({ navigation }) {
 
         <View style={globalStyles.rulesCircle}>
           <View style={globalStyles.rulesIcon}>
-            <TouchableOpacity>
+            <TouchableOpacity 
+              onPress={() => {
+                navigation.navigate("Rules");
+              }}
+              >
               <Ionicons name="newspaper" size={30} color="black" />
             </TouchableOpacity>
           </View>
@@ -158,7 +180,11 @@ export default function CitizenScreen({ navigation }) {
 
         <View style={globalStyles.helpCircle}>
           <View style={globalStyles.helpIcon}>
-            <TouchableOpacity>
+            <TouchableOpacity 
+              onPress={() => {
+                navigation.navigate("Help");
+              }}
+              >
               <MaterialCommunityIcons
                 name="chat-question"
                 size={30}

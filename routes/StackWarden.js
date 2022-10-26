@@ -3,35 +3,49 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ChallanSecond from "../components/ChallanSecond";
 import CitizenScreen from "../screens/CitizenScreen";
-import ViewPlaceWarden from "../screens/ViewPlaceWarden";
+// import ViewPlaceWarden from "../screens/ViewPlaceWarden";
+import Places from "../components/Places";
 import Notifications from "../components/Notifications";
 import PayChallan from "../components/PayChallan";
-import WardenScreen from "../screens/WardenScreen";
 import PayChaSecond from "../components/PayChaSecond";
 import CameraComponent from "../components/CameraComponent";
 import Challan from "../components/Challan";
 import Search from "../components/Search";
+import Help from "../components/Help";
+import FileComplaint from "../components/FileComplaint";
+import ChallanHistory from "../components/ChallanHistory";
+import Profile from "../components/Profile";
+import EditProfile from "../components/editProfile";
+import Rules from "../components/Rules";
+import Setting from "../components/Setting";
+import WardenScreen from "../screens/WardenScreen";
 
 
 const Stack = createNativeStackNavigator();
 
 export default function StackWarden() {
     return (
- 
+
             <Stack.Navigator initialRouteName="CitizenScreen"
                 screenOptions={{
                     headerShown: false,
                 }}
             >
                 <Stack.Screen name="CitizenScreen" component={CitizenScreen} />
-                <Stack.Screen name="ViewPlaceWarden" component={ViewPlaceWarden} 
+                <Stack.Screen name="Places" component={Places} 
                 options={{
                     headerShown: true,
+                    title: "Current Loaction"
                 }}
                 />
                 <Stack.Screen name="Notifications" component={Notifications} 
                 options={{
                     headerShown: true,
+                }}
+                />
+                 <Stack.Screen name="WardenScreen" component={WardenScreen} 
+                options={{
+                    headerShown: false,
                 }}
                 />
                 <Stack.Screen name="ChallanSecond" component={ChallanSecond} 
@@ -49,7 +63,22 @@ export default function StackWarden() {
                     headerShown: false,
                 }}
                 />
+                 <Stack.Screen name="FileComplaint" component={FileComplaint} 
+                options={{
+                    headerShown: false,
+                }}
+                />
+                <Stack.Screen name="ChallanHistory" component={ChallanHistory} 
+                options={{
+                    headerShown: false,
+                }}
+                />
                 <Stack.Screen name="CameraComponent" component={CameraComponent} 
+                options={{
+                    headerShown: false,
+                }}
+                />
+                <Stack.Screen name="Setting" component={Setting} 
                 options={{
                     headerShown: false,
                 }}
@@ -64,7 +93,27 @@ export default function StackWarden() {
                     headerShown: true,
                 }}
                 />
+                <Stack.Screen name="Help" component={Help} 
+                options={{
+                    headerShown: false,
+                }}
+                />
+                <Stack.Screen name="Profile" component={Profile} 
+                options={{
+                    headerShown: false,
+                }}
+                />
+                <Stack.Screen name="editProfile" component={EditProfile} 
+                options={{
+                    headerShown: false,
+                }}
+                />
+                <Stack.Screen name="Rules" component={Rules} 
+                options={{
+                    headerShown: false,
+                }}
+                />
             </Stack.Navigator>
-     
+    
     );
 }

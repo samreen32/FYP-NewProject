@@ -1018,4 +1018,9 @@ export const globalStyles = StyleSheet.create({
     borderRadius: responsiveWidth(6),
     backgroundColor: 'rgba(217,217,217,1)',
   },
+  SearchBarStyling:{
+    width: responsiveWidth(100),
+    height: responsiveHeight(7),
+   
+  }
 });

@@ -2,7 +2,6 @@ import { React, useState } from "react";
 import {
   Text,
   View,
-  Image,
   StyleSheet,
   Linking,
   TextInput,
@@ -11,29 +10,33 @@ import {
   Pressable,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
-
 import {
   responsiveHeight,
   responsiveWidth,
   responsiveFontSize,
 } from "react-native-responsive-dimensions";
-export default function Help() {
+
+export default function EditProfile() {
   const [name, setname] = useState("");
   return (
     <View>
       <View style={styles.purple_background}>
-        <Text style={styles.Help_Text}>Help</Text>
+        <Text style={styles.Edit_Profile_Text}>Edit Profile</Text>
       </View>
-      <View style={styles.icon_border}>
-        <Ionicons name={"help-circle"} size={160} color={"purple"} />
+
+      <View style={styles.Change_Profile_Rectangle}>
+        <Ionicons name={"person-circle"} size={45} color={"purple"} />
+        <TouchableOpacity style={styles.Edit_Profile_Btn}>
+          <Text style={styles.Change_Image_Btn}>Change Image</Text>
+        </TouchableOpacity>
       </View>
       <View
-        style={{ height: responsiveHeight(67), width: responsiveWidth(100) }}
+        style={{ height: responsiveHeight(60), width: responsiveWidth(100) }}
       >
         <TextInput
           style={styles.style_Rectangle4}
           onChangeText={(value) => setname(value)}
-          placeholder="    Enter Name"
+          placeholder="    Enter username"
           keyboardType="alphabet"
           editable
           maxLength={20}
@@ -49,24 +52,20 @@ export default function Help() {
         <TextInput
           style={styles.style_Rectangle6}
           onChangeText={(value) => setname(value)}
-          placeholder="    Description"
-          multiline
-          keyboardType="alphabet"
+          placeholder="    License No"
           editable
           maxLength={20}
         />
         <TextInput
           style={styles.style_Rectangle7}
           onChangeText={(value) => setname(value)}
-          placeholder="    Any Comment"
-          multiline
-          keyboardType="alphabet"
+          placeholder="    Mobile No"
           editable
           maxLength={20}
         />
       </View>
-      <TouchableOpacity style={styles.submit_btn}>
-        <Text style={styles.submit_text}>Submit</Text>
+      <TouchableOpacity style={styles.save_btn}>
+        <Text style={styles.save_text}>Save</Text>
       </TouchableOpacity>
     </View>
   );
@@ -74,10 +73,10 @@ export default function Help() {
 const styles = StyleSheet.create({
   style_Rectangle4: {
     marginLeft: responsiveWidth(8),
-    marginTop: responsiveHeight(2),
+    marginTop: responsiveHeight(3),
     position: "absolute",
     width: responsiveWidth(87),
-    height: responsiveHeight(10),
+    height: responsiveHeight(8),
     opacity: 1,
     color: "grey",
 
@@ -86,34 +85,34 @@ const styles = StyleSheet.create({
   },
   style_Rectangle6: {
     marginLeft: responsiveWidth(8),
-    marginTop: responsiveHeight(24),
+    marginTop: responsiveHeight(21),
     position: "absolute",
     width: responsiveWidth(87),
-    height: responsiveHeight(10),
+    height: responsiveHeight(8),
     opacity: 1,
     color: "grey",
-    paddingTop: responsiveHeight(3),
+
     backgroundColor: "rgba(217,217,217,1)",
     borderRadius: responsiveWidth(6),
   },
   style_Rectangle7: {
     marginLeft: responsiveWidth(8),
-    marginTop: responsiveHeight(35),
+    marginTop: responsiveHeight(30),
     position: "absolute",
     width: responsiveWidth(87),
-    height: responsiveHeight(10),
+    height: responsiveHeight(8),
     opacity: 1,
     color: "grey",
-    paddingTop: responsiveHeight(3),
+
     backgroundColor: "rgba(217,217,217,1)",
     borderRadius: responsiveWidth(6),
   },
   style_Rectangle5: {
     marginLeft: responsiveWidth(8),
-    marginTop: responsiveHeight(13),
+    marginTop: responsiveHeight(12),
     position: "absolute",
     width: responsiveWidth(87),
-    height: responsiveHeight(10),
+    height: responsiveHeight(8),
     opacity: 1,
     color: "grey",
     background: "#D9D9D9",
@@ -121,16 +120,13 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(217,217,217,1)",
     borderRadius: responsiveWidth(6),
   },
-  icon_border: {
-    marginTop: responsiveHeight(-16),
-    marginLeft: responsiveWidth(31),
-  },
+
   purple_background: {
     backgroundColor: "rgba(215,152,246,1)",
     width: responsiveWidth(100),
     height: responsiveHeight(30),
   },
-  Help_Text: {
+  Edit_Profile_Text: {
     color: "white",
     textAlign: "center",
     marginTop: responsiveHeight(5),
@@ -139,8 +135,32 @@ const styles = StyleSheet.create({
     fontfamily: "Poppins",
     lineheight: 114.99999761581421,
   },
+  Change_Profile_Rectangle: {
+    height: responsiveHeight(30),
+    width: responsiveWidth(85),
+    backgroundColor: "#D9D9D9",
+    justifyContent: "center",
+    marginTop: responsiveHeight(-15),
+    marginLeft: responsiveWidth(8),
+    borderRadius: responsiveWidth(5),
+    alignItems: "center",
+  },
 
-  submit_btn: {
+  Change_Image_Btn: {
+    backgroundColor: "rgba(215,152,246,1)",
+    width: responsiveWidth(45),
+    height: responsiveHeight(8),
+    textAlign: "center",
+    justifyContent: "center",
+    borderRadius: responsiveWidth(8),
+    fontSize: responsiveFontSize(2.5),
+    letterSpacing: 1.0,
+    fontfamily: "Poppins",
+    lineheight: 114.99999761581421,
+    color: "white",
+    paddingTop: responsiveHeight(1),
+  },
+  save_btn: {
     backgroundColor: "rgba(215,152,246,1)",
     width: responsiveWidth(30),
     height: responsiveHeight(7),
@@ -149,7 +169,7 @@ const styles = StyleSheet.create({
     borderRadius: responsiveWidth(3),
     marginLeft: responsiveWidth(37),
   },
-  submit_text: {
+  save_text: {
     fontSize: responsiveFontSize(2.5),
     justifyContent: "center",
     textAlign: "center",

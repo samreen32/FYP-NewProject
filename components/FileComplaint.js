@@ -17,15 +17,17 @@ import {
   responsiveWidth,
   responsiveFontSize,
 } from "react-native-responsive-dimensions";
-export default function Help() {
+
+
+export default function FileComplaint() {
   const [name, setname] = useState("");
   return (
     <View>
       <View style={styles.purple_background}>
-        <Text style={styles.Help_Text}>Help</Text>
+        <Text style={styles.File_Complaint_Text}>File Complaint</Text>
       </View>
       <View style={styles.icon_border}>
-        <Ionicons name={"help-circle"} size={160} color={"purple"} />
+        <Ionicons name={"chatbubbles"} size={100} color={"purple"} />
       </View>
       <View
         style={{ height: responsiveHeight(67), width: responsiveWidth(100) }}
@@ -33,7 +35,7 @@ export default function Help() {
         <TextInput
           style={styles.style_Rectangle4}
           onChangeText={(value) => setname(value)}
-          placeholder="    Enter Name"
+          placeholder="    Name"
           keyboardType="alphabet"
           editable
           maxLength={20}
@@ -49,17 +51,14 @@ export default function Help() {
         <TextInput
           style={styles.style_Rectangle6}
           onChangeText={(value) => setname(value)}
-          placeholder="    Description"
-          multiline
-          keyboardType="alphabet"
+          placeholder="    Officer(optional)"
           editable
           maxLength={20}
         />
         <TextInput
           style={styles.style_Rectangle7}
           onChangeText={(value) => setname(value)}
-          placeholder="    Any Comment"
-          multiline
+          placeholder="    Description"
           keyboardType="alphabet"
           editable
           maxLength={20}
@@ -74,7 +73,7 @@ export default function Help() {
 const styles = StyleSheet.create({
   style_Rectangle4: {
     marginLeft: responsiveWidth(8),
-    marginTop: responsiveHeight(2),
+    marginTop: responsiveHeight(3),
     position: "absolute",
     width: responsiveWidth(87),
     height: responsiveHeight(10),
@@ -86,31 +85,31 @@ const styles = StyleSheet.create({
   },
   style_Rectangle6: {
     marginLeft: responsiveWidth(8),
-    marginTop: responsiveHeight(24),
+    marginTop: responsiveHeight(25),
     position: "absolute",
     width: responsiveWidth(87),
     height: responsiveHeight(10),
     opacity: 1,
     color: "grey",
-    paddingTop: responsiveHeight(3),
+
     backgroundColor: "rgba(217,217,217,1)",
     borderRadius: responsiveWidth(6),
   },
   style_Rectangle7: {
     marginLeft: responsiveWidth(8),
-    marginTop: responsiveHeight(35),
+    marginTop: responsiveHeight(36),
     position: "absolute",
     width: responsiveWidth(87),
     height: responsiveHeight(10),
     opacity: 1,
     color: "grey",
-    paddingTop: responsiveHeight(3),
+
     backgroundColor: "rgba(217,217,217,1)",
     borderRadius: responsiveWidth(6),
   },
   style_Rectangle5: {
     marginLeft: responsiveWidth(8),
-    marginTop: responsiveHeight(13),
+    marginTop: responsiveHeight(14),
     position: "absolute",
     width: responsiveWidth(87),
     height: responsiveHeight(10),
@@ -123,14 +122,14 @@ const styles = StyleSheet.create({
   },
   icon_border: {
     marginTop: responsiveHeight(-16),
-    marginLeft: responsiveWidth(31),
+    marginLeft: responsiveWidth(36),
   },
   purple_background: {
     backgroundColor: "rgba(215,152,246,1)",
     width: responsiveWidth(100),
     height: responsiveHeight(30),
   },
-  Help_Text: {
+  File_Complaint_Text: {
     color: "white",
     textAlign: "center",
     marginTop: responsiveHeight(5),

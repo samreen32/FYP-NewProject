@@ -1,16 +1,181 @@
-import React from 'react';
-import { Text, View } from 'react-native';
-import { Appbar } from 'react-native-paper';
+import { React, useState } from "react";
+import {
+  Text,
+  View,
+  StyleSheet,
+  Linking,
+  TextInput,
+  TouchableOpacity,
+  Button,
+  Pressable,
+} from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize,
+} from "react-native-responsive-dimensions";
 
-export default function Profile({navigation}) {
-   const goBack =()=>{
-    navigation.navigate("WardenScreen");
-  }
+export default function Profile({ navigation }) {
   return (
-    <Appbar.Header>
-      <Appbar.BackAction onPress={goBack}/>
-      <Appbar.Content title="Profile"/>
-    </Appbar.Header>
+    <View>
+      <View style={styles.purple_background}>
+        <Text style={styles.Profile_Text}>Profile</Text>
+      </View>
 
+      <View style={styles.Profile_Rectangle}>
+        <Text style={styles.Richard_Text}>Richard Leaf</Text>
+        <TouchableOpacity
+          style={styles.Edit_Profile_Btn}
+          onPress={() => {
+            navigation.navigate("editProfile");
+          }}
+        >
+          <Text style={styles.Edit_Profile_Btn}>Edit Profile</Text>
+        </TouchableOpacity>
+      </View>
+      <View
+        style={{ height: responsiveHeight(50), width: responsiveWidth(100) }}
+      >
+        <TouchableOpacity style={styles.style_dashboard}>
+          <Ionicons name={"keypad"} size={25} color={"purple"} />
+          <Text style={styles.dashboard_text}>Dashboard</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.style_challan_History}>
+          <Ionicons name={"clipboard"} size={25} color={"purple"} />
+          <Text style={styles.challan_History_text}>Challan History</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.style_Pay}>
+          <Ionicons name={"logo-usd"} size={25} color={"purple"} />
+          <Text style={styles.Pay_text}>Pay Challan</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.style_Logout}>
+          <Ionicons name={"log-out"} size={25} color={"purple"} />
+          <Text style={styles.Logout_text}>Logout</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 }
+const styles = StyleSheet.create({
+  style_dashboard: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    width: responsiveWidth(80),
+    paddingLeft: responsiveWidth(5),
+    marginTop: responsiveHeight(1),
+    marginLeft: responsiveWidth(10),
+  },
+  dashboard_text: {
+    fontSize: responsiveFontSize(2.5),
+    marginLeft: responsiveWidth(3),
+    letterSpacing: 1.0,
+    fontfamily: "Poppins",
+    lineheight: 114.99999761581421,
+    color: "rgb(1,1,1)",
+  },
+  purple_background: {
+    backgroundColor: "rgba(215,152,246,1)",
+    width: responsiveWidth(100),
+    height: responsiveHeight(30),
+  },
+  Profile_Text: {
+    color: "white",
+    textAlign: "center",
+    marginTop: responsiveHeight(5),
+    fontSize: responsiveFontSize(3),
+    letterSpacing: 1.0,
+    fontfamily: "Poppins",
+    lineheight: 114.99999761581421,
+  },
+  Profile_Rectangle: {
+    height: responsiveHeight(30),
+    width: responsiveWidth(85),
+    backgroundColor: "#D9D9D9",
+    justifyContent: "center",
+    marginTop: responsiveHeight(-15),
+    marginLeft: responsiveWidth(8),
+    borderRadius: responsiveWidth(5),
+    alignItems: "center",
+  },
+  Richard_Text: {
+    marginTop: responsiveHeight(8),
+    fontSize: responsiveFontSize(2.5),
+    letterSpacing: 1.0,
+    fontfamily: "Poppins",
+    lineheight: 114.99999761581421,
+    color: "rgb(1,1,1)",
+    marginBottom: responsiveHeight(2),
+  },
+  Edit_Profile_Btn: {
+    backgroundColor: "rgba(215,152,246,1)",
+    width: responsiveWidth(35),
+    height: responsiveHeight(8),
+    textAlign: "center",
+    justifyContent: "center",
+    borderRadius: responsiveWidth(8),
+    fontSize: responsiveFontSize(2.5),
+    letterSpacing: 1.0,
+    fontfamily: "Poppins",
+    lineheight: 114.99999761581421,
+    color: "white",
+    paddingTop: responsiveHeight(1),
+  },
+  style_challan_History: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    width: responsiveWidth(80),
+    paddingLeft: responsiveWidth(5),
+    marginTop: responsiveHeight(-7),
+    marginLeft: responsiveWidth(10),
+  },
+  challan_History_text: {
+    fontSize: responsiveFontSize(2.5),
+    marginLeft: responsiveWidth(3),
+    letterSpacing: 1.0,
+    fontfamily: "Poppins",
+    lineheight: 114.99999761581421,
+    color: "rgb(1,1,1)",
+  },
+  style_Logout: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    width: responsiveWidth(80),
+    paddingLeft: responsiveWidth(5),
+    marginTop: responsiveHeight(-7),
+    marginLeft: responsiveWidth(10),
+  },
+  Logout_text: {
+    fontSize: responsiveFontSize(2.5),
+    marginLeft: responsiveWidth(3),
+    letterSpacing: 1.0,
+    fontfamily: "Poppins",
+    lineheight: 114.99999761581421,
+    color: "rgb(1,1,1)",
+  },
+  style_Pay: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    width: responsiveWidth(80),
+    paddingLeft: responsiveWidth(5),
+    marginTop: responsiveHeight(-7),
+    marginLeft: responsiveWidth(10),
+  },
+  Pay_text: {
+    fontSize: responsiveFontSize(2.5),
+    marginLeft: responsiveWidth(3),
+    letterSpacing: 1.0,
+    fontfamily: "Poppins",
+    lineheight: 114.99999761581421,
+    color: "rgb(1,1,1)",
+  },
+});

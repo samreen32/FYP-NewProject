@@ -9,7 +9,7 @@ export default function WelcomeScreen({ navigation }) {
             
             <Image
                 style={globalStyles.welcome_Image}
-                source={require('../assets/images/car.jpg')}
+                source={require('../assets/images/carGif.gif')}
             />
 
             <Text style={globalStyles.style_Just_Try}>
@@ -38,9 +38,6 @@ export default function WelcomeScreen({ navigation }) {
                     <Text style={globalStyles.SignIn_Text}>Sign in</Text>
                 </TouchableOpacity>
             </View>
-
-
-
         </View>
     )
 }

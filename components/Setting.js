@@ -1,18 +1,183 @@
-import React from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
-import { Ionicons } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Appbar } from 'react-native-paper';
+import { React, useState } from "react";
+import {
+  Text,
+  TouchableHighlight,
+  View,
+  Image,
+  StyleSheet,
+  Linking,
+  TextInput,
+  TouchableOpacity,
+  Button,
+  Pressable,
+} from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
-export default function Setting({navigation}) {
-   const goBack =()=>{
-    navigation.navigate("WardenScreen");
-  }
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize,
+} from "react-native-responsive-dimensions";
+
+export default function Setting({ navigation }) {
+  const [name, setname] = useState("");
+
   return (
-   <Appbar.Header>
-      <Appbar.BackAction onPress={goBack}/>
-      <Appbar.Content title="Settings"/>
-    </Appbar.Header>
-
+    <View>
+      <View style={styles.purple_background}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <Ionicons
+            style={styles.back_icon}
+            name={"chevron-back-outline"}
+            size={40}
+            color={"black"}
+          />
+          <Text style={styles.Setting_Text}>Setting</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.Account_length}>
+        <View style={styles.style_container}>
+          <Ionicons name={"person-outline"} size={20} color={"purple"} />
+          <Text style={styles.style_text}>Account</Text>
+        </View>
+      </View>
+      <View style={styles.Account_line}></View>
+      <View style={styles.Remaining_item_length}>
+        <TouchableOpacity
+          style={styles.style_container}
+          onPress={() => {
+            navigation.navigate("Notifications");
+          }}
+        >
+          <Ionicons name={"notifications-outline"} size={20} color={"purple"} />
+          <Text style={styles.style_text}>Notification</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.line}></View>
+      <View style={styles.Remaining_item_length}>
+        <TouchableOpacity style={styles.style_container}>
+          <Ionicons name={"eye-outline"} size={20} color={"purple"} />
+          <Text style={styles.style_text}>Appearance</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.line}></View>
+      <View style={styles.Remaining_item_length}>
+        <TouchableOpacity style={styles.style_container}>
+          <Ionicons name={"shield-outline"} size={20} color={"purple"} />
+          <Text style={styles.style_text}>Security</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.line}></View>
+      <View style={styles.Remaining_item_length}>
+        <TouchableOpacity style={styles.style_container}>
+          <Ionicons name={"globe-outline"} size={20} color={"purple"} />
+          <Text style={styles.style_text}>Language</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.line}></View>
+      <View style={styles.Remaining_item_length}>
+        <TouchableOpacity
+          style={styles.style_container}
+          onPress={() => {
+            navigation.navigate("Rules");
+          }}
+        >
+          <Ionicons name={"newspaper-outline"} size={20} color={"purple"} />
+          <Text style={styles.style_text}>Rules</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.line}></View>
+      <View style={styles.Remaining_item_length}>
+        <TouchableOpacity
+          style={styles.style_container}
+          onPress={() => {
+            navigation.navigate("Help");
+          }}
+        >
+          <Ionicons name={"help-circle-outline"} size={20} color={"purple"} />
+          <Text style={styles.style_text}>Help and Support</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.line}></View>
+      <View style={styles.Remaining_item_length}>
+        <TouchableOpacity style={styles.style_container}>
+          <Ionicons
+            name={"information-circle-outline"}
+            size={20}
+            color={"purple"}
+          />
+          <Text style={styles.style_text}>About</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.line}></View>
+    </View>
   );
 }
+const styles = StyleSheet.create({
+  Account_length: {
+    height: responsiveHeight(50),
+    width: responsiveWidth(100),
+  },
+  Remaining_item_length: {
+    height: responsiveHeight(10),
+    width: responsiveWidth(100),
+  },
+  Account_line: {
+    height: responsiveHeight(0.2),
+    backgroundColor: "purple",
+    alignSelf: "stretch",
+    marginLeft: responsiveWidth(9),
+    marginRight: responsiveWidth(9),
+    marginTop: responsiveHeight(-20),
+  },
+  back_icon: {
+    marginTop: responsiveHeight(3),
+    marginLeft: responsiveWidth(6),
+  },
+  line: {
+    height: responsiveHeight(0.2),
+    backgroundColor: "purple",
+    alignSelf: "stretch",
+    marginLeft: responsiveWidth(9),
+    marginRight: responsiveWidth(9),
+    marginTop: responsiveHeight(-1),
+  },
+  style_container: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    width: responsiveWidth(80),
+    paddingLeft: responsiveWidth(5),
+    marginTop: responsiveHeight(-1),
+    marginLeft: responsiveWidth(5),
+  },
+  style_text: {
+    fontSize: responsiveFontSize(2.5),
+    marginLeft: responsiveWidth(3),
+    letterSpacing: 1.0,
+    fontfamily: "Poppins",
+    lineheight: 114.99999761581421,
+    color: "rgb(1,1,1)",
+  },
+  purple_background: {
+    backgroundColor: "rgba(215,152,246,1)",
+    width: responsiveWidth(100),
+    height: responsiveHeight(15),
+    position: "absolute",
+  },
+  Setting_Text: {
+    color: "white",
+    textAlign: "center",
+    marginTop: responsiveHeight(-4.8),
+    fontSize: responsiveFontSize(3),
+    letterSpacing: 1.0,
+    fontfamily: "Poppins",
+    lineheight: 114.99999761581421,
+    marginLeft: responsiveWidth(-5),
+  },
+});

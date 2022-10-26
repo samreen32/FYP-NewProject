@@ -1,45 +1,50 @@
-import React from 'react';
+import React from "react";
 import { View, Text, ScrollView, SafeAreaView, FlatList } from "react-native";
-import { Appbar } from 'react-native-paper';
-import { globalStyles } from '../styles/globalStyles';
+import { Appbar } from "react-native-paper";
+import { globalStyles } from "../styles/globalStyles";
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize,
+} from "react-native-responsive-dimensions";
 
 export default function Notifications({ navigation }) {
   const DATA = [
     {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'First Notification',
+      id: "1",
+      title: "First Notification",
     },
     {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: 'Second Notification',
+      id: "2",
+      title: "Second Notification",
     },
     {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: 'Third Notification',
+      id: "3",
+      title: "Third Notification",
     },
     {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'Fourth Notification',
+      id: "4",
+      title: "Fourth Notification",
     },
     {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: 'Fiveth Notification',
+      id: "5",
+      title: "Fiveth Notification",
     },
     {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: 'Sixeth Notification',
-    },
-     {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'Seventh Notification',
+      id: "6",
+      title: "Sixeth Notification",
     },
     {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: 'Eigth Notification',
+      id: "7",
+      title: "Seventh Notification",
     },
     {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: 'Nineth Notification',
+      id: "8",
+      title: "Eigth Notification",
+    },
+    {
+      id: "9",
+      title: "Nineth Notification",
     },
   ];
 
@@ -50,16 +55,16 @@ export default function Notifications({ navigation }) {
   );
 
   const renderItem = ({ item }) => (
-    <Item title={item.title} />
+    <View>
+      <Item title={item.title} />
+    </View>
   );
 
   return (
-    <ScrollView>
-         <FlatList
-         data={DATA}
-         renderItem={renderItem}
-         keyExtractor={item => item.id}
-      />
-      </ScrollView>
+    <FlatList
+      data={DATA}
+      renderItem={renderItem}
+      keyExtractor={(item) => item.id}
+    />
   );
 }

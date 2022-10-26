@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
+import { Text, View, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { globalStyles } from "../styles/globalStyles";
 import { AntDesign } from '@expo/vector-icons';
 import {
@@ -15,6 +15,7 @@ export default function PayChallan({ navigation }) {
         <Text style={globalStyles.challan_TopText}>Pay Challan</Text>
       </View>
 
+      {/* <ScrollView> */}
       <View style={[globalStyles.bottomGroup, { width: responsiveWidth(33), marginTop: responsiveHeight(1), marginLeft: responsiveWidth(0) }]}>
 
         <View style={globalStyles.pendingChallan}>
@@ -134,6 +135,7 @@ export default function PayChallan({ navigation }) {
           </View>
         </View>
       </View>
+      {/* </ScrollView> */}
     </View>
   );
 }

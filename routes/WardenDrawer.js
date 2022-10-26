@@ -1,9 +1,9 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Ionicons } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
-import ViewPlaceWarden from "../screens/ViewPlaceWarden";
+
 import Places from "../components/Places";
-import Complaints from "../components/Complaints";
+import FileComplaint from "../components/FileComplaint";
 import Setting from "../components/Setting";
 import Sign_Out from "../components/Sign_Out";
 import Help from "../components/Help";
@@ -51,11 +51,11 @@ export default function WardenDrawer() {
           }}
         />
         <Drawer.Screen
-          name="ViewPlaceWarden"
-          component={ViewPlaceWarden}
+          name="Places"
+          component={Places}
           options={{
-            headerShown: false,
-            title: "Places",
+            headerShown: true,
+            title: "Current location",
             drawerIcon: ({ focused }) => (
               <Ionicons
                 name="alarm"
@@ -66,8 +66,8 @@ export default function WardenDrawer() {
           }}
         />
         <Drawer.Screen
-          name="Complaints"
-          component={Complaints}
+          name="Complaint"
+          component={FileComplaint}
           options={{
             headerShown: false,
             // title: "Complaints",

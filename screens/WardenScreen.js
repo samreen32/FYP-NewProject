@@ -12,16 +12,22 @@ import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { globalStyles } from "../styles/globalStyles";
 import {
-  responsiveFontSize, responsiveHeight, responsiveWidth
+  responsiveFontSize,
+  responsiveHeight,
+  responsiveWidth,
 } from "react-native-responsive-dimensions";
 import Tabs from "../routes/Tabs";
 // import SearchBar from './SearchBar';
 
-
 export default function WardenScreen({ navigation }) {
   return (
     <View style={globalStyles.twMain}>
-      <View style={[globalStyles.Notifi_MenuIcon, { marginLeft: responsiveWidth(6) }]}>
+      <View
+        style={[
+          globalStyles.Notifi_MenuIcon,
+          { marginLeft: responsiveWidth(6) },
+        ]}
+      >
         <TouchableOpacity
           onPress={() => {
             navigation.openDrawer("WardenDrawer");
@@ -31,7 +37,12 @@ export default function WardenScreen({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      <View style={[globalStyles.Notifi_MenuIcon, { marginLeft: responsiveWidth(85) }]}>
+      <View
+        style={[
+          globalStyles.Notifi_MenuIcon,
+          { marginLeft: responsiveWidth(85) },
+        ]}
+      >
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("Notifications");
@@ -78,7 +89,6 @@ export default function WardenScreen({ navigation }) {
         </Text>
       </View>
 
-
       <View style={globalStyles.viewPlaces_btn}>
         <View style={globalStyles.viewPlaces}>
           <TouchableOpacity
@@ -91,16 +101,24 @@ export default function WardenScreen({ navigation }) {
         </View>
       </View>
 
-
       {/* <Image
          style={globalStyles.carImage}
          source={require("./assets/images/car.jpg")}
        /> */}
 
-      <View style={[globalStyles.challan_Rect, { marginLeft: responsiveWidth(4) }]}>
+      <View
+        style={[globalStyles.challan_Rect, { marginLeft: responsiveWidth(4) }]}
+      >
         <View>
           <TouchableOpacity>
-            <Text style={[globalStyles.addView_Challan_Text, { width: responsiveWidth(25), height: responsiveHeight(10) }]}>Add Challan</Text>
+            <Text
+              style={[
+                globalStyles.addView_Challan_Text,
+                { width: responsiveWidth(25), height: responsiveHeight(10) },
+              ]}
+            >
+              Add Challan
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -114,33 +132,89 @@ export default function WardenScreen({ navigation }) {
          source={require("../assets/images/asynStorage.png")}
        /> */}
 
-      <View style={[globalStyles.challan_Rect, { marginLeft: responsiveWidth(51) }]}>
+      <View
+        style={[globalStyles.challan_Rect, { marginLeft: responsiveWidth(51) }]}
+      >
         <View>
           <TouchableOpacity>
-            <Text style={[globalStyles.addView_Challan_Text, { width: responsiveWidth(29), height: responsiveHeight(9) }]}>View Complaints</Text>
+            <Text
+              style={[
+                globalStyles.addView_Challan_Text,
+                { width: responsiveWidth(29), height: responsiveHeight(9) },
+              ]}
+            >
+              View Complaints
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
 
       <View style={globalStyles.hisStat_Group}>
-        <View style={[globalStyles.hisStat_btn, { width: responsiveWidth(54), marginLeft: responsiveWidth(1), backgroundColor: "rgba(24,154,180,1)" }]}>
+        <View
+          style={[
+            globalStyles.hisStat_btn,
+            {
+              width: responsiveWidth(54),
+              marginLeft: responsiveWidth(1),
+              backgroundColor: "rgba(24,154,180,1)",
+            },
+          ]}
+        >
           <View>
             <TouchableOpacity>
-              <Text style={[globalStyles.hisStat_Text, { width: responsiveWidth(29), marginLeft: responsiveWidth(7),}]}>History</Text>
+              <Text
+                style={[
+                  globalStyles.hisStat_Text,
+                  {
+                    width: responsiveWidth(29),
+                    marginLeft: responsiveWidth(7),
+                  },
+                ]}
+              >
+                History
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
 
-        <View style={[globalStyles.hisStat_btn, { width: responsiveWidth(53), marginLeft: responsiveWidth(40), backgroundColor: "rgba(33,182,168,1)" }]}>
+        <View
+          style={[
+            globalStyles.hisStat_btn,
+            {
+              width: responsiveWidth(53),
+              marginLeft: responsiveWidth(40),
+              backgroundColor: "rgba(33,182,168,1)",
+            },
+          ]}
+        >
           <View>
             <TouchableOpacity>
-              <Text style={[globalStyles.hisStat_Text, { width: responsiveWidth(33), marginLeft: responsiveWidth(11) }]}>Statistics</Text>
+              <Text
+                style={[
+                  globalStyles.hisStat_Text,
+                  {
+                    width: responsiveWidth(33),
+                    marginLeft: responsiveWidth(11),
+                  },
+                ]}
+              >
+                Statistics
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
 
-      <View style={[globalStyles.bottomGroup, { width: responsiveWidth(35), marginTop: responsiveHeight(-1), marginLeft: responsiveWidth(2) }]}>
+      <View
+        style={[
+          globalStyles.bottomGroup,
+          {
+            width: responsiveWidth(35),
+            marginTop: responsiveHeight(-1),
+            marginLeft: responsiveWidth(2),
+          },
+        ]}
+      >
         <View style={globalStyles.settingCircle}>
           <View style={globalStyles.settingIcon}>
             <TouchableOpacity>
@@ -154,9 +228,10 @@ export default function WardenScreen({ navigation }) {
 
         <View style={globalStyles.placesCircle}>
           <View style={globalStyles.placesIcon}>
-            <TouchableOpacity onPress={() => {
-              navigation.navigate("ViewPlaceWarden");
-            }}
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("ViewPlaceWarden");
+              }}
             >
               <Ionicons name="location" size={30} color="black" />
             </TouchableOpacity>
@@ -168,7 +243,11 @@ export default function WardenScreen({ navigation }) {
 
         <View style={globalStyles.rulesCircle}>
           <View style={globalStyles.rulesIcon}>
-            <TouchableOpacity>
+            <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("Rules");
+            }}
+            >
               <Ionicons name="newspaper" size={30} color="black" />
             </TouchableOpacity>
           </View>
@@ -179,7 +258,11 @@ export default function WardenScreen({ navigation }) {
 
         <View style={globalStyles.helpCircle}>
           <View style={globalStyles.helpIcon}>
-            <TouchableOpacity>
+            <TouchableOpacity 
+             onPress={() => {
+              navigation.navigate("Help");
+            }}
+            >
               <MaterialCommunityIcons
                 name="chat-question"
                 size={30}
@@ -192,7 +275,6 @@ export default function WardenScreen({ navigation }) {
           <Text style={globalStyles.help_Text}>Help</Text>
         </View>
       </View>
-
     </View>
   );
 }

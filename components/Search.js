@@ -2,43 +2,44 @@ import React from 'react';
 import { View, Text, ScrollView, SafeAreaView, FlatList } from "react-native";
 import { Appbar } from 'react-native-paper';
 import { globalStyles } from '../styles/globalStyles';
+import SearchBar from './SearchBar';
 
 export default function Search({ navigation }) {
   const DATA = [
     {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+      id: '1',
       title: 'First',
     },
     {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+      id: '2',
       title: 'Second',
     },
     {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
+      id: '3',
       title: 'Third',
     },
     {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+      id: '4',
       title: 'Fourth',
     },
     {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+      id: '5',
       title: 'Fiveth',
     },
     {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
+      id: '6',
       title: 'Sixeth',
     },
      {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+      id: '7',
       title: 'Seventh',
     },
     {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+      id: '8',
       title: 'Eigth',
     },
     {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
+      id: '9',
       title: 'Nineth',
     },
   ];
@@ -54,12 +55,17 @@ export default function Search({ navigation }) {
   );
 
   return (
-    <ScrollView>
-         <FlatList
-         data={DATA}
-         renderItem={renderItem}
-         keyExtractor={item => item.id}
-      />
-      </ScrollView>
+    <View>
+
+      <SearchBar/>
+
+           <FlatList
+           data={DATA}
+           renderItem={renderItem}
+           keyExtractor={item => item.id}
+        />
+     
+    </View>
+    
   );
 }

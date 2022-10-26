@@ -1,51 +1,33 @@
-// import React from "react";
-// import { NavigationContainer } from "@react-navigation/native";
-// import { createNativeStackNavigator } from "@react-navigation/native-stack";
-// import WelcomeScreen from "../screens/WelcomeScreen";
-// import Register from "../screens/Register";
-// import Login from "../screens/Login";
-// import WardenScreen from "../screens/WardenScreen";
-// import Tabs from "./Tabs";
-// import ViewPlaceWarden from "../screens/ViewPlaceWarden";
-// import Notifications from "../screens/Notifications";
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import WelcomeScreen from "../screens/WelcomeScreen";
+import Register from "../screens/Register";
+import Login from "../screens/Login";
+import StackWarden from "./StackWarden";
 
-// const Stack = createNativeStackNavigator();
 
-// export default function StackWarden() {
+const Stack = createNativeStackNavigator();
 
-//     return (
-//         <NavigationContainer>
+export default function MainStack() {
 
-//             <Stack.Navigator initialRouteName="WelcomeScreen"
-//                 screenOptions={{
-//                     headerShown: false,
-//                 }}
-//             >
-//                 <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
-//                 <Stack.Screen name="Register" component={Register} />
-//                 <Stack.Screen name="Login" component={Login} />
+    return (
+     
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName="WelcomeScreen"
+                screenOptions={{
+                    headerShown: false,
+                }}
+            >
+                <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+                <Stack.Screen name="Register" component={Register} />
+                <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="StackWarden" component={StackWarden} />
+               
 
-//                 {/* <Stack.Screen name="WardenScreen" component={WardenScreen} 
-//       options={{
-//         headerShown: false,
-//       }}/> */}
-//                 <Stack.Screen name="Tabs" component={Tabs}
-//                     options={{
-//                         headerShown: false,
-//                     }} />
-//                 <Stack.Screen name="ViewPlaceWarden" component={ViewPlaceWarden} title="Places"
+            </Stack.Navigator>
+        </NavigationContainer>
+ 
 
-//                     options={{
-//                         headerShown: true,
-//                     }} />
-//                 <Stack.Screen name="Notifications" component={Notifications}
-//                     options={{
-//                         headerShown: true,
-//                     }} />
-              
-
-//             </Stack.Navigator>
-//         </NavigationContainer>
-
-//     );
-// }
+    );
+}
