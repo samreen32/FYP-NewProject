@@ -13,7 +13,7 @@ import {
   responsiveFontSize,
 } from "react-native-responsive-dimensions";
 
-export default function EditProfile() {
+export default function CitizenEditProfile() {
   const [name, setname] = useState("");
   return (
     <View>
@@ -49,7 +49,7 @@ export default function EditProfile() {
         <TextInput
           style={styles.style_Rectangle6}
           onChangeText={(value) => setname(value)}
-          placeholder="    License No"
+          placeholder="    Number of Motors"
           editable
           maxLength={20}
         />

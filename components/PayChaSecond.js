@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { Text, View, TextInput, TouchableOpacity, Button, Platform } from 'react-native';
-import { Appbar } from 'react-native-paper';
+import { Text, View, TextInput, TouchableOpacity, Platform } from 'react-native';
 import { globalStyles } from "../styles/globalStyles";
-import DateTimePicker, { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { FontAwesome } from '@expo/vector-icons';
 
 export default function PayChaSecond({ navigation }) {
@@ -80,8 +79,8 @@ export default function PayChaSecond({ navigation }) {
                         onChange={onChange}
                     />)}
 
-
             </View>
+            
             <TouchableOpacity style={globalStyles.printChallan_btn}>
                 <Text style={globalStyles.submitChallan_Text}>Pay</Text>
             </TouchableOpacity>

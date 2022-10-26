@@ -14,7 +14,6 @@ import { globalStyles } from "../styles/globalStyles";
 import {
   responsiveFontSize, responsiveHeight, responsiveWidth
 } from "react-native-responsive-dimensions";
-// import SearchBar from './SearchBar';
 
 
 export default function CitizenScreen({ navigation }) {
@@ -23,7 +22,7 @@ export default function CitizenScreen({ navigation }) {
       <View style={[globalStyles.Notifi_MenuIcon, { marginLeft: responsiveWidth(6), width: responsiveWidth(10), }]}>
         <TouchableOpacity
           onPress={() => {
-            navigation.openDrawer("WardenDrawer");
+            navigation.openDrawer("CitizenDrawer");
           }}
         >
           <Ionicons name="menu" size={33} color="black" />
@@ -68,7 +67,9 @@ export default function CitizenScreen({ navigation }) {
       </View>
 
       <View style={globalStyles.searchIcon}>
-        <TouchableOpacity onPress={()=>{navigation.navigate("Search")}}>
+        <TouchableOpacity 
+          onPress={()=>{navigation.navigate("Search")}}
+        >
           <Ionicons name="search" size={30} color="black" />
         </TouchableOpacity>
       </View>

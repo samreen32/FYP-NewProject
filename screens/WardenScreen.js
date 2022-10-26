@@ -16,8 +16,7 @@ import {
   responsiveHeight,
   responsiveWidth,
 } from "react-native-responsive-dimensions";
-import Tabs from "../routes/WardenTabs";
-// import SearchBar from './SearchBar';
+
 
 export default function WardenScreen({ navigation }) {
   return (
@@ -73,7 +72,7 @@ export default function WardenScreen({ navigation }) {
         </View>
         <TouchableOpacity
          onPress={()=>{
-          navigation.navigate("Profile")
+          navigation.navigate("WardenProfile")
         }}>
           <Ionicons name="md-person-circle-outline" size={50} />
         </TouchableOpacity>
@@ -146,7 +145,7 @@ export default function WardenScreen({ navigation }) {
       >
         <TouchableOpacity
          onPress={() => {
-          navigation.navigate("FileComplaints");
+          navigation.navigate("ViewComplaints");
         }}
         >
           <Text
@@ -173,7 +172,7 @@ export default function WardenScreen({ navigation }) {
         >
         <TouchableOpacity
         onPress={() => {
-          navigation.navigate("ViewComplaints");
+          navigation.navigate("ChallanHistory");
         }}
         >
           <Text

@@ -2,17 +2,17 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Ionicons } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import Places from "../components/Places";
-import ViewComplaints from "../components/ViewComplaints";
+import FileComplaint from "../components/FileComplaint";
 import Setting from "../components/Setting";
 import Sign_Out from "../components/Sign_Out";
 import Help from "../components/Help";
-import WardenTabs from "./WardenTabs";
+import CitizenTabs from "./CitizenTabs";
 import CustomDrawer from "./CustomeDrawer";
 
 
 const Drawer = createDrawerNavigator();
 
-export default function WardenDrawer() {
+export default function CitizenDrawer() {
   return (
     // <Provider store={store}>
     <NavigationContainer>
@@ -36,7 +36,7 @@ export default function WardenDrawer() {
       >
         <Drawer.Screen
           name="Profile"
-          component={WardenTabs}
+          component={CitizenTabs}
           options={{
             title: "Profile",
             drawerIcon: ({ focused }) => (
@@ -64,8 +64,8 @@ export default function WardenDrawer() {
           }}
         />
         <Drawer.Screen
-          name="View Complaint"
-          component={ViewComplaints}
+          name="File Complaint"
+          component={FileComplaint}
           options={{
             headerShown: false,
             // title: "Complaints",

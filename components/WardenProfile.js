@@ -1,13 +1,9 @@
-import { React, useState } from "react";
+import { React } from "react";
 import {
   Text,
   View,
   StyleSheet,
-  Linking,
-  TextInput,
   TouchableOpacity,
-  Button,
-  Pressable,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {
@@ -16,7 +12,7 @@ import {
   responsiveFontSize,
 } from "react-native-responsive-dimensions";
 
-export default function Profile({ navigation }) {
+export default function WardenProfile({ navigation }) {
   return (
     <View>
       <View style={styles.purple_background}>
@@ -28,7 +24,7 @@ export default function Profile({ navigation }) {
         <TouchableOpacity
           style={styles.Edit_Profile_Btn}
           onPress={() => {
-            navigation.navigate("CitizenEditProfile");
+            navigation.navigate("editProfile");
           }}
         >
           <Text style={styles.Edit_Profile_Btn}>Edit Profile</Text>
@@ -56,11 +52,11 @@ export default function Profile({ navigation }) {
 
         <TouchableOpacity style={styles.style_Pay}
         onPress={()=>{
-          navigation.navigate("PayChallan")
+          navigation.navigate("Challan")
         }}
         >
           <Ionicons name={"logo-usd"} size={25} color={"purple"}/>
-          <Text style={styles.Pay_text}>Pay Challan</Text>
+          <Text style={styles.Pay_text}>Add Challan</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.style_Logout}
          onPress={()=>{

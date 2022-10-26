@@ -1,13 +1,13 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Challan from "../components/Challan";
+import PayChallan from "../components/PayChallan";
 import Profile from "../components/Profile";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { StyleSheet } from "react-native";
-import StackWarden from "./StackWarden";
+import CitizenStack from "./CitizenStack";
 
 const Tab = createBottomTabNavigator();
 
-export default function WardenTabs() {
+export default function CitizenTabs() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -23,7 +23,7 @@ export default function WardenTabs() {
 
             size = focused ? 35 : 30;
             color = focused ? "yellow" : "black";
-          } else if (route.name === "Print_Challan") {
+          } else if (route.name === "Pay_Challan") {
             iconName = "print-outline";
 
             size = focused ? 35 : 30;
@@ -57,12 +57,12 @@ export default function WardenTabs() {
     >
       <Tab.Screen
         name="Home"
-        component={StackWarden}
+        component={CitizenStack}
         options={{ headerShown: false }}
       />
       <Tab.Screen
-        name="Add Challan"
-        component={Challan}
+        name="Pay Challan"
+        component={PayChallan}
         options={{ headerShown: false }}
       />
 
