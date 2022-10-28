@@ -19,14 +19,14 @@ export default function Register({ navigation }) {
             <View style={globalStyles.CitizenWarden_btn_Group}>
                 <TouchableOpacity
                     style={globalStyles.Register_btn}
-                    onPress={() => { navigation.navigate("StackWarden") }}
+                    onPress={() => { navigation.navigate("WardenTabs") }}
                 >
                     <Text style={globalStyles.Register_Text}>Warden</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     style={globalStyles.Sign_in_btn}
-                    onPress={() => { navigation.navigate("StackWarden") }}
+                    onPress={() => { navigation.navigate("CitizenTabs") }}
                 >
                     <Text style={globalStyles.SignIn_Text}>Citizen</Text>
                 </TouchableOpacity>
@@ -46,7 +46,7 @@ export default function Register({ navigation }) {
                 onChangeText={(value) => setname(value)} placeholder="    Confirm Password" keyboardType="alphabet" editable maxLength={20} />
             </View>
             <TouchableOpacity style={globalStyles.register_SignUp}
-                onPress={() => { navigation.navigate("Tabs") }}
+                onPress={() => { navigation.navigate("") }}
             >
                 <Text style={globalStyles.Sign_in_Text} >Sign Up</Text>
             </TouchableOpacity>

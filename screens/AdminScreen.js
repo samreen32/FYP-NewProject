@@ -8,7 +8,7 @@ import {
   View,
   TouchableOpacity,
 } from "react-native";
-import { AntDesign, SimpleLineIcons, MaterialIcons, Ionicons } from '@expo/vector-icons';
+import { AntDesign, SimpleLineIcons, MaterialIcons, Ionicons, FontAwesome  } from '@expo/vector-icons';
 import { globalStyles } from "../styles/globalStyles";
 import {
   responsiveFontSize, responsiveHeight, responsiveWidth
@@ -62,7 +62,7 @@ export default function AdminScreen({ navigation }) {
         </View>
         <TouchableOpacity 
             onPress={()=>{
-            navigation.navigate("Profile")
+            navigation.navigate("AdminProfile")
             }}
         >
           <Ionicons name="md-person-circle-outline" size={50} />
@@ -84,21 +84,21 @@ export default function AdminScreen({ navigation }) {
         </Text>
       </View>
 
-      <View style={[globalStyles.viewPlaces_btn, { width: responsiveWidth(40), height: responsiveHeight(6) }]}>
+      <View style={[globalStyles.viewPlaces_btn, { width: responsiveWidth(40), height: responsiveHeight(5.5) }]}>
         <View style={[globalStyles.viewPlaces, { width: responsiveWidth(35), height: responsiveHeight(5)}]}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("PayChallan");
+              navigation.navigate("ManageChallan");
             }}
           >
-            <Text style={[globalStyles.viewPlaces_Text, { fontSize: responsiveFontSize(1.8), }]}>Manage Challan</Text>
+            <Text style={[globalStyles.viewPlaces_Text, { fontSize: responsiveFontSize(1.8)}]}>Manage Challan</Text>
           </TouchableOpacity>
         </View>
       </View>
 
-        <View style={[globalStyles.payChallan_Rect, {height: responsiveHeight(23)}]}>
+        <View style={[globalStyles.payChallan_Rect, {height: responsiveHeight(23),  backgroundColor: "rgba(217,217,217,1)"}]}>
             <TouchableOpacity onPress={() => {
-              navigation.navigate("PayChallan");
+              navigation.navigate("RemoveWarden");
             }}>
                 <AntDesign name="minuscircle" size={50} color="red" style={{marginTop: responsiveHeight(3),
                     marginLeft: responsiveWidth(15),}} />
@@ -108,22 +108,22 @@ export default function AdminScreen({ navigation }) {
         </View>
 
 
-        <View style={[globalStyles.payChallan_Rect, { height: responsiveHeight(17),
+        <View style={[globalStyles.payChallan_Rect, { height: responsiveHeight(17),  backgroundColor: "rgba(217,217,217,1)",
             marginTop: responsiveHeight(69),}]}>
             <TouchableOpacity onPress={() => {
-              navigation.navigate("PayChallan");
+              navigation.navigate("HandleComplaints");
             }}>
                 <MaterialIcons name="headset-mic" size={43} color="black" style={{
-                    marginTop: responsiveHeight(1.5), marginLeft: responsiveWidth(15.5),}}/>
-        
+                    marginTop: responsiveHeight(1.5), marginLeft: responsiveWidth(15.5),}}
+                />
                 <Text style={[globalStyles.payChallan_Text, {marginTop: responsiveHeight(7.5),
-                    marginLeft: responsiveWidth(11.5), fontSize: responsiveFontSize(2.5) }]}>Handle{'\n'}Support</Text>
+                    marginLeft: responsiveWidth(5), fontSize: responsiveFontSize(2.5) }]}>     Handle{'\n'}Complaints</Text>
             </TouchableOpacity>
         </View>
 
 
 
-        <View style={[globalStyles.fileHistory_Complaints_Rect, { marginTop: responsiveHeight(45), 
+        <View style={[globalStyles.fileHistory_Complaints_Rect, { marginTop: responsiveHeight(45), backgroundColor: "rgba(217,217,217,1)",
         height: responsiveHeight(17) }]}>
           <View>
             <TouchableOpacity onPress={() => {
@@ -139,15 +139,25 @@ export default function AdminScreen({ navigation }) {
         </View>
  
 
-        <View style={[globalStyles.fileHistory_Complaints_Rect, { marginTop: responsiveHeight(63),
+        <View style={[globalStyles.fileHistory_Complaints_Rect, { marginTop: responsiveHeight(63),  backgroundColor: "rgba(217,217,217,1)",
         height: responsiveHeight(23) }]}>
           <View>
             <TouchableOpacity onPress={() => {
-              navigation.navigate("ChallanHistory");
+              navigation.navigate("ManageChallan");
             }}>
-                <Ionicons name="settings-outline" size={50} color="black" style={{
-                    marginTop: responsiveHeight(3),
-                    marginLeft: responsiveWidth(15),}}/>
+                <Ionicons name="settings" size={50} color="black" style={{
+                    marginTop: responsiveHeight(2),
+                    marginLeft: responsiveWidth(19),}}
+                  />
+                  
+                  <Ionicons name="settings-outline" size={40} color="black" style={{
+                    marginTop: responsiveHeight(-6),
+                    marginLeft: responsiveWidth(10),}}
+                  />
+                  <Ionicons name="settings-outline" size={42} color="white" style={{
+                    marginTop: responsiveHeight(-2),
+                    marginLeft: responsiveWidth(15),}}
+                  />
                 <Text style={[globalStyles.fileHistoryComplaints_Text, { marginLeft: responsiveWidth(10),
                     marginTop: responsiveHeight(12.5), fontSize: responsiveFontSize(2.5) }]}>Manage {'\n'}Challan</Text>
             </TouchableOpacity>

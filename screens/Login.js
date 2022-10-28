@@ -35,7 +35,7 @@ export default function Login({ navigation }) {
             </TouchableOpacity>
 
             <TouchableOpacity style={globalStyles.login_SignIn}
-                onPress={() => { navigation.navigate("") }}
+                onPress={() => { navigation.navigate("AdminTabs") }}
             >
                 <Text style={globalStyles.Sign_in_Text} >Sign In</Text>
             </TouchableOpacity>

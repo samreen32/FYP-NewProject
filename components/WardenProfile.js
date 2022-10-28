@@ -98,9 +98,9 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: "center",
     marginTop: responsiveHeight(5),
-    fontSize: responsiveFontSize(3),
+    fontSize: responsiveFontSize(4),
     letterSpacing: 1.0,
-    fontfamily: "Poppins",
+    fontFamily: "poppins-regular",
     lineheight: 114.99999761581421,
   },
   Profile_Rectangle: {
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   Edit_Profile_Btn: {
     backgroundColor: "rgba(215,152,246,1)",
     width: responsiveWidth(35),
-    height: responsiveHeight(8),
+    height: responsiveHeight(6.5),
     textAlign: "center",
     justifyContent: "center",
     borderRadius: responsiveWidth(8),

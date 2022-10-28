@@ -49,7 +49,7 @@ export default function WardenTabs() {
           borderBottomRightRadius: 60,
           borderTopRightRadius: 60,
           elevation: 0,
-          backgroundColor: "rgba(33,182,168,1)",
+          backgroundColor: "rgba(24,154,180,1)",
           height: 80,
           ...styles.shadow,
         },

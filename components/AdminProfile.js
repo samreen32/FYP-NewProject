@@ -9,14 +9,14 @@ import {
   Button,
   Pressable,
 } from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { Ionicons, MaterialIcons }from "@expo/vector-icons";
 import {
   responsiveHeight,
   responsiveWidth,
   responsiveFontSize,
 } from "react-native-responsive-dimensions";
 
-export default function Profile({ navigation }) {
+export default function AdminProfile({ navigation }) {
   return (
     <View>
       <View style={styles.purple_background}>
@@ -28,49 +28,57 @@ export default function Profile({ navigation }) {
         <TouchableOpacity
           style={styles.Edit_Profile_Btn}
           onPress={() => {
-            navigation.navigate("CitizenEditProfile");
+            navigation.navigate("AdminEditProfile");
           }}
         >
           <Text style={styles.Edit_Profile_Btn}>Edit Profile</Text>
         </TouchableOpacity>
       </View>
+
       <View
         style={{ height: responsiveHeight(50), width: responsiveWidth(100) }}
       >
-        <TouchableOpacity style={styles.style_dashboard}
-        onPress={()=>{
-          navigation.goBack();
-        }}
+        <TouchableOpacity
+          style={styles.style_dashboard}
+          onPress={() => {
+            navigation.goBack();
+          }}
         >
           <Ionicons name={"keypad"} size={25} color={"purple"} />
           <Text style={styles.dashboard_text}>Dashboard</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.style_challan_History}
-        onPress={()=>{
-          navigation.navigate("ChallanHistory")
-        }}
+
+        <TouchableOpacity
+          style={styles.style_challan_History}
+          onPress={() => {
+            navigation.navigate("ManageChallan");
+          }}
         >
           <Ionicons name={"clipboard"} size={25} color={"purple"} />
-          <Text style={styles.challan_History_text}>Challan History</Text>
+          <Text style={styles.challan_History_text}>Manage Challan</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.style_Pay}
-        onPress={()=>{
-          navigation.navigate("PayChallan")
-        }}
+        <TouchableOpacity
+          style={styles.style_Pay}
+          onPress={() => {
+            navigation.navigate("HandleComplaints");
+          }}
         >
-          <Ionicons name={"logo-usd"} size={25} color={"purple"}/>
-          <Text style={styles.Pay_text}>Pay Challan</Text>
+          <MaterialIcons name="headset-mic" size={25} color={"purple"}/>
+          <Text style={styles.Pay_text}>Handle Complaints</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.style_Logout}
-         onPress={()=>{
-          navigation.navigate("")
-        }}
+
+        <TouchableOpacity
+          style={styles.style_Logout}
+          onPress={() => {
+            navigation.navigate("");
+          }}
         >
           <Ionicons name={"log-out"} size={25} color={"purple"} />
           <Text style={styles.Logout_text}>Logout</Text>
         </TouchableOpacity>
       </View>
+
     </View>
   );
 }
@@ -128,7 +136,7 @@ const styles = StyleSheet.create({
   },
   Edit_Profile_Btn: {
     backgroundColor: "rgba(215,152,246,1)",
-    width: responsiveWidth(35),
+    width: responsiveWidth(36),
     height: responsiveHeight(6.5),
     textAlign: "center",
     justifyContent: "center",

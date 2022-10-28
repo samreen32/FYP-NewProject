@@ -42,6 +42,7 @@ export default function StackWarden() {
           headerShown: true,
         }}
       />
+      
       <Stack.Screen
         name="Challan"
         component={Challan}

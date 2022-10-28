@@ -2,7 +2,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Ionicons } from "@expo/vector-icons";
 import { NavigationContainer } from "@react-navigation/native";
 import Places from "../components/Places";
-import FileComplaint from "../components/FileComplaint";
+import HandleComplaints from "../components/HandleComplaints";
 import Setting from "../components/Setting";
 import Sign_Out from "../components/Sign_Out";
 import Help from "../components/Help";
@@ -12,7 +12,7 @@ import CustomDrawer from "./CustomeDrawer";
 
 const Drawer = createDrawerNavigator();
 
-export default function CitizenDrawer() {
+export default function AdminDrawer() {
   return (
     // <Provider store={store}>
     <NavigationContainer>
@@ -64,8 +64,8 @@ export default function CitizenDrawer() {
           }}
         />
         <Drawer.Screen
-          name="File Complaint"
-          component={FileComplaint}
+          name="Handle Complaint"
+          component={HandleComplaints}
           options={{
             headerShown: false,
             // title: "Complaints",

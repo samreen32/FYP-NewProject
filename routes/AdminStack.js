@@ -4,22 +4,22 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AdminScreen from "../screens/AdminScreen";
 import Places from "../components/Places";
 import Notifications from "../components/Notifications";
-import PayChallan from "../components/PayChallan";
-import PayChaSecond from "../components/PayChaSecond";
 import CameraComponent from "../components/CameraComponent";
 import Search from "../components/Search";
 import Help from "../components/Help";
-import FileComplaint from "../components/FileComplaint";
+import HandleComplaints from "../components/HandleComplaints";
+import ManageChallan from "../components/ManageChallan";
+import RemoveWarden from "../components/RemoveWarden";
 import ChallanHistory from "../components/ChallanHistory";
-import Profile from "../components/Profile";
-import CitizenEditProfile from "../components/CitizenEditProfile";
+import AdminProfile from "../components/AdminProfile";
+import AdminEditProfile from "../components/AdminEditProfile";
 import Rules from "../components/Rules";
 import Setting from "../components/Setting";
 
 
 const Stack = createNativeStackNavigator();
 
-export default function CitizenStack() {
+export default function AdminStack() {
   return (
     <Stack.Navigator
       initialRouteName="CitizenScreen"
@@ -44,22 +44,15 @@ export default function CitizenStack() {
         }}
       />
       <Stack.Screen
-        name="PayChallan"
-        component={PayChallan}
+        name="HandleComplaints"
+        component={HandleComplaints}
         options={{
           headerShown: false,
         }}
       />
       <Stack.Screen
-        name="PayChaSecond"
-        component={PayChaSecond}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="FileComplaint"
-        component={FileComplaint}
+        name="ManageChallan"
+        component={ManageChallan}
         options={{
           headerShown: false,
         }}
@@ -67,6 +60,13 @@ export default function CitizenStack() {
       <Stack.Screen
         name="ChallanHistory"
         component={ChallanHistory}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="RemoveWarden"
+        component={RemoveWarden}
         options={{
           headerShown: false,
         }}
@@ -86,15 +86,15 @@ export default function CitizenStack() {
         }}
       />
       <Stack.Screen
-        name="Profile"
-        component={Profile}
+        name="AdminProfile"
+        component={AdminProfile}
         options={{
           headerShown: false,
         }}
       />
       <Stack.Screen
-        name="CitizenEditProfile"
-        component={CitizenEditProfile}
+        name="AdminEditProfile"
+        component={AdminEditProfile}
         options={{
           headerShown: false,
         }}

@@ -48,7 +48,7 @@ export default function Places({ navigation }) {
 
   return (
     <View>
-      <Text>Your current location is {text}</Text>
+      {/* <Text>Your current location is {text}</Text> */}
       {/* <FlatList
         data={city}
         renderItem={({ item })=>(   //response array consist of country and city.

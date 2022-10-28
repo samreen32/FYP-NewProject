@@ -1,13 +1,12 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import PayChallan from "../components/PayChallan";
-import Profile from "../components/Profile";
+import AdminProfile from "../components/AdminProfile";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { StyleSheet } from "react-native";
 import AdminStack from "./AdminStack";
 
 const Tab = createBottomTabNavigator();
 
-export default function CitizenTabs() {
+export default function AdminTabs() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -37,14 +36,14 @@ export default function CitizenTabs() {
           position: "absolute",
           marginBottom: 10,
           bottom: 5,
-          left: 20,
-          right: 20,
-          borderBottomLeftRadius: 50,
-          borderTopLeftRadius: 50,
-          borderBottomRightRadius: 50,
-          borderTopRightRadius: 50,
+          left: 15,
+          right: 15,
+          borderBottomLeftRadius: 60,
+          borderTopLeftRadius: 60,
+          borderBottomRightRadius: 60,
+          borderTopRightRadius: 60,
           elevation: 0,
-          backgroundColor: "pink",
+          backgroundColor: "rgba(24,154,180,1)",
           height: 80,
           ...styles.shadow,
         },
@@ -57,7 +56,7 @@ export default function CitizenTabs() {
       />
       <Tab.Screen
         name="Profile"
-        component={Profile}
+        component={AdminProfile}
         options={{ headerShown: false }}
       />
     </Tab.Navigator>

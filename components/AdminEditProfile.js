@@ -13,7 +13,7 @@ import {
   responsiveFontSize,
 } from "react-native-responsive-dimensions";
 
-export default function CitizenEditProfile() {
+export default function AdminEditProfile() {
   const [name, setname] = useState("");
   return (
     <View>
@@ -49,7 +49,7 @@ export default function CitizenEditProfile() {
         <TextInput
           style={styles.style_Rectangle6}
           onChangeText={(value) => setname(value)}
-          placeholder="    Number of Motors"
+          placeholder="    Change Password"
           editable
           maxLength={20}
         />
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     borderRadius: responsiveWidth(8),
     fontSize: responsiveFontSize(2.5),
     letterSpacing: 1.0,
-    fontfamily: "Poppins",
+    fontfamily: "poppins-bold",
     lineheight: 114.99999761581421,
     color: "white",
     paddingTop: responsiveHeight(1),

@@ -22,7 +22,7 @@ export default function EditProfile() {
       </View>
 
       <View style={styles.Change_Profile_Rectangle}>
-        <Ionicons name={"person-circle"} size={45} color={"purple"} />
+        <Ionicons name={"person-circle"} size={95} color={"purple"} />
         <TouchableOpacity style={styles.Edit_Profile_Btn}>
           <Text style={styles.Change_Image_Btn}>Change Image</Text>
         </TouchableOpacity>
@@ -127,9 +127,9 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: "center",
     marginTop: responsiveHeight(5),
-    fontSize: responsiveFontSize(3),
+    fontSize: responsiveFontSize(3.5),
     letterSpacing: 1.0,
-    fontfamily: "Poppins",
+    fontFamily: "poppins-regular",
     lineheight: 114.99999761581421,
   },
   Change_Profile_Rectangle: {
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
   Change_Image_Btn: {
     backgroundColor: "rgba(215,152,246,1)",
     width: responsiveWidth(45),
-    height: responsiveHeight(8),
+    height: responsiveHeight(6.5),
     textAlign: "center",
     justifyContent: "center",
     borderRadius: responsiveWidth(8),

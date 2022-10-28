@@ -410,7 +410,7 @@ export const globalStyles = StyleSheet.create({
     marginTop: responsiveHeight(24),
     marginLeft: responsiveWidth(4),
     marginRight: responsiveWidth(6),
-    backgroundColor: "rgba(215,152,246,1)",
+    backgroundColor: "rgba(24,154,180,1)",
   },
   letsEase_theTraffic: {
     position: "absolute",
