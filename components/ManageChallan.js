@@ -4,158 +4,137 @@ import {
   View,
   Image,
   StyleSheet,
+  SafeAreaView,
   Linking,
   TextInput,
+  FlatList,
   TouchableOpacity,
   Button,
   Pressable,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
-
 import {
   responsiveHeight,
   responsiveWidth,
   responsiveFontSize,
 } from "react-native-responsive-dimensions";
+import SearchBar from "./SearchBar";
 
+const DATA = [
+  {
+    id: "1",
+    status: "CHALLAN PAID",
+    date: "10/02/2022",
+    Vehicle_no: "RIM \n2883",
+  },
+  {
+    id: "2",
+    status: "CHALLAN PAID",
+    date: "10/02/2022",
+    Vehicle_no: "RIM \n2883",
+  },
+
+  {
+    id: "3",
+    status: "CHALLAN PAID",
+    date: "10/02/2022",
+    Vehicle_no: "RIM \n2883",
+  },
+  {
+    id: "4",
+    status: "CHALLAN PAID",
+    date: "10/02/2022",
+    Vehicle_no: "RIM \n2883",
+  },
+  {
+    id: "5",
+    status: "CHALLAN PAID",
+    date: "10/02/2022",
+    Vehicle_no: "RIM \n2883",
+  },
+  {
+    id: "6",
+    status: "CHALLAN PAID",
+    date: "10/02/2022",
+    Vehicle_no: "RIM \n2883",
+  },
+  {
+    id: "7",
+    status: "CHALLAN PAID",
+    date: "10/02/2022",
+    Vehicle_no: "RIM \n2883",
+  },
+  {
+    id: "8",
+    status: "CHALLAN PAID",
+    date: "10/02/2022",
+    Vehicle_no: "RIM \n2883",
+  },
+  {
+    id: "9",
+    status: "CHALLAN PAID",
+    date: "10/02/2022",
+    Vehicle_no: "RIM \n2883",
+  },
+];
 
 export default function ManageChallan() {
-  const [name, setname] = useState("");
   return (
     <View>
-      <View style={styles.purple_background}>
-        <Text style={styles.File_Complaint_Text}>File Complaint</Text>
+     <Text style={[styles.Challan_Text_Header]}>Manage Challan</Text>
+      <View style={{ height: responsiveHeight(5) }}>
+        <SearchBar />
       </View>
-      <View style={styles.icon_border}>
-        <Ionicons name={"chatbubbles"} size={100} color={"purple"} />
-      </View>
-      <View
-        style={{ height: responsiveHeight(67), width: responsiveWidth(100) }}
-      >
-        <TextInput
-          style={styles.style_Rectangle4}
-          onChangeText={(value) => setname(value)}
-          placeholder="    Name"
-          keyboardType="alphabet"
-          editable
-          maxLength={20}
-        />
-        <TextInput
-          style={styles.style_Rectangle5}
-          onChangeText={(value) => setname(value)}
-          placeholder="    Email"
-          keyboardType="email"
-          editable
-          maxLength={20}
-        />
-        <TextInput
-          style={styles.style_Rectangle6}
-          onChangeText={(value) => setname(value)}
-          placeholder="    Officer(optional)"
-          editable
-          maxLength={20}
-        />
-        <TextInput
-          style={styles.style_Rectangle7}
-          onChangeText={(value) => setname(value)}
-          placeholder="    Description"
-          keyboardType="alphabet"
-          editable
-          maxLength={20}
-        />
-      </View>
-      <TouchableOpacity style={styles.submit_btn}>
-        <Text style={styles.submit_text}>Submit</Text>
-      </TouchableOpacity>
+      <FlatList
+        data={DATA}
+        renderItem={({ item, description }) => (
+          <View style={styles.Challan_Container}>
+            <View>
+              <Text style={styles.Status_Text}>{item.status}</Text>
+              <Text style={styles.description_Text}>{item.date}</Text>
+            </View>
+            <Text style={styles.Vehicle_no_text}>{item.Vehicle_no}</Text>
+          </View>
+        )}
+      />
     </View>
   );
 }
 const styles = StyleSheet.create({
-  style_Rectangle4: {
-    marginLeft: responsiveWidth(8),
-    marginTop: responsiveHeight(3),
-    position: "absolute",
-    width: responsiveWidth(87),
-    height: responsiveHeight(10),
-    opacity: 1,
-    color: "grey",
-
-    backgroundColor: "rgba(217,217,217,1)",
-    borderRadius: responsiveWidth(6),
+  Challan_Text_Header: {
+    color: "black",
+    fontFamily: "poppins-bold",
+    fontSize: responsiveFontSize(3.5),
+    marginLeft: responsiveWidth(16),
+    marginTop: responsiveHeight(6),
   },
-  style_Rectangle6: {
-    marginLeft: responsiveWidth(8),
-    marginTop: responsiveHeight(25),
-    position: "absolute",
-    width: responsiveWidth(87),
-    height: responsiveHeight(10),
-    opacity: 1,
-    color: "grey",
-
-    backgroundColor: "rgba(217,217,217,1)",
-    borderRadius: responsiveWidth(6),
+  Challan_Container: {
+    backgroundColor: "#D798F6",
+    height: responsiveHeight(12),
+    marginLeft: responsiveWidth(6),
+    marginTop: responsiveHeight(3.5),
+    marginRight: responsiveWidth(6),
+    marginVertical: responsiveHeight(-2),
+    borderRadius: 15,
   },
-  style_Rectangle7: {
-    marginLeft: responsiveWidth(8),
-    marginTop: responsiveHeight(36),
-    position: "absolute",
-    width: responsiveWidth(87),
-    height: responsiveHeight(10),
-    opacity: 1,
-    color: "grey",
-
-    backgroundColor: "rgba(217,217,217,1)",
-    borderRadius: responsiveWidth(6),
-  },
-  style_Rectangle5: {
-    marginLeft: responsiveWidth(8),
-    marginTop: responsiveHeight(14),
-    position: "absolute",
-    width: responsiveWidth(87),
-    height: responsiveHeight(10),
-    opacity: 1,
-    color: "grey",
-    background: "#D9D9D9",
-
-    backgroundColor: "rgba(217,217,217,1)",
-    borderRadius: responsiveWidth(6),
-  },
-  icon_border: {
-    marginTop: responsiveHeight(-16),
-    marginLeft: responsiveWidth(36),
-  },
-  purple_background: {
-    backgroundColor: "rgba(215,152,246,1)",
-    width: responsiveWidth(100),
-    height: responsiveHeight(30),
-  },
-  File_Complaint_Text: {
-    color: "white",
-    textAlign: "center",
-    marginTop: responsiveHeight(5),
-    fontSize: responsiveFontSize(3),
-    letterSpacing: 1.0,
-    fontfamily: "Poppins",
-    lineheight: 114.99999761581421,
-  },
-
-  submit_btn: {
-    backgroundColor: "rgba(215,152,246,1)",
-    width: responsiveWidth(30),
-    height: responsiveHeight(7),
-
-    marginTop: responsiveHeight(-19),
-    borderRadius: responsiveWidth(3),
-    marginLeft: responsiveWidth(37),
-  },
-  submit_text: {
-    fontSize: responsiveFontSize(2.5),
-    justifyContent: "center",
-    textAlign: "center",
-
-    letterSpacing: 1.0,
-    fontfamily: "Poppins",
+  Status_Text: {
+    color: "#000000",
     fontWeight: "bold",
-    paddingTop: responsiveHeight(1.6),
+    fontSize: responsiveFontSize(2.3),
+    marginLeft: responsiveWidth(5),
+    marginTop: responsiveHeight(0.5),
+    paddingTop: responsiveHeight(2),
+  },
+  description_Text: {
+    marginLeft: responsiveWidth(5),
+    marginTop: responsiveHeight(0.5),
+    color: "#FFFFFF",
+  },
+  Vehicle_no_text: {
+    color: "white",
+    fontSize: responsiveFontSize(3),
+    fontWeight: "bold",
+    marginLeft: responsiveWidth(55),
+    marginTop: responsiveHeight(-8),
   },
 });

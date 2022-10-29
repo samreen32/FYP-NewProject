@@ -17,30 +17,31 @@ export default function WardenTabs() {
           let iconName;
           if (route.name === "Home") {
             iconName = "home";
-
             size = focused ? 35 : 30;
             color = focused ? "yellow" : "black";
+
           } else if (route.name === "Profile") {
             iconName = "person";
-
-            size = focused ? 35 : 30;
+            size = focused ? 30 : 35;
             color = focused ? "yellow" : "black";
-          } else if (route.name === "Print_Challan") {
-            iconName = "print-outline";
 
-            size = focused ? 35 : 30;
+          } else if (route.name === "Add Challan") {
+            iconName = "add-circle";
+            size = focused ? 30 : 45;
             color = focused ? "yellow" : "black";
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-
-        tabBarLabelStyle: {
-          fontSize: 15,
-          marginTop: -20,
-          marginBottom: 15,
-        },
-        tabBarStyle: {
+       
+      })}
+    >
+      <Tab.Screen
+        name="Home"
+        component={StackWarden}
+        options={({route}) => (
+          { 
+         tabBarStyle:{display: getRouteName(route),
           position: "absolute",
           marginBottom: 10,
           bottom: 5,
@@ -55,29 +56,37 @@ export default function WardenTabs() {
           height: 80,
           ...styles.shadow,
         },
-      })}
-    >
-      <Tab.Screen
-        name="Home"
-        component={StackWarden}
-        options = {{ headerShown: false}}
-    
-        // options={({route}) => (
-        //   { 
-        //  tabBarStyle:{display: getRouteName(route)} })}
+        tabBarLabelStyle: {
+          fontSize: 15,
+          marginTop: -2,
+          marginBottom: 15,
+          color: "white",
+        },
+        headerShown: false,
+        })}
       />
       <Tab.Screen
         name="Add Challan"
         component={Challan}
-        tabBarStyle= {{display: 'none'}}
-        options={{ headerShown: false }}
+        options={{ tabBarStyle: {display: 'none'}, headerShown: false, 
+        tabBarLabelStyle: {
+          fontSize: 15,
+          marginTop: -2,
+          marginBottom: 15,
+          color: "black",
+        }, }}
       />
 
       <Tab.Screen
         name="Profile"
         component={WardenProfile}
-        tabBarStyle= {{display: 'none'}}
-        options={{ headerShown: false }}
+        options={{ tabBarStyle: {display: 'none'}, headerShown: false,
+        tabBarLabelStyle: {
+          fontSize: 15,
+          marginTop: -2,
+          marginBottom: 15,
+          color: "black",
+        }, }}
       />
     </Tab.Navigator>
   );
@@ -87,7 +96,9 @@ const styles = StyleSheet.create({});
 const getRouteName=(route) =>{
   const routeName=getFocusedRouteNameFromRoute(route);
   console.log(routeName);
-  if(routeName?.includes("Challan") || routeName?.includes("Places") || routeName?.includes("Notifications") ){
+  if(routeName?.includes("Challan") || routeName?.includes("Places") || routeName?.includes("Notifications") ||
+  routeName?.includes("Profile") || routeName?.includes("Search") || routeName?.includes("ViewComplaints") ||
+  routeName?.includes("Setting") || routeName?.includes("Rules") || routeName?.includes("Help") ){
     return 'none';
   }
   return 'flex';

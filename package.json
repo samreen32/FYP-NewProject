@@ -24,10 +24,13 @@
     "expo-cli": "^6.0.6",
     "expo-font": "^10.2.1",
     "expo-location": "~14.3.0",
+    "expo-media-library": "~14.2.0",
+    "expo-sharing": "~10.3.0",
     "expo-status-bar": "~1.4.0",
     "react": "18.0.0",
     "react-native": "0.69.6",
     "react-native-camera-kit": "^13.0.0",
+    "react-native-dialog": "^9.2.2",
     "react-native-maps": "0.31.1",
     "react-native-modal-datetime-picker": "^14.0.0",
     "react-native-navigation-container": "^1.0.6",
@@ -39,9 +42,7 @@
     "react-native-screens": "~3.15.0",
     "react-navigation": "^4.4.4",
     "react-navigation-header-buttons": "^10.0.0",
-    "react-navigation-stack": "^2.10.4",
-    "expo-media-library": "~14.2.0",
-    "expo-sharing": "~10.3.0"
+    "react-navigation-stack": "^2.10.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

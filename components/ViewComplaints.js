@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
     height: responsiveHeight(15),
     marginLeft: responsiveWidth(5),
     marginTop: responsiveHeight(3.5),marginRight:responsiveWidth(6),
+    marginVertical: responsiveHeight(-2),
     borderRadius: 15,
    },
    Image:{

@@ -4,158 +4,150 @@ import {
   View,
   Image,
   StyleSheet,
+  SafeAreaView,
   Linking,
   TextInput,
+  FlatList,
   TouchableOpacity,
   Button,
   Pressable,
 } from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
-
+import {Ionicons, AntDesign } from "@expo/vector-icons";
 import {
   responsiveHeight,
   responsiveWidth,
   responsiveFontSize,
 } from "react-native-responsive-dimensions";
+const DATA = [
+  {
+    id: "1",
+    Name: "Someone",
+    Complain: "Someone is complaining \nabout...",
+    image_source: require("../assets/images/addChallan.png"),
+  },
+  {
+    id: "2",
+    Name: "Someone",
+    Complain: "Someone is complaining \nabout...",
+    image_source: require("../assets/images/addChallan.png"),
+  },
 
+  {
+    id: "3",
+    Name: "Someone",
+    Complain: "Someone is complaining \nabout...",
+    image_source: require("../assets/images/addChallan.png"),
+  },
+  {
+    id: "4",
+    Name: "Someone",
+    Complain: "Someone is complaining \nabout...",
+    image_source: require("../assets/images/addChallan.png"),
+  },
+  {
+    id: "5",
+    Name: "Someone",
+    Complain: "Someone is complaining \nabout...",
+    image_source: require("../assets/images/addChallan.png"),
+  },
+  {
+    id: "6",
+    Name: "Someone",
+    Complain: "Someone is complaining \nabout...",
+    image_source: require("../assets/images/addChallan.png"),
+  },
+  {
+    id: "7",
+    Name: "Someone",
+    Complain: "Someone is complaining \nabout...",
+    image_source: require("../assets/images/addChallan.png"),
+  },
+  {
+    id: "8",
+    Name: "Someone",
+    Complain: "Someone is complaining \nabout...",
+    image_source: require("../assets/images/addChallan.png"),
+  },
+  {
+    id: "9",
+    Name: "Someone",
+    Complain: "Someone is complaining \nabout...",
+    image_source: require("../assets/images/addChallan.png"),
+  },
+];
 
 export default function HandleComplaints() {
-  const [name, setname] = useState("");
   return (
     <View>
-      <View style={styles.purple_background}>
-        <Text style={styles.File_Complaint_Text}>File Complaint</Text>
-      </View>
-      <View style={styles.icon_border}>
-        <Ionicons name={"chatbubbles"} size={100} color={"purple"} />
-      </View>
-      <View
-        style={{ height: responsiveHeight(67), width: responsiveWidth(100) }}
-      >
-        <TextInput
-          style={styles.style_Rectangle4}
-          onChangeText={(value) => setname(value)}
-          placeholder="    Name"
-          keyboardType="alphabet"
-          editable
-          maxLength={20}
-        />
-        <TextInput
-          style={styles.style_Rectangle5}
-          onChangeText={(value) => setname(value)}
-          placeholder="    Email"
-          keyboardType="email"
-          editable
-          maxLength={20}
-        />
-        <TextInput
-          style={styles.style_Rectangle6}
-          onChangeText={(value) => setname(value)}
-          placeholder="    Officer(optional)"
-          editable
-          maxLength={20}
-        />
-        <TextInput
-          style={styles.style_Rectangle7}
-          onChangeText={(value) => setname(value)}
-          placeholder="    Description"
-          keyboardType="alphabet"
-          editable
-          maxLength={20}
-        />
-      </View>
-      <TouchableOpacity style={styles.submit_btn}>
-        <Text style={styles.submit_text}>Submit</Text>
-      </TouchableOpacity>
+      <Text style={[styles.Complain_Text_Header]}>Handle Complaints</Text>
+      <FlatList
+        data={DATA}
+        renderItem={({ item, description }) => (
+          <View style={styles.Complain_Container}>
+            
+            <TouchableOpacity>
+              
+
+              <Image
+                style={styles.Image}
+                source={item.image_source}
+                resizeMode="contain"
+              />
+            
+            </TouchableOpacity>
+
+            <View>
+              <Text style={styles.Name_Text}>{item.Name}</Text>
+              <Text style={styles.description_Text}>{item.Complain}</Text>
+              <TouchableOpacity>
+                <AntDesign name="right" size={50} color="black" style={{marginTop: responsiveHeight(-8.5),
+                      marginLeft: responsiveWidth(56),}} />
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
+      />
     </View>
   );
 }
 const styles = StyleSheet.create({
-  style_Rectangle4: {
-    marginLeft: responsiveWidth(8),
-    marginTop: responsiveHeight(3),
-    position: "absolute",
-    width: responsiveWidth(87),
-    height: responsiveHeight(10),
-    opacity: 1,
-    color: "grey",
-
-    backgroundColor: "rgba(217,217,217,1)",
-    borderRadius: responsiveWidth(6),
-  },
-  style_Rectangle6: {
-    marginLeft: responsiveWidth(8),
-    marginTop: responsiveHeight(25),
-    position: "absolute",
-    width: responsiveWidth(87),
-    height: responsiveHeight(10),
-    opacity: 1,
-    color: "grey",
-
-    backgroundColor: "rgba(217,217,217,1)",
-    borderRadius: responsiveWidth(6),
-  },
-  style_Rectangle7: {
-    marginLeft: responsiveWidth(8),
-    marginTop: responsiveHeight(36),
-    position: "absolute",
-    width: responsiveWidth(87),
-    height: responsiveHeight(10),
-    opacity: 1,
-    color: "grey",
-
-    backgroundColor: "rgba(217,217,217,1)",
-    borderRadius: responsiveWidth(6),
-  },
-  style_Rectangle5: {
-    marginLeft: responsiveWidth(8),
-    marginTop: responsiveHeight(14),
-    position: "absolute",
-    width: responsiveWidth(87),
-    height: responsiveHeight(10),
-    opacity: 1,
-    color: "grey",
-    background: "#D9D9D9",
-
-    backgroundColor: "rgba(217,217,217,1)",
-    borderRadius: responsiveWidth(6),
-  },
-  icon_border: {
-    marginTop: responsiveHeight(-16),
-    marginLeft: responsiveWidth(36),
-  },
-  purple_background: {
-    backgroundColor: "rgba(215,152,246,1)",
-    width: responsiveWidth(100),
-    height: responsiveHeight(30),
-  },
-  File_Complaint_Text: {
-    color: "white",
-    textAlign: "center",
-    marginTop: responsiveHeight(5),
+  Complain_Text_Header: {
+    color: "black",
+    fontFamily: "poppins-bold",
     fontSize: responsiveFontSize(3),
-    letterSpacing: 1.0,
-    fontfamily: "Poppins",
-    lineheight: 114.99999761581421,
+    marginLeft: responsiveWidth(15),
+    marginTop: responsiveHeight(6),
   },
-
-  submit_btn: {
-    backgroundColor: "rgba(215,152,246,1)",
-    width: responsiveWidth(30),
-    height: responsiveHeight(7),
-
-    marginTop: responsiveHeight(-19),
-    borderRadius: responsiveWidth(3),
-    marginLeft: responsiveWidth(37),
+  Complain_Container: {
+    flexDirection: "row",
+    backgroundColor: "#D798F6",
+    height: responsiveHeight(15),
+    marginLeft: responsiveWidth(5),
+    marginTop: responsiveHeight(3.5),
+    marginRight: responsiveWidth(6),
+    marginVertical: responsiveHeight(-2),
+    borderRadius: 15,
   },
-  submit_text: {
-    fontSize: responsiveFontSize(2.5),
-    justifyContent: "center",
-    textAlign: "center",
-
-    letterSpacing: 1.0,
-    fontfamily: "Poppins",
+  Image: {
+    width: responsiveWidth(17),
+    height: responsiveHeight(10),
+    marginLeft: responsiveWidth(3),
+    marginTop: responsiveHeight(2.5),
+    borderRadius: responsiveWidth(7),
+  },
+  Name_Text: {
+    color: "#000000",
     fontWeight: "bold",
-    paddingTop: responsiveHeight(1.6),
+    fontFamily: "poppins-bold",
+    fontSize: responsiveFontSize(2.3),
+    marginLeft: responsiveWidth(5),
+    marginTop: responsiveHeight(0.5),
+    paddingTop: responsiveHeight(2),
+  },
+  description_Text: {
+    fontFamily: "poppins-bold",
+    marginLeft: responsiveWidth(5),
+    marginTop: responsiveHeight(0.5),
+    color: "#FFFFFF",
   },
 });

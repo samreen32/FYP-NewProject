@@ -60,7 +60,7 @@ export default function SearchBar({ navigation }) {
     return (
         <View style={globalStyles.SearchBarStyling}>
 		<Searchbar 
-          placeholder="Search another location" 
+          placeholder="Search here" 
           onChangeText={(text) => {setSearchText(text)}} 
           value={searchText} 
         />

@@ -3,6 +3,7 @@ import AdminProfile from "../components/AdminProfile";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { StyleSheet } from "react-native";
 import AdminStack from "./AdminStack";
+import {getFocusedRouteNameFromRoute} from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator();
 
@@ -14,25 +15,25 @@ export default function AdminTabs() {
           let iconName;
           if (route.name === "Home") {
             iconName = "home";
-
             size = focused ? 35 : 30;
             color = focused ? "yellow" : "black";
+
           } else if (route.name === "Profile") {
             iconName = "person";
-
             size = focused ? 35 : 30;
             color = focused ? "yellow" : "black";
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-
-        tabBarLabelStyle: {
-          fontSize: 15,
-          marginTop: -20,
-          marginBottom: 15,
-        },
-        tabBarStyle: {
+      })}
+    >
+      <Tab.Screen
+        name="Home"
+        component={AdminStack}
+        options={({route}) => (
+          { 
+         tabBarStyle:{display: getRouteName(route),
           position: "absolute",
           marginBottom: 10,
           bottom: 5,
@@ -47,19 +48,39 @@ export default function AdminTabs() {
           height: 80,
           ...styles.shadow,
         },
-      })}
-    >
-      <Tab.Screen
-        name="Home"
-        component={AdminStack}
-        options={{ headerShown: false }}
+        tabBarLabelStyle: {
+          fontSize: 15,
+          marginTop: -2,
+          marginBottom: 15,
+          color: "white",
+        },
+        headerShown: false,
+        })}
       />
       <Tab.Screen
         name="Profile"
         component={AdminProfile}
-        options={{ headerShown: false }}
+        options={{ tabBarStyle: {display: 'none'}, headerShown: false, 
+        tabBarLabelStyle: {
+          fontSize: 15,
+          marginTop: -2,
+          marginBottom: 15,
+          color: "black",
+        }, }}
       />
     </Tab.Navigator>
   );
 }
 const styles = StyleSheet.create({});
+
+const getRouteName=(route) =>{
+  const routeName=getFocusedRouteNameFromRoute(route);
+  console.log(routeName);
+  if(routeName?.includes("AdminProfile") || routeName?.includes("Places") || routeName?.includes("Notifications") ||
+  routeName?.includes("Search") || routeName?.includes("HandleComplaints") || routeName?.includes("RemoveWarden") ||
+  routeName?.includes("Setting") || routeName?.includes("Rules") || routeName?.includes("Help") || 
+  routeName?.includes("ManageChallan")){
+    return 'none';
+  }
+  return 'flex';
+};

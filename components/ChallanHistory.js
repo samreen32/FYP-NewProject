@@ -110,6 +110,7 @@ const styles = StyleSheet.create({
     marginLeft: responsiveWidth(6),
     marginTop: responsiveHeight(3.5),
     marginRight: responsiveWidth(6),
+    marginVertical: responsiveHeight(-2),
     borderRadius: 15,
   },
   Status_Text: {

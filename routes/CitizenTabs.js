@@ -4,6 +4,8 @@ import Profile from "../components/Profile";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { StyleSheet } from "react-native";
 import CitizenStack from "./CitizenStack";
+import {getFocusedRouteNameFromRoute} from "@react-navigation/native";
+
 
 const Tab = createBottomTabNavigator();
 
@@ -18,27 +20,28 @@ export default function CitizenTabs() {
 
             size = focused ? 35 : 30;
             color = focused ? "yellow" : "black";
+            
           } else if (route.name === "Profile") {
             iconName = "person";
-
-            size = focused ? 35 : 30;
+            size = focused ? 30 : 35;
             color = focused ? "yellow" : "black";
-          } else if (route.name === "Pay_Challan") {
-            iconName = "print-outline";
 
-            size = focused ? 35 : 30;
+          } else if (route.name === "Pay Challan") {
+            iconName = "print";
+            size = focused ? 30 : 45;
             color = focused ? "yellow" : "black";
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },
-
-        tabBarLabelStyle: {
-          fontSize: 15,
-          marginTop: -20,
-          marginBottom: 15,
-        },
-        tabBarStyle: {
+      })}
+    >
+      <Tab.Screen
+        name="Home"
+        component={CitizenStack}
+        options={({route}) => (
+          { 
+         tabBarStyle:{display: getRouteName(route),
           position: "absolute",
           marginBottom: 10,
           bottom: 5,
@@ -53,25 +56,51 @@ export default function CitizenTabs() {
           height: 80,
           ...styles.shadow,
         },
-      })}
-    >
-      <Tab.Screen
-        name="Home"
-        component={CitizenStack}
-        options={{ headerShown: false }}
+        tabBarLabelStyle: {
+          fontSize: 15,
+          marginTop: -2,
+          marginBottom: 15,
+          color: "white",
+        },
+        headerShown: false,
+        })}
       />
       <Tab.Screen
         name="Pay Challan"
         component={PayChallan}
-        options={{ headerShown: false }}
+        options={{ tabBarStyle: {display: 'none'}, headerShown: false, 
+        tabBarLabelStyle: {
+          fontSize: 15,
+          marginTop: -2,
+          marginBottom: 15,
+          color: "black",
+        }, }}
       />
 
       <Tab.Screen
         name="Profile"
         component={Profile}
-        options={{ headerShown: false }}
+        options={{ tabBarStyle: {display: 'none'}, headerShown: false, 
+        tabBarLabelStyle: {
+          fontSize: 15,
+          marginTop: -2,
+          marginBottom: 15,
+          color: "black",
+        }, }}
       />
     </Tab.Navigator>
   );
 }
 const styles = StyleSheet.create({});
+
+const getRouteName=(route) =>{
+  const routeName=getFocusedRouteNameFromRoute(route);
+  console.log(routeName);
+  if(routeName?.includes("PayChallan") || routeName?.includes("Places") || routeName?.includes("Notifications") ||
+  routeName?.includes("Profile") || routeName?.includes("Search") || routeName?.includes("FileComplaint") ||
+  routeName?.includes("Setting") || routeName?.includes("Rules") || routeName?.includes("Help") || 
+  routeName?.includes("ChallanHistory")){
+    return 'none';
+  }
+  return 'flex';
+};

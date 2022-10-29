@@ -706,7 +706,7 @@ export const globalStyles = StyleSheet.create({
     marginRight: responsiveWidth(6),
     borderRadius: responsiveWidth(10),
     opacity: 1,
-    backgroundColor: "rgba(33,182,168,1)",
+    backgroundColor: "rgba(33,182,168,1)", 
   },
   payChallan_Text: {
     position: "absolute",

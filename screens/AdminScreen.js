@@ -96,19 +96,20 @@ export default function AdminScreen({ navigation }) {
         </View>
       </View>
 
-        <View style={[globalStyles.payChallan_Rect, {height: responsiveHeight(23),  backgroundColor: "rgba(217,217,217,1)"}]}>
+        <View style={[globalStyles.payChallan_Rect, {height: responsiveHeight(23),   backgroundColor: "rgba(33,182,168,1)",}]}>
             <TouchableOpacity onPress={() => {
               navigation.navigate("RemoveWarden");
             }}>
                 <AntDesign name="minuscircle" size={50} color="red" style={{marginTop: responsiveHeight(3),
                     marginLeft: responsiveWidth(15),}} />
-                <Text style={[globalStyles.payChallan_Text, {marginTop: responsiveHeight(11),
-                    marginLeft: responsiveWidth(8) }]}>Remove{'\n'}Warden</Text>
+                <Text style={[globalStyles.payChallan_Text, { 
+                  marginTop: responsiveHeight(11), marginLeft: responsiveWidth(7), fontSize: responsiveFontSize(3.2) }]}
+                >Remove{'\n'}Warden</Text>
             </TouchableOpacity>
         </View>
 
 
-        <View style={[globalStyles.payChallan_Rect, { height: responsiveHeight(17),  backgroundColor: "rgba(217,217,217,1)",
+        <View style={[globalStyles.payChallan_Rect, { height: responsiveHeight(17), backgroundColor: "rgba(33,182,168,1)",
             marginTop: responsiveHeight(69),}]}>
             <TouchableOpacity onPress={() => {
               navigation.navigate("HandleComplaints");
@@ -123,7 +124,7 @@ export default function AdminScreen({ navigation }) {
 
 
 
-        <View style={[globalStyles.fileHistory_Complaints_Rect, { marginTop: responsiveHeight(45), backgroundColor: "rgba(217,217,217,1)",
+        <View style={[globalStyles.fileHistory_Complaints_Rect, { marginTop: responsiveHeight(45), backgroundColor: "rgba(33,182,168,1)",
         height: responsiveHeight(17) }]}>
           <View>
             <TouchableOpacity onPress={() => {
@@ -139,7 +140,7 @@ export default function AdminScreen({ navigation }) {
         </View>
  
 
-        <View style={[globalStyles.fileHistory_Complaints_Rect, { marginTop: responsiveHeight(63),  backgroundColor: "rgba(217,217,217,1)",
+        <View style={[globalStyles.fileHistory_Complaints_Rect, { marginTop: responsiveHeight(63), backgroundColor: "rgba(33,182,168,1)",
         height: responsiveHeight(23) }]}>
           <View>
             <TouchableOpacity onPress={() => {

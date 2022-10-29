@@ -121,9 +121,9 @@ export default function WardenScreen({ navigation }) {
           navigation.navigate("Challan")
         }}
         >
-          <Foundation name="clipboard-pencil" size={100} color="black" style={{
-            marginTop: responsiveHeight(0),
-            marginLeft: responsiveWidth(21) }}
+          <Ionicons name="create" size={105} color="black" style={{
+            marginTop: responsiveHeight(-1),
+            marginLeft: responsiveWidth(17) }}
           />
           <Text
             style={[

@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
     marginLeft: responsiveWidth(7),
     marginTop: responsiveHeight(3),
     marginRight: responsiveWidth(7),
+    marginVertical: responsiveHeight(-1),
     borderRadius: 15,
   },
   Rule_no_Text: {
