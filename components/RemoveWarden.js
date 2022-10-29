@@ -3,12 +3,14 @@ import {
   Text,
   View,
   Image,
-  Button,
   StyleSheet,
   FlatList,
   TouchableOpacity,
+  Alert,
+  Modal,
+  Pressable,
 } from "react-native";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import {
   responsiveHeight,
   responsiveWidth,
@@ -75,6 +77,7 @@ const DATA = [
 ];
 
 export default function RemoveWarden() {
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <View>
@@ -82,7 +85,7 @@ export default function RemoveWarden() {
       <View style={{ height: responsiveHeight(5) }}>
         <SearchBar />
       </View>
-   
+
       <FlatList
         data={DATA}
         renderItem={({ item, description }) => (
@@ -98,18 +101,60 @@ export default function RemoveWarden() {
             <View>
               <Text style={styles.Name_Text}>{item.Name}</Text>
               <Text style={styles.description_Text}>{item.Complain}</Text>
-        
-              <TouchableOpacity>
-                <AntDesign
-                  name="right"
-                  size={50}
-                  color="black"
-                  style={{
-                    marginTop: responsiveHeight(-7),
-                    marginLeft: responsiveWidth(54),
+
+              <View style={styles.centeredView}>
+                <Modal
+                  animationType="slide"
+                  transparent={true}
+                  visible={modalVisible}
+                  onRequestClose={() => {
+                    Alert.alert("Modal has been closed.");
+                    setModalVisible(!modalVisible);
                   }}
-                />
-              </TouchableOpacity>
+                >
+                  <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                      <Text style={styles.modalText}>
+                        Do you want to remove this warden?
+                      </Text>
+                      <Pressable onPress={() => setModalVisible(!modalVisible)}>
+                        <Text
+                          style={{ marginLeft: responsiveWidth(-25) }}
+                        >
+                          Yes
+                        </Text>
+                      </Pressable>
+
+                      <Pressable
+                        onPress={() => setModalVisible(!modalVisible)}
+                      >
+                        <Text
+                          style={{
+                            marginLeft: responsiveWidth(40),
+                            marginTop: responsiveHeight(-2.5),
+                          }}
+                        >
+                          No
+                        </Text>
+                      </Pressable>
+                    </View>
+                  </View>
+                </Modal>
+
+                <TouchableOpacity onPress={() => setModalVisible(true)}>
+                  <AntDesign
+                    name="right"
+                    size={50}
+                    color="black"
+                    style={{
+                      width: responsiveWidth(92),
+                      height: responsiveHeight(10),
+                      marginTop: responsiveHeight(-9),
+                      marginLeft: responsiveWidth(54),
+                    }}
+                  />
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         )}
@@ -156,5 +201,38 @@ const styles = StyleSheet.create({
     marginLeft: responsiveWidth(5),
     marginTop: responsiveHeight(0.5),
     color: "#FFFFFF",
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
   },
 });

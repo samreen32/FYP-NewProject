@@ -97,7 +97,7 @@ export default function CameraComponent({ navigation }) {
     return (
         <Camera style={globalStyles.camera} ref={cameraRef}>
 
-            <View style={[globalStyles.camera, { marginTop: responsiveHeight(65) }]}>
+            <View style={[globalStyles.camera, { marginTop: responsiveHeight(88) }]}>
                 <TouchableOpacity style={[globalStyles.cameraButtns, { width: responsiveWidth(95) }]}
                     onPress={takePicture}
                 >

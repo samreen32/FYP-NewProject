@@ -20,7 +20,7 @@ export default function AdminTabs() {
 
           } else if (route.name === "Profile") {
             iconName = "person";
-            size = focused ? 35 : 30;
+            size = focused ? 30 : 32;
             color = focused ? "yellow" : "black";
           }
 

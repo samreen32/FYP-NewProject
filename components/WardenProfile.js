@@ -5,7 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { Ionicons, MaterialCommunityIcons} from "@expo/vector-icons";
 import {
   responsiveHeight,
   responsiveWidth,
@@ -46,7 +46,7 @@ export default function WardenProfile({ navigation }) {
           navigation.navigate("ChallanHistory")
         }}
         >
-          <Ionicons name={"clipboard"} size={25} color={"purple"} />
+          <MaterialCommunityIcons name="timetable" size={25} color="purple" />
           <Text style={styles.challan_History_text}>Challan History</Text>
         </TouchableOpacity>
 
@@ -55,7 +55,8 @@ export default function WardenProfile({ navigation }) {
           navigation.navigate("Challan")
         }}
         >
-          <Ionicons name={"logo-usd"} size={25} color={"purple"}/>
+         <Ionicons name="create" size={26} color="purple"
+          />
           <Text style={styles.Pay_text}>Add Challan</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.style_Logout}

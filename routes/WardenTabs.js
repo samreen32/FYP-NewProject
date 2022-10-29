@@ -98,7 +98,8 @@ const getRouteName=(route) =>{
   console.log(routeName);
   if(routeName?.includes("Challan") || routeName?.includes("Places") || routeName?.includes("Notifications") ||
   routeName?.includes("Profile") || routeName?.includes("Search") || routeName?.includes("ViewComplaints") ||
-  routeName?.includes("Setting") || routeName?.includes("Rules") || routeName?.includes("Help") ){
+  routeName?.includes("Setting") || routeName?.includes("Rules") || routeName?.includes("Help") ||
+  routeName?.includes("CameraComponent") ){
     return 'none';
   }
   return 'flex';

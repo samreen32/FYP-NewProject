@@ -96,7 +96,8 @@ const styles = StyleSheet.create({});
 const getRouteName=(route) =>{
   const routeName=getFocusedRouteNameFromRoute(route);
   console.log(routeName);
-  if(routeName?.includes("PayChallan") || routeName?.includes("Places") || routeName?.includes("Notifications") ||
+  if(routeName?.includes("PayChallan") || routeName?.includes("PayChaSecond") || 
+  routeName?.includes("Places") || routeName?.includes("Notifications") ||
   routeName?.includes("Profile") || routeName?.includes("Search") || routeName?.includes("FileComplaint") ||
   routeName?.includes("Setting") || routeName?.includes("Rules") || routeName?.includes("Help") || 
   routeName?.includes("ChallanHistory")){

@@ -153,14 +153,13 @@ export default function WardenScreen({ navigation }) {
           navigation.navigate("ViewComplaints");
         }}
         >
-           <Fontisto name="commenting" size={40} color="black" style={{marginTop: responsiveHeight(-1),
-            marginLeft: responsiveWidth(29), zIndex: 1 }}
+           <Fontisto name="commenting" size={40} color="white" style={{marginTop: responsiveHeight(2.5),
+            marginLeft: responsiveWidth(31), zIndex: 1 }}
           />
-          <MaterialCommunityIcons name="comment-multiple" size={97} color="#f797f7" style={{
-            marginTop: responsiveHeight(-4.5),
+          <MaterialCommunityIcons name="comment-multiple" size={97} color="black" style={{
+            marginTop: responsiveHeight(-7.5),
             marginLeft: responsiveWidth(16) }}
           />
-         
           <Text
             style={[
               globalStyles.addView_Challan_Text,

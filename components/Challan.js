@@ -12,7 +12,7 @@ export default function Challan({ navigation }) {
 
     <View>
       <View style={globalStyles.challan_TopText}>
-        <Text style={globalStyles.challan_TopText}>Add Challan</Text>
+        <Text style={[globalStyles.challan_TopText, {marginLeft: responsiveWidth(14) }]}>Add Challan</Text>
       </View>
 
       <View style={[globalStyles.easeTraffic_Rect, { marginTop: responsiveHeight(14) }]}>
