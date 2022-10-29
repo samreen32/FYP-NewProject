@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, Fontisto, FontAwesome, Foundation } from "@expo/vector-icons";
 import { globalStyles } from "../styles/globalStyles";
 import {
   responsiveFontSize,
@@ -17,6 +17,7 @@ import {
   responsiveWidth,
 } from "react-native-responsive-dimensions";
 import { DrawerActions } from '@react-navigation/native';
+
 
 export default function WardenScreen({ navigation }) {
   return (
@@ -72,7 +73,7 @@ export default function WardenScreen({ navigation }) {
         </View>
         <TouchableOpacity
          onPress={()=>{
-          navigation.navigate("WardenProfile")
+          navigation.navigate("WardenProfile");
         }}>
           <Ionicons name="md-person-circle-outline" size={50} />
         </TouchableOpacity>
@@ -120,6 +121,10 @@ export default function WardenScreen({ navigation }) {
           navigation.navigate("Challan")
         }}
         >
+          <Foundation name="clipboard-pencil" size={100} color="black" style={{
+            marginTop: responsiveHeight(0),
+            marginLeft: responsiveWidth(21) }}
+          />
           <Text
             style={[
               globalStyles.addView_Challan_Text,
@@ -148,6 +153,14 @@ export default function WardenScreen({ navigation }) {
           navigation.navigate("ViewComplaints");
         }}
         >
+           <Fontisto name="commenting" size={40} color="black" style={{marginTop: responsiveHeight(-1),
+            marginLeft: responsiveWidth(29), zIndex: 1 }}
+          />
+          <MaterialCommunityIcons name="comment-multiple" size={97} color="#f797f7" style={{
+            marginTop: responsiveHeight(-4.5),
+            marginLeft: responsiveWidth(16) }}
+          />
+         
           <Text
             style={[
               globalStyles.addView_Challan_Text,

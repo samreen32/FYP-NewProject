@@ -113,9 +113,9 @@ export default function AdminScreen({ navigation }) {
             <TouchableOpacity onPress={() => {
               navigation.navigate("HandleComplaints");
             }}>
-                <MaterialIcons name="headset-mic" size={43} color="black" style={{
-                    marginTop: responsiveHeight(1.5), marginLeft: responsiveWidth(15.5),}}
-                />
+              <AntDesign name="customerservice" size={55} color="black" style={{
+                    marginTop: responsiveHeight(1), marginLeft: responsiveWidth(15.5),}}
+              />
                 <Text style={[globalStyles.payChallan_Text, {marginTop: responsiveHeight(7.5),
                     marginLeft: responsiveWidth(5), fontSize: responsiveFontSize(2.5) }]}>     Handle{'\n'}Complaints</Text>
             </TouchableOpacity>

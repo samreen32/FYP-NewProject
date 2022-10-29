@@ -1,9 +1,11 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Challan from "../components/Challan";
-import Profile from "../components/Profile";
+import WardenProfile from "../components/WardenProfile";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { StyleSheet } from "react-native";
 import StackWarden from "./StackWarden";
+import {getFocusedRouteNameFromRoute} from "@react-navigation/native";
+
 
 const Tab = createBottomTabNavigator();
 
@@ -58,20 +60,35 @@ export default function WardenTabs() {
       <Tab.Screen
         name="Home"
         component={StackWarden}
-        options={{ headerShown: false }}
+        options = {{ headerShown: false}}
+    
+        // options={({route}) => (
+        //   { 
+        //  tabBarStyle:{display: getRouteName(route)} })}
       />
       <Tab.Screen
         name="Add Challan"
         component={Challan}
+        tabBarStyle= {{display: 'none'}}
         options={{ headerShown: false }}
       />
 
       <Tab.Screen
         name="Profile"
-        component={Profile}
+        component={WardenProfile}
+        tabBarStyle= {{display: 'none'}}
         options={{ headerShown: false }}
       />
     </Tab.Navigator>
   );
 }
 const styles = StyleSheet.create({});
+
+const getRouteName=(route) =>{
+  const routeName=getFocusedRouteNameFromRoute(route);
+  console.log(routeName);
+  if(routeName?.includes("Challan") || routeName?.includes("Places") || routeName?.includes("Notifications") ){
+    return 'none';
+  }
+  return 'flex';
+};

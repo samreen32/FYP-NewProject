@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, FontAwesome5, Entypo, MaterialIcons } from "@expo/vector-icons";
 import { globalStyles } from "../styles/globalStyles";
 import {
   responsiveFontSize, responsiveHeight, responsiveWidth
@@ -99,35 +99,47 @@ export default function CitizenScreen({ navigation }) {
          source={require("./assets/images/car.jpg")}
        /> */}
      
-        <View style={globalStyles.payChallan_Rect}>
-            <TouchableOpacity onPress={() => {
-              navigation.navigate("PayChallan");
-            }}>
-              <Text style={globalStyles.payChallan_Text}>     Pay{'\n'}Challan</Text>
-            </TouchableOpacity> 
-        
-        </View>
+      <View style={globalStyles.payChallan_Rect}>
+          <TouchableOpacity onPress={() => {
+            navigation.navigate("PayChallan");
+          }}>
+
+          <MaterialCommunityIcons name="credit-card-check-outline" size={100} color="black" style={{
+            marginTop: responsiveHeight(1), marginLeft: responsiveWidth(9) }}
+          />
+            <Text style={globalStyles.payChallan_Text}>     Pay{'\n'}Challan</Text>
+          </TouchableOpacity> 
+      </View>
 
     
 
-        <View style={[globalStyles.fileHistory_Complaints_Rect, { marginTop: responsiveHeight(45) }]}>
-          <View>
-            <TouchableOpacity onPress={() => {
-              navigation.navigate("FileComplaint");
-            }}>
-              <Text style={[globalStyles.fileHistoryComplaints_Text, { marginLeft: responsiveWidth(12) }]}>                   File {'\n'}Complaints</Text>
-            </TouchableOpacity>
-          </View>
+      <View style={[globalStyles.fileHistory_Complaints_Rect, { marginTop: responsiveHeight(45) }]}>
+        <View>
+          <TouchableOpacity onPress={() => {
+            navigation.navigate("FileComplaint");
+          }}>
+             <Entypo name="emoji-sad" size={33} color="black" style={{ marginTop: responsiveHeight(2.5),
+             marginLeft: responsiveWidth(8.5) }}
+            />
+            <FontAwesome5 name="comment-alt" size={60} color="black" style={{ marginTop: responsiveHeight(-6),
+             marginLeft: responsiveWidth(5) }}
+            />
+           
+            <Text style={[globalStyles.fileHistoryComplaints_Text, { marginLeft: responsiveWidth(12) }]}>                   File {'\n'}Complaints</Text>
+          </TouchableOpacity>
         </View>
+      </View>
  
-
-
       
         <View style={[globalStyles.fileHistory_Complaints_Rect, { marginTop: responsiveHeight(60) }]}>
           <View>
             <TouchableOpacity onPress={() => {
               navigation.navigate("ChallanHistory");
             }}>
+              <MaterialIcons name="pending-actions" size={65} color="black"  style={{ 
+                marginTop: responsiveHeight(2),
+                marginLeft: responsiveWidth(2) }}
+              />
               <Text style={[globalStyles.fileHistoryComplaints_Text, { marginLeft: responsiveWidth(20) }]}>Challan {'\n'} History</Text>
             </TouchableOpacity>
           </View>

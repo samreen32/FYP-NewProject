@@ -100,7 +100,7 @@ export default function StackWarden() {
         }}
       />
       <Stack.Screen
-        name="Profile"
+        name="WardenProfile"
         component={WardenProfile}
         options={{
           headerShown: false,
