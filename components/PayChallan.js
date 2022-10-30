@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Text, View, TouchableOpacity, Image } from "react-native";
 import { globalStyles } from "../styles/globalStyles";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 import {
   responsiveFontSize,
   responsiveHeight,
@@ -13,7 +13,15 @@ export default function PayChallan({ navigation }) {
   return (
     <View>
       <View style={globalStyles.challan_TopText}>
-        <Text style={globalStyles.challan_TopText}>Pay Challan</Text>
+        <TouchableOpacity style={{ marginLeft: responsiveWidth(-6), marginTop: responsiveHeight(4),}}
+         onPress={()=>{
+          navigation.goBack();
+        }}
+        >
+        <Ionicons name="arrow-back" size={50} color="black"/>
+        <Text style={[globalStyles.challan_TopText, {width: responsiveWidth(45), marginTop: responsiveHeight(-2),
+          marginLeft: responsiveWidth(28),}]}>   Pay {'\n'}Challan</Text>
+        </TouchableOpacity>
       </View>
 
       {/* <ScrollView> */}
@@ -22,7 +30,7 @@ export default function PayChallan({ navigation }) {
           globalStyles.bottomGroup,
           {
             width: responsiveWidth(33),
-            marginTop: responsiveHeight(1),
+            marginTop: responsiveHeight(4),
             marginLeft: responsiveWidth(0),
           },
         ]}
@@ -32,15 +40,15 @@ export default function PayChallan({ navigation }) {
             style={[
               globalStyles.searchIcon,
               {
-                marginTop: responsiveHeight(7),
-                marginLeft: responsiveWidth(80),
+                marginTop: responsiveHeight(5),
+                marginLeft: responsiveWidth(76),
               },
             ]}
             onPress={() => {
               navigation.navigate("PayChaSecond");
             }}
           >
-            <AntDesign name="right" size={30} color="black" />
+            <AntDesign name="right" size={50} color="black" />
           </TouchableOpacity>
 
           <View style={globalStyles.pendingChallanImage}>
@@ -89,15 +97,15 @@ export default function PayChallan({ navigation }) {
             style={[
               globalStyles.searchIcon,
               {
-                marginTop: responsiveHeight(7),
-                marginLeft: responsiveWidth(80),
+                marginTop: responsiveHeight(5),
+                marginLeft: responsiveWidth(76),
               },
             ]}
             onPress={() => {
               navigation.navigate("PayChaSecond");
             }}
           >
-            <AntDesign name="right" size={30} color="black" />
+            <AntDesign name="right" size={50} color="black" />
           </TouchableOpacity>
 
           <View style={globalStyles.pendingChallanImage}>
@@ -146,15 +154,15 @@ export default function PayChallan({ navigation }) {
             style={[
               globalStyles.searchIcon,
               {
-                marginTop: responsiveHeight(7),
-                marginLeft: responsiveWidth(80),
+                marginTop: responsiveHeight(5),
+                marginLeft: responsiveWidth(76),
               },
             ]}
             onPress={() => {
               navigation.navigate("PayChaSecond");
             }}
           >
-            <AntDesign name="right" size={30} color="black" />
+            <AntDesign name="right" size={50} color="black" />
           </TouchableOpacity>
 
           <View style={globalStyles.pendingChallanImage}>
@@ -203,15 +211,15 @@ export default function PayChallan({ navigation }) {
             style={[
               globalStyles.searchIcon,
               {
-                marginTop: responsiveHeight(7),
-                marginLeft: responsiveWidth(80),
+                marginTop: responsiveHeight(5),
+                marginLeft: responsiveWidth(76),
               },
             ]}
             onPress={() => {
               navigation.navigate("PayChaSecond");
             }}
           >
-            <AntDesign name="right" size={30} color="black" />
+            <AntDesign name="right" size={50} color="black" />
           </TouchableOpacity>
 
           <View style={globalStyles.pendingChallanImage}>

@@ -12,7 +12,7 @@ import {
   Button,
   Pressable,
 } from "react-native";
-import {Ionicons, AntDesign } from "@expo/vector-icons";
+import { Ionicons, AntDesign } from "@expo/vector-icons";
 import {
   responsiveHeight,
   responsiveWidth,
@@ -76,32 +76,43 @@ const DATA = [
   },
 ];
 
-export default function HandleComplaints() {
+export default function HandleComplaints({navigation}) {
   return (
     <View>
-      <Text style={[styles.Complain_Text_Header]}>Handle Complaints</Text>
+      <TouchableOpacity
+          onPress={()=>{
+            navigation.goBack();
+          }}
+        >
+            <Text style={[styles.Complain_Text_Header]}>Handle Complaints</Text>
+        <Ionicons name="arrow-back" size={45} color="black" style={styles.backArrow}/>
+      </TouchableOpacity>
+
       <FlatList
         data={DATA}
         renderItem={({ item, description }) => (
           <View style={styles.Complain_Container}>
-            
             <TouchableOpacity>
-              
-
               <Image
                 style={styles.Image}
                 source={item.image_source}
                 resizeMode="contain"
               />
-            
             </TouchableOpacity>
 
             <View>
               <Text style={styles.Name_Text}>{item.Name}</Text>
               <Text style={styles.description_Text}>{item.Complain}</Text>
               <TouchableOpacity>
-                <AntDesign name="right" size={50} color="black" style={{marginTop: responsiveHeight(-8.5),
-                      marginLeft: responsiveWidth(56),}} />
+                <AntDesign
+                  name="right"
+                  size={50}
+                  color="black"
+                  style={{
+                    marginTop: responsiveHeight(-8.5),
+                    marginLeft: responsiveWidth(56),
+                  }}
+                />
               </TouchableOpacity>
             </View>
           </View>
@@ -115,7 +126,7 @@ const styles = StyleSheet.create({
     color: "black",
     fontFamily: "poppins-bold",
     fontSize: responsiveFontSize(3),
-    marginLeft: responsiveWidth(15),
+    marginLeft: responsiveWidth(20),
     marginTop: responsiveHeight(6),
   },
   Complain_Container: {
@@ -150,4 +161,8 @@ const styles = StyleSheet.create({
     marginTop: responsiveHeight(0.5),
     color: "#FFFFFF",
   },
+  backArrow: {
+    marginLeft: responsiveWidth(5),
+    marginTop: responsiveHeight(-6.5),
+  }
 });

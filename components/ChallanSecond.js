@@ -81,7 +81,10 @@ export default function Challan({ navigation }) {
 
 
             </View>
-            <TouchableOpacity style={globalStyles.printChallan_btn}>
+            <TouchableOpacity style={globalStyles.printChallan_btn}
+            onPress={()=>{
+                navigation.goBack()
+            }}>
                 <Text style={globalStyles.submitChallan_Text}>Print</Text>
             </TouchableOpacity>
         </View>

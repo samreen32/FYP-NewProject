@@ -1,14 +1,10 @@
 import React from "react";
 import {
-  Button,
-  TextInput,
-  Image,
-  FlatList,
   Text,
   View,
   TouchableOpacity,
 } from "react-native";
-import { AntDesign, SimpleLineIcons, MaterialIcons, Ionicons, FontAwesome  } from '@expo/vector-icons';
+import { AntDesign, SimpleLineIcons, Ionicons } from '@expo/vector-icons';
 import { globalStyles } from "../styles/globalStyles";
 import {
   responsiveFontSize, responsiveHeight, responsiveWidth

@@ -78,10 +78,24 @@ const DATA = [
   },
 ];
 
-export default function ManageChallan() {
+export default function ManageChallan({navigation}) {
   return (
     <View>
-     <Text style={[styles.Challan_Text_Header]}>Manage Challan</Text>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.goBack();
+        }}
+      >
+        <Text style={[styles.Challan_Text_Header]}>Manage Challan</Text>
+        <Ionicons
+          name="arrow-back"
+          size={45}
+          color="black"
+          style={styles.backArrow}
+        />
+      </TouchableOpacity>
+
+     
       <View style={{ height: responsiveHeight(5) }}>
         <SearchBar />
       </View>
@@ -105,7 +119,7 @@ const styles = StyleSheet.create({
     color: "black",
     fontFamily: "poppins-bold",
     fontSize: responsiveFontSize(3.5),
-    marginLeft: responsiveWidth(16),
+    marginLeft: responsiveWidth(20),
     marginTop: responsiveHeight(6),
   },
   Challan_Container: {
@@ -137,4 +151,8 @@ const styles = StyleSheet.create({
     marginLeft: responsiveWidth(55),
     marginTop: responsiveHeight(-8),
   },
+  backArrow: {
+    marginLeft: responsiveWidth(5),
+    marginTop: responsiveHeight(-7),
+  }
 });

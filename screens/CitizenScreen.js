@@ -1,9 +1,5 @@
 import React from "react";
 import {
-  Button,
-  TextInput,
-  Image,
-  FlatList,
   Text,
   View,
   TouchableOpacity,

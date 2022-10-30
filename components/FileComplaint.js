@@ -19,12 +19,21 @@ import {
 } from "react-native-responsive-dimensions";
 
 
-export default function FileComplaint() {
+export default function FileComplaint({navigation}) {
   const [name, setname] = useState("");
   return (
     <View>
       <View style={styles.purple_background}>
-        <Text style={styles.File_Complaint_Text}>File Complaint</Text>
+
+      <TouchableOpacity
+          onPress={()=>{
+            navigation.goBack();
+          }}
+        >
+          <Text style={styles.File_Complaint_Text}>File Complaint</Text>
+          <Ionicons name="caret-back-sharp" size={40} color="black" style={styles.backArrow}/>
+        </TouchableOpacity>
+
       </View>
       <View style={styles.icon_border}>
         <Ionicons name={"chatbubbles"} size={100} color={"purple"} />
@@ -116,7 +125,6 @@ const styles = StyleSheet.create({
     opacity: 1,
     color: "grey",
     background: "#D9D9D9",
-
     backgroundColor: "rgba(217,217,217,1)",
     borderRadius: responsiveWidth(6),
   },
@@ -132,10 +140,11 @@ const styles = StyleSheet.create({
   File_Complaint_Text: {
     color: "white",
     textAlign: "center",
-    marginTop: responsiveHeight(5),
+    marginTop: responsiveHeight(6),
+    marginLeft: responsiveWidth(5),
     fontSize: responsiveFontSize(3),
     letterSpacing: 1.0,
-    fontfamily: "Poppins",
+    fontFamily: "poppins-bold",
     lineheight: 114.99999761581421,
   },
 
@@ -143,7 +152,6 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(215,152,246,1)",
     width: responsiveWidth(30),
     height: responsiveHeight(7),
-
     marginTop: responsiveHeight(-19),
     borderRadius: responsiveWidth(3),
     marginLeft: responsiveWidth(37),
@@ -152,10 +160,13 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(2.5),
     justifyContent: "center",
     textAlign: "center",
-
     letterSpacing: 1.0,
     fontfamily: "Poppins",
     fontWeight: "bold",
     paddingTop: responsiveHeight(1.6),
   },
+  backArrow: {
+    marginLeft: responsiveWidth(5),
+    marginTop: responsiveHeight(-6),
+  }
 });

@@ -33,16 +33,19 @@ export default function Setting({ navigation }) {
           <Ionicons
             style={styles.back_icon}
             name={"chevron-back-outline"}
-            size={40}
+            size={45}
             color={"black"}
           />
           <Text style={styles.Setting_Text}>Setting</Text>
         </TouchableOpacity>
       </View>
+
       <View style={styles.Account_length}>
-        <View style={styles.style_container}>
-          <Ionicons name={"person-outline"} size={20} color={"purple"} />
-          <Text style={styles.style_text}>Account</Text>
+        <View style={[styles.Remaining_item_length, {marginTop: responsiveHeight(21),}]}>
+          <TouchableOpacity style={styles.style_container}>
+            <Ionicons name={"person-outline"} size={20} color={"purple"} />
+            <Text style={styles.style_text}>Account</Text>
+          </TouchableOpacity>
         </View>
       </View>
       <View style={styles.Account_line}></View>
@@ -135,7 +138,7 @@ const styles = StyleSheet.create({
     marginTop: responsiveHeight(-20),
   },
   back_icon: {
-    marginTop: responsiveHeight(3),
+    marginTop: responsiveHeight(5),
     marginLeft: responsiveWidth(6),
   },
   line: {
@@ -160,7 +163,7 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(2.5),
     marginLeft: responsiveWidth(3),
     letterSpacing: 1.0,
-    fontfamily: "Poppins",
+    fontFamily: "poppins-regular",
     lineheight: 114.99999761581421,
     color: "rgb(1,1,1)",
   },
@@ -173,10 +176,10 @@ const styles = StyleSheet.create({
   Setting_Text: {
     color: "white",
     textAlign: "center",
-    marginTop: responsiveHeight(-4.8),
+    marginTop: responsiveHeight(-5.5),
     fontSize: responsiveFontSize(3),
     letterSpacing: 1.0,
-    fontfamily: "Poppins",
+    fontFamily: "poppins-regular",
     lineheight: 114.99999761581421,
     marginLeft: responsiveWidth(-5),
   },

@@ -68,12 +68,19 @@ const DATA = [
   },
 ];
 
-export default function Rules() {
+export default function Rules({navigation}) {
   return (
     <View>
       
-      <Text style={styles.Rule_Text_Header}>Rules</Text>
-   
+      <TouchableOpacity
+          onPress={()=>{
+            navigation.goBack();
+          }}
+        >
+          <Text style={styles.Rule_Text_Header}>Rules</Text>
+        <Ionicons name="arrow-back" size={45} color="black" style={styles.backArrow}/>
+        </TouchableOpacity>
+
       <FlatList
         data={DATA}
         renderItem={({ item, description }) => (
@@ -91,9 +98,10 @@ export default function Rules() {
 const styles = StyleSheet.create({
   Rule_Text_Header: {
     color: "#D798F6",
-    fontSize: responsiveFontSize(3),
-    marginLeft: responsiveWidth(40),
-    marginTop: responsiveHeight(7),
+    fontFamily: "poppins-bold",
+    fontSize: responsiveFontSize(3.5),
+    marginLeft: responsiveWidth(37),
+    marginTop: responsiveHeight(6),
   },
   Rule_Container: {
     backgroundColor: "#D798F6",
@@ -116,4 +124,8 @@ const styles = StyleSheet.create({
     marginTop: responsiveHeight(0.5),
     color: "#FFFFFF",
   },
+  backArrow: {
+    marginLeft: responsiveWidth(5),
+    marginTop: responsiveHeight(-7.5),
+  }
 });

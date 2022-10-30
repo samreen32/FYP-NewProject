@@ -4,7 +4,7 @@ import {
   responsiveFontSize, responsiveHeight, responsiveWidth
 } from "react-native-responsive-dimensions";
 import { globalStyles } from "../styles/globalStyles";
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, Ionicons } from '@expo/vector-icons';
 
 export default function Challan({ navigation }) {
   const [name, setname] = useState('');
@@ -12,10 +12,22 @@ export default function Challan({ navigation }) {
 
     <View>
       <View style={globalStyles.challan_TopText}>
-        <Text style={[globalStyles.challan_TopText, {marginLeft: responsiveWidth(14) }]}>Add Challan</Text>
+        <Text style={[globalStyles.challan_TopText, {marginLeft: responsiveWidth(15),  
+          position: 'relative',  marginTop: responsiveHeight(3.5) }]}>Add Challan</Text>
+        <TouchableOpacity
+            onPress={()=>{
+              navigation.goBack();
+            }}
+          >
+          <Ionicons name="arrow-back" size={50} color="black" style={{ marginLeft: responsiveWidth(-8),
+            marginTop: responsiveHeight(-6.5),}}
+          />
+          </TouchableOpacity>
       </View>
+        
+     
 
-      <View style={[globalStyles.easeTraffic_Rect, { marginTop: responsiveHeight(14) }]}>
+      <View style={[globalStyles.easeTraffic_Rect, { marginTop: responsiveHeight(16) }]}>
 
         <TouchableOpacity style={[globalStyles.searchIcon, 
           { marginTop: responsiveHeight(4), marginLeft: responsiveWidth(39) }]}
@@ -29,7 +41,7 @@ export default function Challan({ navigation }) {
       </View>
 
 
-      <View style={[globalStyles.bottomGroup, { width: responsiveWidth(33), marginTop: responsiveHeight(5), marginLeft: responsiveWidth(0) }]}>
+      <View style={[globalStyles.bottomGroup, { width: responsiveWidth(33), marginTop: responsiveHeight(7), marginLeft: responsiveWidth(0) }]}>
         
         <TextInput style={globalStyles.textInput} onChangeText={(value) => setname(value)}
           placeholder="     Enter Vehicle Number" keyboardType="alphabet" editable maxLength={20} />
@@ -45,7 +57,7 @@ export default function Challan({ navigation }) {
       
       </View>
 
-      <TouchableOpacity style={globalStyles.submitChallan_btn}
+      <TouchableOpacity style={[globalStyles.submitChallan_btn, { marginTop: responsiveHeight(87),}]}
         onPress={() => { navigation.navigate('ChallanSecond') }}
       >
         <Text style={globalStyles.submitChallan_Text}>Add</Text>

@@ -16,7 +16,19 @@ export default function WardenProfile({ navigation }) {
   return (
     <View>
       <View style={styles.purple_background}>
-        <Text style={styles.Profile_Text}>Profile</Text>
+      <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <Ionicons
+            style={styles.back_icon}
+            name={"chevron-back-outline"}
+            size={45}
+            color={"black"}
+          />
+          <Text style={styles.Profile_Text}>Profile</Text>  
+        </TouchableOpacity>
       </View>
 
       <View style={styles.Profile_Rectangle}>
@@ -61,7 +73,7 @@ export default function WardenProfile({ navigation }) {
         </TouchableOpacity>
         <TouchableOpacity style={styles.style_Logout}
          onPress={()=>{
-          navigation.navigate("")
+          navigation.goBack()
         }}
         >
           <Ionicons name={"log-out"} size={25} color={"purple"} />
@@ -86,7 +98,7 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(2.5),
     marginLeft: responsiveWidth(3),
     letterSpacing: 1.0,
-    fontfamily: "Poppins",
+    fontFamily: "poppins-regular",
     lineheight: 114.99999761581421,
     color: "rgb(1,1,1)",
   },
@@ -98,7 +110,7 @@ const styles = StyleSheet.create({
   Profile_Text: {
     color: "white",
     textAlign: "center",
-    marginTop: responsiveHeight(5),
+    marginTop: responsiveHeight(-6.5),
     fontSize: responsiveFontSize(4),
     letterSpacing: 1.0,
     fontFamily: "poppins-regular",
@@ -118,21 +130,21 @@ const styles = StyleSheet.create({
     marginTop: responsiveHeight(8),
     fontSize: responsiveFontSize(2.5),
     letterSpacing: 1.0,
-    fontfamily: "Poppins",
+    fontFamily: "poppins-regular",
     lineheight: 114.99999761581421,
     color: "rgb(1,1,1)",
     marginBottom: responsiveHeight(2),
   },
   Edit_Profile_Btn: {
     backgroundColor: "rgba(215,152,246,1)",
-    width: responsiveWidth(35),
+    width: responsiveWidth(37.5),
     height: responsiveHeight(6.5),
     textAlign: "center",
     justifyContent: "center",
     borderRadius: responsiveWidth(8),
     fontSize: responsiveFontSize(2.5),
     letterSpacing: 1.0,
-    fontfamily: "Poppins",
+    fontFamily: "poppins-regular",
     lineheight: 114.99999761581421,
     color: "white",
     paddingTop: responsiveHeight(1),
@@ -151,7 +163,7 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(2.5),
     marginLeft: responsiveWidth(3),
     letterSpacing: 1.0,
-    fontfamily: "Poppins",
+    fontFamily: "poppins-regular",
     lineheight: 114.99999761581421,
     color: "rgb(1,1,1)",
   },
@@ -169,7 +181,7 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(2.5),
     marginLeft: responsiveWidth(3),
     letterSpacing: 1.0,
-    fontfamily: "Poppins",
+    fontFamily: "poppins-regular",
     lineheight: 114.99999761581421,
     color: "rgb(1,1,1)",
   },
@@ -187,8 +199,12 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(2.5),
     marginLeft: responsiveWidth(3),
     letterSpacing: 1.0,
-    fontfamily: "Poppins",
+    fontFamily: "poppins-regular",
     lineheight: 114.99999761581421,
     color: "rgb(1,1,1)",
+  },
+  back_icon: {
+    marginTop: responsiveHeight(5),
+    marginLeft: responsiveWidth(6),
   },
 });

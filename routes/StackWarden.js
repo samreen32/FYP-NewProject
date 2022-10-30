@@ -11,10 +11,12 @@ import Search from "../components/Search";
 import Help from "../components/Help";
 import ViewComplaints from "../components/ViewComplaints";
 import ChallanHistory from "../components/ChallanHistory";
+import Statistics from "../components/Statistics";
 import WardenProfile from "../components/WardenProfile";
 import EditProfile from "../components/editProfile";
 import Rules from "../components/Rules";
 import Setting from "../components/Setting";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -72,6 +74,13 @@ export default function StackWarden() {
         }}
       />
       <Stack.Screen
+        name="Statistics"
+        component={Statistics}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
         name="CameraComponent"
         component={CameraComponent}
         options={{
@@ -120,6 +129,7 @@ export default function StackWarden() {
           headerShown: false,
         }}
       />
+       
     </Stack.Navigator>
   );
 }

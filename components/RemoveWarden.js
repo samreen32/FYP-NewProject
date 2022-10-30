@@ -10,7 +10,7 @@ import {
   Modal,
   Pressable,
 } from "react-native";
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import {
   responsiveHeight,
   responsiveWidth,
@@ -76,12 +76,26 @@ const DATA = [
   },
 ];
 
-export default function RemoveWarden() {
+export default function RemoveWarden({navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <View>
-      <Text style={[styles.Complain_Text_Header]}>Remove Warden</Text>
+
+<TouchableOpacity
+        onPress={() => {
+          navigation.goBack();
+        }}
+      >
+        <Text style={[styles.Complain_Text_Header]}>Remove Warden</Text>
+        <Ionicons
+          name="arrow-back"
+          size={45}
+          color="black"
+          style={styles.backArrow}
+        />
+      </TouchableOpacity>
+
       <View style={{ height: responsiveHeight(5) }}>
         <SearchBar />
       </View>
@@ -119,7 +133,9 @@ export default function RemoveWarden() {
                       </Text>
                       <Pressable onPress={() => setModalVisible(!modalVisible)}>
                         <Text
-                          style={{ marginLeft: responsiveWidth(-25) }}
+                          style={{ marginLeft: responsiveWidth(-24), marginTop: responsiveHeight(1),
+                            width: responsiveWidth(10),
+                            height: responsiveHeight(4), }}
                         >
                           Yes
                         </Text>
@@ -130,8 +146,10 @@ export default function RemoveWarden() {
                       >
                         <Text
                           style={{
-                            marginLeft: responsiveWidth(40),
-                            marginTop: responsiveHeight(-2.5),
+                            width: responsiveWidth(10),
+                            height: responsiveHeight(4),
+                            marginLeft: responsiveWidth(45),
+                            marginTop: responsiveHeight(-3.5),
                           }}
                         >
                           No
@@ -142,17 +160,13 @@ export default function RemoveWarden() {
                 </Modal>
 
                 <TouchableOpacity onPress={() => setModalVisible(true)}>
-                  <AntDesign
-                    name="right"
-                    size={50}
-                    color="black"
-                    style={{
+                <MaterialCommunityIcons name="backspace-reverse-outline" size={40} color="black"  style={{
                       width: responsiveWidth(92),
                       height: responsiveHeight(10),
-                      marginTop: responsiveHeight(-9),
-                      marginLeft: responsiveWidth(54),
-                    }}
-                  />
+                      marginTop: responsiveHeight(-10),
+                      marginLeft: responsiveWidth(52),
+                    }}/>
+
                 </TouchableOpacity>
               </View>
             </View>
@@ -167,7 +181,7 @@ const styles = StyleSheet.create({
     color: "black",
     fontFamily: "poppins-bold",
     fontSize: responsiveFontSize(3.5),
-    marginLeft: responsiveWidth(16),
+    marginLeft: responsiveWidth(20),
     marginTop: responsiveHeight(6),
   },
   Complain_Container: {
@@ -235,4 +249,8 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: "center",
   },
+  backArrow: {
+    marginLeft: responsiveWidth(5),
+    marginTop: responsiveHeight(-7),
+  }
 });

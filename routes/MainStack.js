@@ -11,26 +11,22 @@ import AdminTabs from "./AdminTabs";
 const Stack = createNativeStackNavigator();
 
 export default function MainStack() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="WelcomeScreen"
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+        <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="Login" component={Login} />
 
-    return (
-     
-        <NavigationContainer>
-            <Stack.Navigator initialRouteName="WelcomeScreen"
-                screenOptions={{
-                    headerShown: false,
-                }}
-            >
-                <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
-                <Stack.Screen name="Register" component={Register} />
-                <Stack.Screen name="Login" component={Login} /> 
-      
-                <Stack.Screen name="WardenTabs" component={WardenTabs} />
-                <Stack.Screen name="CitizenTabs" component={CitizenTabs} />
-                <Stack.Screen name="AdminTabs" component={AdminTabs} />  
-
-            </Stack.Navigator>
-        </NavigationContainer>
- 
-
-    );
+        <Stack.Screen name="WardenTabs" component={WardenTabs} />
+        <Stack.Screen name="CitizenTabs" component={CitizenTabs} />
+        <Stack.Screen name="AdminTabs" component={AdminTabs} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }

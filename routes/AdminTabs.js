@@ -3,7 +3,7 @@ import AdminProfile from "../components/AdminProfile";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { StyleSheet } from "react-native";
 import AdminStack from "./AdminStack";
-import {getFocusedRouteNameFromRoute} from "@react-navigation/native";
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator();
 
@@ -17,7 +17,6 @@ export default function AdminTabs() {
             iconName = "home";
             size = focused ? 35 : 30;
             color = focused ? "yellow" : "black";
-
           } else if (route.name === "Profile") {
             iconName = "person";
             size = focused ? 30 : 32;
@@ -31,56 +30,68 @@ export default function AdminTabs() {
       <Tab.Screen
         name="Home"
         component={AdminStack}
-        options={({route}) => (
-          { 
-         tabBarStyle:{display: getRouteName(route),
-          position: "absolute",
-          marginBottom: 10,
-          bottom: 5,
-          left: 15,
-          right: 15,
-          borderBottomLeftRadius: 60,
-          borderTopLeftRadius: 60,
-          borderBottomRightRadius: 60,
-          borderTopRightRadius: 60,
-          elevation: 0,
-          backgroundColor: "rgba(24,154,180,1)",
-          height: 80,
-          ...styles.shadow,
-        },
-        tabBarLabelStyle: {
-          fontSize: 15,
-          marginTop: -2,
-          marginBottom: 15,
-          color: "white",
-        },
-        headerShown: false,
+        options={({ route }) => ({
+          tabBarStyle: {
+            display: getRouteName(route),
+            position: "absolute",
+            marginBottom: 10,
+            bottom: 5,
+            left: 15,
+            right: 15,
+            borderBottomLeftRadius: 60,
+            borderTopLeftRadius: 60,
+            borderBottomRightRadius: 60,
+            borderTopRightRadius: 60,
+            elevation: 0,
+            backgroundColor: "rgba(24,154,180,1)",
+            height: 80,
+            ...styles.shadow,
+          },
+          tabBarLabelStyle: {
+            fontSize: 15,
+            marginTop: -2,
+            marginBottom: 15,
+            color: "white",
+          },
+          headerShown: false,
         })}
       />
       <Tab.Screen
         name="Profile"
         component={AdminProfile}
-        options={{ tabBarStyle: {display: 'none'}, headerShown: false, 
-        tabBarLabelStyle: {
-          fontSize: 15,
-          marginTop: -2,
-          marginBottom: 15,
-          color: "black",
-        }, }}
+        options={{
+          tabBarStyle: { display: "none" },
+          headerShown: false,
+          tabBarLabelStyle: {
+            fontSize: 15,
+            marginTop: -2,
+            marginBottom: 15,
+            color: "black",
+          },
+        }}
       />
     </Tab.Navigator>
   );
 }
 const styles = StyleSheet.create({});
 
-const getRouteName=(route) =>{
-  const routeName=getFocusedRouteNameFromRoute(route);
+const getRouteName = (route) => {
+  const routeName = getFocusedRouteNameFromRoute(route);
   console.log(routeName);
-  if(routeName?.includes("AdminProfile") || routeName?.includes("Places") || routeName?.includes("Notifications") ||
-  routeName?.includes("Search") || routeName?.includes("HandleComplaints") || routeName?.includes("RemoveWarden") ||
-  routeName?.includes("Setting") || routeName?.includes("Rules") || routeName?.includes("Help") || 
-  routeName?.includes("ManageChallan")){
-    return 'none';
+  if (
+    routeName?.includes("AdminProfile") ||
+    routeName?.includes("AdminEditProfile") ||
+    routeName?.includes("Places") ||
+    routeName?.includes("Notifications") ||
+    routeName?.includes("Search") ||
+    routeName?.includes("HandleComplaints") ||
+    routeName?.includes("RemoveWarden") ||
+    routeName?.includes("Setting") ||
+    routeName?.includes("Rules") ||
+    routeName?.includes("Help") ||
+    routeName?.includes("ManageChallan")
+  ) {
+    return "none";
   }
-  return 'flex';
+  return "flex";
 };

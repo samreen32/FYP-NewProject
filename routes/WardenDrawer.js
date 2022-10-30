@@ -9,7 +9,6 @@ import Help from "../components/Help";
 import WardenTabs from "./WardenTabs";
 import CustomDrawer from "./CustomeDrawer";
 
-
 const Drawer = createDrawerNavigator();
 
 export default function WardenDrawer() {

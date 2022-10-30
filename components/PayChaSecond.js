@@ -81,7 +81,11 @@ export default function PayChaSecond({ navigation }) {
 
             </View>
             
-            <TouchableOpacity style={globalStyles.printChallan_btn}>
+            <TouchableOpacity style={globalStyles.printChallan_btn}
+             onPress={()=>{
+                navigation.goBack();
+              }}
+            >
                 <Text style={globalStyles.submitChallan_Text}>Pay</Text>
             </TouchableOpacity>
         </View>

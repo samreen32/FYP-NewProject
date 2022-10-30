@@ -20,7 +20,19 @@ export default function Profile({ navigation }) {
   return (
     <View>
       <View style={styles.purple_background}>
-        <Text style={styles.Profile_Text}>Profile</Text>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <Ionicons
+            style={styles.back_icon}
+            name={"chevron-back-outline"}
+            size={45}
+            color={"black"}
+          />
+          <Text style={styles.Profile_Text}>Profile</Text>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.Profile_Rectangle}>
@@ -37,35 +49,39 @@ export default function Profile({ navigation }) {
       <View
         style={{ height: responsiveHeight(50), width: responsiveWidth(100) }}
       >
-        <TouchableOpacity style={styles.style_dashboard}
-        onPress={()=>{
-          navigation.goBack();
-        }}
+        <TouchableOpacity
+          style={styles.style_dashboard}
+          onPress={() => {
+            navigation.goBack();
+          }}
         >
           <Ionicons name={"keypad"} size={25} color={"purple"} />
           <Text style={styles.dashboard_text}>Dashboard</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.style_challan_History}
-        onPress={()=>{
-          navigation.navigate("ChallanHistory")
-        }}
+        <TouchableOpacity
+          style={styles.style_challan_History}
+          onPress={() => {
+            navigation.navigate("ChallanHistory");
+          }}
         >
           <Ionicons name={"clipboard"} size={25} color={"purple"} />
           <Text style={styles.challan_History_text}>Challan History</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.style_Pay}
-        onPress={()=>{
-          navigation.navigate("PayChallan")
-        }}
+        <TouchableOpacity
+          style={styles.style_Pay}
+          onPress={() => {
+            navigation.navigate("PayChallan");
+          }}
         >
-          <Ionicons name={"logo-usd"} size={25} color={"purple"}/>
+          <Ionicons name={"logo-usd"} size={25} color={"purple"} />
           <Text style={styles.Pay_text}>Pay Challan</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.style_Logout}
-         onPress={()=>{
-          navigation.navigate("")
-        }}
+        <TouchableOpacity
+          style={styles.style_Logout}
+          onPress={() => {
+            navigation.goBack();
+          }}
         >
           <Ionicons name={"log-out"} size={25} color={"purple"} />
           <Text style={styles.Logout_text}>Logout</Text>
@@ -89,7 +105,7 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(2.5),
     marginLeft: responsiveWidth(3),
     letterSpacing: 1.0,
-    fontfamily: "Poppins",
+    fontFamily: "poppins-regular",
     lineheight: 114.99999761581421,
     color: "rgb(1,1,1)",
   },
@@ -101,7 +117,7 @@ const styles = StyleSheet.create({
   Profile_Text: {
     color: "white",
     textAlign: "center",
-    marginTop: responsiveHeight(5),
+    marginTop: responsiveHeight(-6.5),
     fontSize: responsiveFontSize(4),
     letterSpacing: 1.0,
     fontFamily: "poppins-regular",
@@ -128,14 +144,14 @@ const styles = StyleSheet.create({
   },
   Edit_Profile_Btn: {
     backgroundColor: "rgba(215,152,246,1)",
-    width: responsiveWidth(35),
+    width: responsiveWidth(38),
     height: responsiveHeight(6.5),
     textAlign: "center",
     justifyContent: "center",
     borderRadius: responsiveWidth(8),
     fontSize: responsiveFontSize(2.5),
     letterSpacing: 1.0,
-    fontfamily: "Poppins",
+    fontFamily: "poppins-regular",
     lineheight: 114.99999761581421,
     color: "white",
     paddingTop: responsiveHeight(1),
@@ -154,7 +170,7 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(2.5),
     marginLeft: responsiveWidth(3),
     letterSpacing: 1.0,
-    fontfamily: "Poppins",
+    fontFamily: "poppins-regular",
     lineheight: 114.99999761581421,
     color: "rgb(1,1,1)",
   },
@@ -172,7 +188,7 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(2.5),
     marginLeft: responsiveWidth(3),
     letterSpacing: 1.0,
-    fontfamily: "Poppins",
+    fontFamily: "poppins-regular",
     lineheight: 114.99999761581421,
     color: "rgb(1,1,1)",
   },
@@ -190,8 +206,12 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(2.5),
     marginLeft: responsiveWidth(3),
     letterSpacing: 1.0,
-    fontfamily: "Poppins",
+    fontFamily: "poppins-regular",
     lineheight: 114.99999761581421,
     color: "rgb(1,1,1)",
+  },
+  back_icon: {
+    marginTop: responsiveHeight(5),
+    marginLeft: responsiveWidth(6),
   },
 });

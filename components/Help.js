@@ -17,13 +17,22 @@ import {
   responsiveWidth,
   responsiveFontSize,
 } from "react-native-responsive-dimensions";
-export default function Help() {
+
+export default function Help({navigation}) {
   const [name, setname] = useState("");
   return (
     <View>
       <View style={styles.purple_background}>
-        <Text style={styles.Help_Text}>Help</Text>
+        <TouchableOpacity
+          onPress={()=>{
+            navigation.goBack();
+          }}
+        >
+          <Text style={styles.Help_Text}>Help</Text>
+        <Ionicons name="arrow-back" size={50} color="black" style={styles.backArrow}/>
+        </TouchableOpacity>
       </View>
+
       <View style={styles.icon_border}>
         <Ionicons name={"help-circle"} size={160} color={"purple"} />
       </View>
@@ -65,7 +74,10 @@ export default function Help() {
           maxLength={20}
         />
       </View>
-      <TouchableOpacity style={styles.submit_btn}>
+      <TouchableOpacity style={styles.submit_btn}
+      onPress={()=>{
+        navigation.goBack();
+      }}>
         <Text style={styles.submit_text}>Submit</Text>
       </TouchableOpacity>
     </View>
@@ -123,7 +135,7 @@ const styles = StyleSheet.create({
   },
   icon_border: {
     marginTop: responsiveHeight(-16),
-    marginLeft: responsiveWidth(31),
+    marginLeft: responsiveWidth(28),
   },
   purple_background: {
     backgroundColor: "rgba(215,152,246,1)",
@@ -134,9 +146,9 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: "center",
     marginTop: responsiveHeight(5),
-    fontSize: responsiveFontSize(3),
+    fontSize: responsiveFontSize(4),
     letterSpacing: 1.0,
-    fontfamily: "Poppins",
+    fontFamily: "poppins-bold",
     lineheight: 114.99999761581421,
   },
 
@@ -144,7 +156,6 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(215,152,246,1)",
     width: responsiveWidth(30),
     height: responsiveHeight(7),
-
     marginTop: responsiveHeight(-19),
     borderRadius: responsiveWidth(3),
     marginLeft: responsiveWidth(37),
@@ -153,10 +164,13 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(2.5),
     justifyContent: "center",
     textAlign: "center",
-
     letterSpacing: 1.0,
-    fontfamily: "Poppins",
+    fontFamily: "poppins-bold",
     fontWeight: "bold",
     paddingTop: responsiveHeight(1.6),
   },
+  backArrow: {
+    marginLeft: responsiveWidth(5),
+    marginTop: responsiveHeight(-7.8),
+  }
 });

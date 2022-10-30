@@ -13,12 +13,24 @@ import {
   responsiveFontSize,
 } from "react-native-responsive-dimensions";
 
-export default function AdminEditProfile() {
+export default function AdminEditProfile({navigation}) {
   const [name, setname] = useState("");
   return (
     <View>
       <View style={styles.purple_background}>
-        <Text style={styles.Edit_Profile_Text}>Edit Profile</Text>
+      <TouchableOpacity
+          onPress={() => {
+            navigation.goBack();
+          }}
+        >
+          <Ionicons
+            style={styles.back_icon}
+            name={"chevron-back-outline"}
+            size={45}
+            color={"black"}
+          />
+          <Text style={styles.Edit_Profile_Text}>Edit Profile</Text>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.Change_Profile_Rectangle}>
@@ -61,7 +73,10 @@ export default function AdminEditProfile() {
           maxLength={20}
         />
       </View>
-      <TouchableOpacity style={styles.save_btn}>
+      <TouchableOpacity style={styles.save_btn}
+      onPress={()=>{
+        navigation.goBack()
+      }}>
         <Text style={styles.save_text}>Save</Text>
       </TouchableOpacity>
     </View>
@@ -76,7 +91,6 @@ const styles = StyleSheet.create({
     height: responsiveHeight(8),
     opacity: 1,
     color: "grey",
-
     backgroundColor: "rgba(217,217,217,1)",
     borderRadius: responsiveWidth(6),
   },
@@ -88,7 +102,6 @@ const styles = StyleSheet.create({
     height: responsiveHeight(8),
     opacity: 1,
     color: "grey",
-
     backgroundColor: "rgba(217,217,217,1)",
     borderRadius: responsiveWidth(6),
   },
@@ -100,7 +113,6 @@ const styles = StyleSheet.create({
     height: responsiveHeight(8),
     opacity: 1,
     color: "grey",
-
     backgroundColor: "rgba(217,217,217,1)",
     borderRadius: responsiveWidth(6),
   },
@@ -113,7 +125,6 @@ const styles = StyleSheet.create({
     opacity: 1,
     color: "grey",
     background: "#D9D9D9",
-
     backgroundColor: "rgba(217,217,217,1)",
     borderRadius: responsiveWidth(6),
   },
@@ -126,7 +137,8 @@ const styles = StyleSheet.create({
   Edit_Profile_Text: {
     color: "white",
     textAlign: "center",
-    marginTop: responsiveHeight(5),
+    marginTop: responsiveHeight(-6),
+    marginLeft: responsiveWidth(3.5),
     fontSize: responsiveFontSize(3.5),
     letterSpacing: 1.0,
     fontFamily: "poppins-regular",
@@ -161,7 +173,6 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(215,152,246,1)",
     width: responsiveWidth(30),
     height: responsiveHeight(7),
-
     marginTop: responsiveHeight(-19),
     borderRadius: responsiveWidth(3),
     marginLeft: responsiveWidth(37),
@@ -170,10 +181,13 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(2.5),
     justifyContent: "center",
     textAlign: "center",
-
     letterSpacing: 1.0,
-    fontfamily: "Poppins",
+    fontFamily: "poppins-bold",
     fontWeight: "bold",
     paddingTop: responsiveHeight(1.6),
+  },
+  back_icon: {
+    marginTop: responsiveHeight(5),
+    marginLeft: responsiveWidth(6),
   },
 });

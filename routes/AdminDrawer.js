@@ -9,7 +9,6 @@ import Help from "../components/Help";
 import AdminTabs from "./AdminTabs";
 import CustomDrawer from "./CustomeDrawer";
 
-
 const Drawer = createDrawerNavigator();
 
 export default function AdminDrawer() {

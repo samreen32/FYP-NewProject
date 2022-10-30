@@ -9,7 +9,6 @@ import Help from "../components/Help";
 import CitizenTabs from "./CitizenTabs";
 import CustomDrawer from "./CustomeDrawer";
 
-
 const Drawer = createDrawerNavigator();
 
 export default function CitizenDrawer() {

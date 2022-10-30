@@ -9,15 +9,19 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { MaterialCommunityIcons, Fontisto, FontAwesome, Foundation } from "@expo/vector-icons";
+import {
+  MaterialCommunityIcons,
+  Fontisto,
+  FontAwesome,
+  Foundation,
+} from "@expo/vector-icons";
 import { globalStyles } from "../styles/globalStyles";
 import {
   responsiveFontSize,
   responsiveHeight,
   responsiveWidth,
 } from "react-native-responsive-dimensions";
-import { DrawerActions } from '@react-navigation/native';
-
+import { DrawerActions } from "@react-navigation/native";
 
 export default function WardenScreen({ navigation }) {
   return (
@@ -30,7 +34,7 @@ export default function WardenScreen({ navigation }) {
       >
         <TouchableOpacity
           onPress={() => {
-            navigation.dispatch(DrawerActions.openDrawer())
+            navigation.dispatch(DrawerActions.openDrawer());
           }}
         >
           <Ionicons name="menu" size={33} color="black" />
@@ -72,18 +76,19 @@ export default function WardenScreen({ navigation }) {
           <Text style={globalStyles.tw_Profile_goodMorning}>Good Morning</Text>
         </View>
         <TouchableOpacity
-         onPress={()=>{
-          navigation.navigate("WardenProfile");
-        }}>
+          onPress={() => {
+            navigation.navigate("WardenProfile");
+          }}
+        >
           <Ionicons name="md-person-circle-outline" size={50} />
         </TouchableOpacity>
       </View>
 
       <View style={globalStyles.searchIcon}>
         <TouchableOpacity
-         onPress={()=>{
-          navigation.navigate("Search")
-        }}
+          onPress={() => {
+            navigation.navigate("Search");
+          }}
         >
           <Ionicons name="search" size={30} color="black" />
         </TouchableOpacity>
@@ -108,22 +113,22 @@ export default function WardenScreen({ navigation }) {
         </View>
       </View>
 
-      {/* <Image
-         style={globalStyles.carImage}
-         source={require("./assets/images/car.jpg")}
-       /> */}
-
       <View
         style={[globalStyles.challan_Rect, { marginLeft: responsiveWidth(4) }]}
       >
         <TouchableOpacity
-          onPress={()=>{
-          navigation.navigate("Challan")
-        }}
+          onPress={() => {
+            navigation.navigate("Challan");
+          }}
         >
-          <Ionicons name="create" size={105} color="black" style={{
-            marginTop: responsiveHeight(-1),
-            marginLeft: responsiveWidth(17) }}
+          <Ionicons
+            name="create"
+            size={105}
+            color="black"
+            style={{
+              marginTop: responsiveHeight(-1),
+              marginLeft: responsiveWidth(17),
+            }}
           />
           <Text
             style={[
@@ -135,39 +140,40 @@ export default function WardenScreen({ navigation }) {
           </Text>
         </TouchableOpacity>
       </View>
-      {/* <Image
-         style={globalStyles.challanIcon}
-         source={require("../assets/images/asynStorage.png")}
-       />
-
-        <Image
-         style={globalStyles.challanImage}
-         source={require("../assets/images/asynStorage.png")}
-       /> */}
 
       <View
         style={[globalStyles.challan_Rect, { marginLeft: responsiveWidth(51) }]}
       >
         <TouchableOpacity
-         onPress={() => {
-          navigation.navigate("ViewComplaints");
-        }}
+          onPress={() => {
+            navigation.navigate("ViewComplaints");
+          }}
         >
-           <Fontisto name="commenting" size={40} color="white" style={{marginTop: responsiveHeight(2.5),
-            marginLeft: responsiveWidth(31), zIndex: 1 }}
+          <Fontisto
+            name="commenting"
+            size={40}
+            color="white"
+            style={{
+              marginTop: responsiveHeight(2.5),
+              marginLeft: responsiveWidth(31),
+              zIndex: 1,
+            }}
           />
-          <MaterialCommunityIcons name="comment-multiple" size={97} color="black" style={{
-            marginTop: responsiveHeight(-7.5),
-            marginLeft: responsiveWidth(16) }}
+          <MaterialCommunityIcons
+            name="comment-multiple"
+            size={97}
+            color="black"
+            style={{
+              marginTop: responsiveHeight(-7.5),
+              marginLeft: responsiveWidth(16),
+            }}
           />
           <Text
             style={[
               globalStyles.addView_Challan_Text,
               { width: responsiveWidth(29), height: responsiveHeight(9) },
             ]}
-          >
-            View Complaints
-          </Text>
+          >View Complaints</Text>
         </TouchableOpacity>
       </View>
 
@@ -182,24 +188,21 @@ export default function WardenScreen({ navigation }) {
             },
           ]}
         >
-        <TouchableOpacity
-        onPress={() => {
-          navigation.navigate("ChallanHistory");
-        }}
-        >
-          <Text
-            style={[
-              globalStyles.hisStat_Text,
-              {
-                width: responsiveWidth(29),
-                marginLeft: responsiveWidth(7),
-              },
-            ]}
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("ChallanHistory");
+            }}
           >
-            History
-          </Text>
-        </TouchableOpacity>
-     
+            <Text
+              style={[
+                globalStyles.hisStat_Text,
+                {
+                  width: responsiveWidth(29),
+                  marginLeft: responsiveWidth(7),
+                },
+              ]}
+            >History</Text>
+          </TouchableOpacity>
         </View>
 
         <View
@@ -213,7 +216,11 @@ export default function WardenScreen({ navigation }) {
           ]}
         >
           <View>
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Statistics");
+              }}
+            >
               <Text
                 style={[
                   globalStyles.hisStat_Text,
@@ -222,9 +229,7 @@ export default function WardenScreen({ navigation }) {
                     marginLeft: responsiveWidth(11),
                   },
                 ]}
-              >
-                Statistics
-              </Text>
+              >Statistics</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -243,9 +248,9 @@ export default function WardenScreen({ navigation }) {
         <View style={globalStyles.settingCircle}>
           <View style={globalStyles.settingIcon}>
             <TouchableOpacity
-             onPress={() => {
-              navigation.navigate("Setting");
-            }}
+              onPress={() => {
+                navigation.navigate("Setting");
+              }}
             >
               <Ionicons name="settings" size={30} color="black" />
             </TouchableOpacity>
@@ -273,9 +278,9 @@ export default function WardenScreen({ navigation }) {
         <View style={globalStyles.rulesCircle}>
           <View style={globalStyles.rulesIcon}>
             <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("Rules");
-            }}
+              onPress={() => {
+                navigation.navigate("Rules");
+              }}
             >
               <Ionicons name="newspaper" size={30} color="black" />
             </TouchableOpacity>
@@ -287,10 +292,10 @@ export default function WardenScreen({ navigation }) {
 
         <View style={globalStyles.helpCircle}>
           <View style={globalStyles.helpIcon}>
-            <TouchableOpacity 
-             onPress={() => {
-              navigation.navigate("Help");
-            }}
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Help");
+              }}
             >
               <MaterialCommunityIcons
                 name="chat-question"

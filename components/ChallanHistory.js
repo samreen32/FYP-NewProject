@@ -78,10 +78,18 @@ const DATA = [
   },
 ];
 
-export default function ChallanHistory() {
+export default function ChallanHistory({navigation}) {
   return (
     <View>
-      <Text style={styles.Challan_Text_Header}>Challan History</Text>
+      <TouchableOpacity
+          onPress={()=>{
+            navigation.goBack();
+          }}
+        >
+          <Text style={styles.Challan_Text_Header}>Challan History</Text>
+        <Ionicons name="arrow-back" size={45} color="black" style={styles.backArrow}/>
+        </TouchableOpacity>
+
       <FlatList
         data={DATA}
         renderItem={({ item, description }) => (
@@ -100,6 +108,7 @@ export default function ChallanHistory() {
 const styles = StyleSheet.create({
   Challan_Text_Header: {
     color: "#D798F6",
+    fontFamily: "poppins-bold",
     fontSize: responsiveFontSize(3),
     marginLeft: responsiveWidth(25),
     marginTop: responsiveHeight(6),
@@ -133,4 +142,8 @@ const styles = StyleSheet.create({
     marginLeft: responsiveWidth(55),
     marginTop: responsiveHeight(-8),
   },
+  backArrow: {
+    marginLeft: responsiveWidth(5),
+    marginTop: responsiveHeight(-7),
+  }
 });
