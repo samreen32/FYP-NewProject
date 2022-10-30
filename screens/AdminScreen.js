@@ -17,7 +17,7 @@ export default function AdminScreen({ navigation }) {
       <View style={[globalStyles.Notifi_MenuIcon, { 
         marginLeft: responsiveWidth(6), width: responsiveWidth(10), 
         }]}
-       >
+       > 
         <TouchableOpacity
           onPress={() => {
             navigation.openDrawer("AdminDrawer");

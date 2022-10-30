@@ -1,7 +1,7 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import WardenScreen from "../screens/WardenScreen";
+import WardenScreen from "../screens/WardenScreen";   //stack
 import Challan from "../components/Challan";
 import ChallanSecond from "../components/ChallanSecond";
 import Places from "../components/Places";

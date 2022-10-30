@@ -1,4 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
 import Challan from "../components/Challan";
 import WardenProfile from "../components/WardenProfile";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -10,6 +11,7 @@ const Tab = createBottomTabNavigator();
 
 export default function WardenTabs() {
   return (
+
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, size, color, fontsize }) => {
@@ -91,6 +93,7 @@ export default function WardenTabs() {
         }}
       />
     </Tab.Navigator>
+
   );
 }
 const styles = StyleSheet.create({});

@@ -21,7 +21,7 @@ import {
   responsiveHeight,
   responsiveWidth,
 } from "react-native-responsive-dimensions";
-import { DrawerActions } from "@react-navigation/native";
+
 
 export default function WardenScreen({ navigation }) {
   return (
@@ -29,12 +29,12 @@ export default function WardenScreen({ navigation }) {
       <View
         style={[
           globalStyles.Notifi_MenuIcon,
-          { marginLeft: responsiveWidth(6) },
+          { marginLeft: responsiveWidth(6), width: responsiveWidth(10), },
         ]}
       >
         <TouchableOpacity
           onPress={() => {
-            navigation.dispatch(DrawerActions.openDrawer());
+            navigation.openDrawer("WardenDrawer");
           }}
         >
           <Ionicons name="menu" size={33} color="black" />

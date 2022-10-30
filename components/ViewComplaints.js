@@ -77,10 +77,21 @@ const DATA = [
   },
 ];
 
-export default function ViewComplaints() {
+export default function ViewComplaints({navigation}) {
   return (
     <View>
+
+<TouchableOpacity
+          onPress={()=>{
+            navigation.goBack();
+          }}
+        >
       <Text style={styles.Complain_Text_Header}>Complaints</Text>
+        
+        <Ionicons name="arrow-back" size={50} color="black" style={styles.backArrow}/>
+        </TouchableOpacity>
+
+
       <FlatList
         data={DATA}
         renderItem={({ item, description }) => (
@@ -108,7 +119,7 @@ const styles = StyleSheet.create({
     color: "#D798F6",
     fontFamily: "poppins-bold",
     fontSize: responsiveFontSize(3),
-    marginLeft: responsiveWidth(33),
+    marginLeft: responsiveWidth(30),
     marginTop: responsiveHeight(6),
   },
   Complain_Container: {
@@ -141,4 +152,8 @@ const styles = StyleSheet.create({
     marginTop: responsiveHeight(0.5),
     color: "#FFFFFF",
   },
+  backArrow: {
+    marginLeft: responsiveWidth(5),
+    marginTop: responsiveHeight(-7),
+  }
 });

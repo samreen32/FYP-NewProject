@@ -74,7 +74,7 @@ export default function AdminTabs() {
   );
 }
 const styles = StyleSheet.create({});
-
+ 
 const getRouteName = (route) => {
   const routeName = getFocusedRouteNameFromRoute(route);
   console.log(routeName);

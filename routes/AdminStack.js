@@ -14,7 +14,7 @@ import ChallanHistory from "../components/ChallanHistory";
 import AdminProfile from "../components/AdminProfile";
 import AdminEditProfile from "../components/AdminEditProfile";
 import Rules from "../components/Rules";
-import Setting from "../components/Setting";
+import Setting from "../components/Setting"; 
 
 const Stack = createNativeStackNavigator();
 

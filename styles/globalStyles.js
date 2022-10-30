@@ -332,8 +332,8 @@ export const globalStyles = StyleSheet.create({
   //Top header styling
   Notifi_MenuIcon: {
     position: "absolute",
-    width: responsiveWidth(25),
-    height: responsiveHeight(20),
+    width: responsiveWidth(35),
+    height: responsiveHeight(25),
     marginTop: responsiveHeight(5.5),
     marginRight: responsiveWidth(6),
   },

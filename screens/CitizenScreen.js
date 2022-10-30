@@ -15,7 +15,7 @@ import {
 export default function CitizenScreen({ navigation }) {
   return (
     <View style={globalStyles.twMain}>
-      <View style={[globalStyles.Notifi_MenuIcon, { marginLeft: responsiveWidth(6), width: responsiveWidth(10), }]}>
+      <View style={[globalStyles.Notifi_MenuIcon, { marginLeft: responsiveWidth(6), width: responsiveWidth(35), }]}>
         <TouchableOpacity
           onPress={() => {
             navigation.openDrawer("CitizenDrawer");
@@ -200,7 +200,7 @@ export default function CitizenScreen({ navigation }) {
                 color="black"
               />
             </TouchableOpacity>
-          </View>
+          </View> 
         </View>
         <View>
           <Text style={globalStyles.help_Text}>Help</Text>

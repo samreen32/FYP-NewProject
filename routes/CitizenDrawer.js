@@ -14,7 +14,7 @@ const Drawer = createDrawerNavigator();
 export default function CitizenDrawer() {
   return (
     // <Provider store={store}>
-    <NavigationContainer>
+
       <Drawer.Navigator
         drawerContent={(props) => <CustomDrawer {...props} />}
         screenOptions={{
@@ -123,7 +123,7 @@ export default function CitizenDrawer() {
           }}
         />
       </Drawer.Navigator>
-    </NavigationContainer>
+
     // </Provider>
   );
 }

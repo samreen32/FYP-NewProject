@@ -20,7 +20,7 @@ const Stack = createNativeStackNavigator();
 
 export default function CitizenStack() {
   return (
-    <Stack.Navigator
+    <Stack.Navigator 
       initialRouteName="CitizenScreen"
       screenOptions={{
         headerShown: false,

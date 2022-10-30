@@ -19,14 +19,14 @@ export default function Register({ navigation }) {
             <View style={globalStyles.CitizenWarden_btn_Group}>
                 <TouchableOpacity
                     style={globalStyles.Register_btn}
-                    onPress={() => { navigation.navigate("WardenTabs") }}
+                    onPress={() => { navigation.navigate("WardenDrawer") }}
                 >
                     <Text style={globalStyles.Register_Text}>Warden</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     style={globalStyles.Sign_in_btn}
-                    onPress={() => { navigation.navigate("CitizenTabs") }}
+                    onPress={() => { navigation.navigate("CitizenDrawer") }}
                 >
                     <Text style={globalStyles.SignIn_Text}>Citizen</Text>
                 </TouchableOpacity>
