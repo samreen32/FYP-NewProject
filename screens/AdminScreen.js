@@ -2,9 +2,9 @@ import React from "react";
 import {
   Text,
   View,
-  TouchableOpacity,
+  TouchableOpacity, Image
 } from "react-native";
-import { AntDesign, SimpleLineIcons, Ionicons } from '@expo/vector-icons';
+import { AntDesign, SimpleLineIcons, Ionicons, Entypo } from '@expo/vector-icons';
 import { globalStyles } from "../styles/globalStyles";
 import {
   responsiveFontSize, responsiveHeight, responsiveWidth
@@ -92,7 +92,12 @@ export default function AdminScreen({ navigation }) {
         </View>
       </View>
 
-        <View style={[globalStyles.payChallan_Rect, {height: responsiveHeight(23),   backgroundColor: "rgba(33,182,168,1)",}]}>
+      <Image style={{ marginTop: responsiveHeight(21.5), marginLeft: responsiveWidth(50), zIndex: 1,
+      width: responsiveWidth(48), height: responsiveHeight(23)}}
+      source={require('../assets/images/repair.png')}/>
+
+
+        <View style={[globalStyles.payChallan_Rect, {height: responsiveHeight(23),}]}>
             <TouchableOpacity onPress={() => {
               navigation.navigate("RemoveWarden");
             }}>
@@ -105,7 +110,7 @@ export default function AdminScreen({ navigation }) {
         </View>
 
 
-        <View style={[globalStyles.payChallan_Rect, { height: responsiveHeight(17), backgroundColor: "rgba(33,182,168,1)",
+        <View style={[globalStyles.payChallan_Rect, { height: responsiveHeight(17),
             marginTop: responsiveHeight(69),}]}>
             <TouchableOpacity onPress={() => {
               navigation.navigate("HandleComplaints");
@@ -120,15 +125,15 @@ export default function AdminScreen({ navigation }) {
 
 
 
-        <View style={[globalStyles.fileHistory_Complaints_Rect, { marginTop: responsiveHeight(45), backgroundColor: "rgba(33,182,168,1)",
+        <View style={[globalStyles.fileHistory_Complaints_Rect, { marginTop: responsiveHeight(45),
         height: responsiveHeight(17) }]}>
           <View>
             <TouchableOpacity onPress={() => {
               navigation.navigate("Places");
             }}>
-                <SimpleLineIcons name="location-pin" size={40} color="black"  style={{
-                    marginTop: responsiveHeight(1.5),
-                    marginLeft: responsiveWidth(16.5),}}/>
+                <Entypo name="location" size={50} color="black"  style={{
+                    marginTop: responsiveHeight(1),
+                    marginLeft: responsiveWidth(14.5),}}/>
                 <Text style={[globalStyles.fileHistoryComplaints_Text, { marginLeft: responsiveWidth(13),
                     marginTop: responsiveHeight(8), fontSize: responsiveFontSize(2.5) }]}> View {'\n'}Places</Text>
             </TouchableOpacity>
@@ -136,7 +141,7 @@ export default function AdminScreen({ navigation }) {
         </View>
  
 
-        <View style={[globalStyles.fileHistory_Complaints_Rect, { marginTop: responsiveHeight(63), backgroundColor: "rgba(33,182,168,1)",
+        <View style={[globalStyles.fileHistory_Complaints_Rect, { marginTop: responsiveHeight(63), 
         height: responsiveHeight(23) }]}>
           <View>
             <TouchableOpacity onPress={() => {

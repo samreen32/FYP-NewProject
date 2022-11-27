@@ -32,16 +32,22 @@ export default function StackWarden() {
       <Stack.Screen
         name="Places"
         component={Places}
+     
         options={{
           headerShown: true,
-          title: "Current Loaction",
+          title: "Your Loaction",
+          headerTintColor: 'white',
+          headerStyle: {backgroundColor: "rgba(10,76,118,1)"}
         }}
+       
       />
       <Stack.Screen
         name="Notifications"
         component={Notifications}
         options={{
           headerShown: true,
+          headerTintColor: 'white',
+          headerStyle: {backgroundColor: "rgba(10,76,118,1)"}
         }}
       />
       
@@ -99,6 +105,8 @@ export default function StackWarden() {
         component={Search}
         options={{
           headerShown: true,
+          headerTintColor: 'white',
+          headerStyle: {backgroundColor: "rgba(10,76,118,1)"}
         }}
       />
       <Stack.Screen

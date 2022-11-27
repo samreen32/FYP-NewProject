@@ -32,7 +32,9 @@ export default function AdminStack() {
         component={Places}
         options={{
           headerShown: true,
-          title: "Current Loaction",
+          title: "Your Loaction",
+          headerTintColor: 'white',
+          headerStyle: {backgroundColor: "rgba(10,76,118,1)"}
         }}
       />
       <Stack.Screen
@@ -40,6 +42,8 @@ export default function AdminStack() {
         component={Notifications}
         options={{
           headerShown: true,
+          headerTintColor: 'white',
+          headerStyle: {backgroundColor: "rgba(10,76,118,1)"}
         }}
       />
       <Stack.Screen
@@ -82,6 +86,8 @@ export default function AdminStack() {
         component={Search}
         options={{
           headerShown: true,
+          headerTintColor: 'white',
+          headerStyle: {backgroundColor: "rgba(10,76,118,1)"}
         }}
       />
       <Stack.Screen

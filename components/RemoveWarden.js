@@ -90,7 +90,7 @@ export default function RemoveWarden({navigation}) {
         <Text style={[styles.Complain_Text_Header]}>Remove Warden</Text>
         <Ionicons
           name="arrow-back"
-          size={45}
+          size={43}
           color="black"
           style={styles.backArrow}
         />
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
   },
   Complain_Container: {
     flexDirection: "row",
-    backgroundColor: "#D798F6",
+    backgroundColor: "rgba(24,154,180,1)",
     height: responsiveHeight(15),
     marginLeft: responsiveWidth(5),
     marginTop: responsiveHeight(3.5),
@@ -251,6 +251,6 @@ const styles = StyleSheet.create({
   },
   backArrow: {
     marginLeft: responsiveWidth(5),
-    marginTop: responsiveHeight(-7),
+    marginTop: responsiveHeight(-6.6),
   }
 });

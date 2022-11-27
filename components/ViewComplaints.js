@@ -23,74 +23,78 @@ const DATA = [
   {
     id: "1",
     Name: "Anyone",
-    Complain: "Anyone is always complaining \nabout...",
+    Complain: "Anyone is always complaining about...",
     image_source: require("../assets/smiley.jpg"),
   },
   {
     id: "2",
     Name: "Anyone",
-    Complain: "Anyone is always complaining \nabout...",
+    Complain: "Anyone is always complaining about...",
     image_source: require("../assets/smiley.jpg"),
   },
 
   {
     id: "3",
     Name: "Anyone",
-    Complain: "Anyone is always complaining \nabout...",
+    Complain: "Anyone is always complaining about...",
     image_source: require("../assets/smiley.jpg"),
   },
   {
     id: "4",
     Name: "Anyone",
-    Complain: "Anyone is always complaining \nabout...",
+    Complain: "Anyone is always complaining about...",
     image_source: require("../assets/smiley.jpg"),
   },
   {
     id: "5",
     Name: "Anyone",
-    Complain: "Anyone is always complaining \nabout...",
+    Complain: "Anyone is always complaining about...",
     image_source: require("../assets/smiley.jpg"),
   },
   {
     id: "6",
     Name: "Anyone",
-    Complain: "Anyone is always complaining \nabout...",
+    Complain: "Anyone is always complaining about...",
     image_source: require("../assets/smiley.jpg"),
   },
   {
     id: "7",
     Name: "Anyone",
-    Complain: "Anyone is always complaining \nabout...",
+    Complain: "Anyone is always complaining about...",
     image_source: require("../assets/smiley.jpg"),
   },
   {
     id: "8",
     Name: "Anyone",
-    Complain: "Anyone is always complaining \nabout...",
+    Complain: "Anyone is always complaining about...",
     image_source: require("../assets/smiley.jpg"),
   },
   {
     id: "9",
     Name: "Anyone",
-    Complain: "Anyone is always complaining \nabout...",
+    Complain: "Anyone is always complaining about...",
     image_source: require("../assets/smiley.jpg"),
   },
 ];
 
-export default function ViewComplaints({navigation}) {
+export default function ViewComplaints({ navigation }) {
   return (
     <View>
-
-<TouchableOpacity
-          onPress={()=>{
+      <View style={styles.purple_background}>
+        <TouchableOpacity
+          onPress={() => {
             navigation.goBack();
           }}
         >
-      <Text style={styles.Complain_Text_Header}>Complaints</Text>
-        
-        <Ionicons name="arrow-back" size={50} color="black" style={styles.backArrow}/>
+          <Ionicons
+            name="arrow-back"
+            size={45}
+            color="white"
+            style={styles.backArrow}
+          />
+          <Text style={styles.Complain_Text_Header}>Complaints</Text>
         </TouchableOpacity>
-
+      </View>
 
       <FlatList
         data={DATA}
@@ -115,21 +119,26 @@ export default function ViewComplaints({navigation}) {
   );
 }
 const styles = StyleSheet.create({
+  purple_background: {
+    backgroundColor: "rgba(10,76,118,1)",
+    width: responsiveWidth(100),
+    height: responsiveHeight(15),
+  },
   Complain_Text_Header: {
-    color: "#D798F6",
+    color: "white",
     fontFamily: "poppins-bold",
-    fontSize: responsiveFontSize(3),
-    marginLeft: responsiveWidth(30),
-    marginTop: responsiveHeight(6),
+    fontSize: responsiveFontSize(3.5),
+    marginLeft: responsiveWidth(28),
+    marginTop: responsiveHeight(-6),
   },
   Complain_Container: {
     flexDirection: "row",
-    backgroundColor: "#D798F6",
+    backgroundColor: "rgba(24,154,180,1)",
     height: responsiveHeight(15),
     marginLeft: responsiveWidth(5),
-    marginTop: responsiveHeight(3.5),
-    marginRight: responsiveWidth(6),
-    marginVertical: responsiveHeight(-2),
+    marginTop: responsiveHeight(3),
+    marginRight: responsiveWidth(5),
+    marginVertical: responsiveHeight(-1),
     borderRadius: 15,
   },
   Image: {
@@ -141,19 +150,22 @@ const styles = StyleSheet.create({
   },
   Name_Text: {
     color: "#000000",
-    fontWeight: "bold",
+    fontFamily: "poppins-bold",
     fontSize: responsiveFontSize(2.3),
     marginLeft: responsiveWidth(5),
     marginTop: responsiveHeight(0.5),
     paddingTop: responsiveHeight(2),
   },
   description_Text: {
+    width: responsiveWidth(65.3),
+    height: responsiveHeight(20),
     marginLeft: responsiveWidth(5),
-    marginTop: responsiveHeight(0.5),
+    marginTop: responsiveHeight(-1),
     color: "#FFFFFF",
+    fontFamily: "poppins-regular",
   },
   backArrow: {
     marginLeft: responsiveWidth(5),
-    marginTop: responsiveHeight(-7),
-  }
+    marginTop: responsiveHeight(4),
+  },
 });

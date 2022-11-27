@@ -12,14 +12,13 @@ export default function WelcomeScreen({ navigation }) {
                 source={require('../assets/images/carGif.gif')}
             />
 
-            <Text style={globalStyles.style_Just_Try}>
-                Just Try to
+            <Text style={globalStyles.style_Just_Try}> Welcome to 
             </Text>
-            <Text style={globalStyles.style_design}>design our App</Text>
+            <Text style={globalStyles.style_design}>E-Parking Challan App</Text>
             <View style={globalStyles.style_in_publishing}>
-                <Text style={globalStyles.in_pub_text}>In publishing asss;s'nd in a graphic{'\n'}
-                    design,ipsum placeholder text{'\n'}
-                    commonly ussaonstrate_:
+                <Text style={globalStyles.in_pub_text}>Let's ease the traffic together!{'\n'}
+                    Pay challan one click to go, Manage challan{'\n'}
+                    its easy.
                 </Text>
             </View>
 

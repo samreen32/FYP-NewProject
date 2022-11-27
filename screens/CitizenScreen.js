@@ -2,13 +2,12 @@ import React from "react";
 import {
   Text,
   View,
-  TouchableOpacity,
+  TouchableOpacity, Image
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { MaterialCommunityIcons, FontAwesome5, Entypo, MaterialIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, FontAwesome5, Entypo } from "@expo/vector-icons";
 import { globalStyles } from "../styles/globalStyles";
-import {
-  responsiveFontSize, responsiveHeight, responsiveWidth
+import { responsiveHeight, responsiveWidth
 } from "react-native-responsive-dimensions";
 
 
@@ -90,16 +89,14 @@ export default function CitizenScreen({ navigation }) {
       </View>
 
 
-      {/* <Image
-         style={globalStyles.carImage}
-         source={require("./assets/images/car.jpg")}
-       /> */}
+      <Image style={{ marginTop: responsiveHeight(24.5), marginLeft: responsiveWidth(54), zIndex: 1,
+      width: responsiveWidth(42), height: responsiveHeight(20)}}
+      source={require('../assets/images/citizen.png')}/>
      
       <View style={globalStyles.payChallan_Rect}>
           <TouchableOpacity onPress={() => {
             navigation.navigate("PayChallan");
           }}>
-
           <MaterialCommunityIcons name="credit-card-check-outline" size={100} color="black" style={{
             marginTop: responsiveHeight(1), marginLeft: responsiveWidth(9) }}
           />
@@ -132,10 +129,11 @@ export default function CitizenScreen({ navigation }) {
             <TouchableOpacity onPress={() => {
               navigation.navigate("ChallanHistory");
             }}>
-              <MaterialIcons name="pending-actions" size={65} color="black"  style={{ 
-                marginTop: responsiveHeight(2),
-                marginLeft: responsiveWidth(2) }}
-              />
+<Image source={require("../assets/images/timer.png")} style={{ width: responsiveWidth(17.5),
+    height: responsiveHeight(9), 
+                marginTop: responsiveHeight(2.5),
+                marginLeft: responsiveWidth(2) }}/>
+
               <Text style={[globalStyles.fileHistoryComplaints_Text, { marginLeft: responsiveWidth(20) }]}>Challan {'\n'} History</Text>
             </TouchableOpacity>
           </View>

@@ -16,11 +16,11 @@ export default function AdminTabs() {
           if (route.name === "Home") {
             iconName = "home";
             size = focused ? 35 : 30;
-            color = focused ? "yellow" : "black";
+            color = focused ? "rgba(24,154,180,1)" : "black";
           } else if (route.name === "Profile") {
             iconName = "person";
             size = focused ? 30 : 32;
-            color = focused ? "yellow" : "black";
+            color = focused ? "black" : "black";
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -43,7 +43,7 @@ export default function AdminTabs() {
             borderBottomRightRadius: 60,
             borderTopRightRadius: 60,
             elevation: 0,
-            backgroundColor: "rgba(24,154,180,1)",
+            backgroundColor: "rgba(10,76,118,1)",
             height: 80,
             ...styles.shadow,
           },
@@ -66,7 +66,7 @@ export default function AdminTabs() {
             fontSize: 15,
             marginTop: -2,
             marginBottom: 15,
-            color: "black",
+            color: "white",
           },
         }}
       />

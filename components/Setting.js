@@ -34,7 +34,7 @@ export default function Setting({ navigation }) {
             style={styles.back_icon}
             name={"chevron-back-outline"}
             size={45}
-            color={"black"}
+            color={"white"}
           />
           <Text style={styles.Setting_Text}>Setting</Text>
         </TouchableOpacity>
@@ -43,7 +43,7 @@ export default function Setting({ navigation }) {
       <View style={styles.Account_length}>
         <View style={[styles.Remaining_item_length, {marginTop: responsiveHeight(21),}]}>
           <TouchableOpacity style={styles.style_container}>
-            <Ionicons name={"person-outline"} size={20} color={"purple"} />
+            <Ionicons name={"person-outline"} size={20} color={"rgba(10,76,118,1)"} />
             <Text style={styles.style_text}>Account</Text>
           </TouchableOpacity>
         </View>
@@ -56,28 +56,28 @@ export default function Setting({ navigation }) {
             navigation.navigate("Notifications");
           }}
         >
-          <Ionicons name={"notifications-outline"} size={20} color={"purple"} />
+          <Ionicons name={"notifications-outline"} size={20} color={"rgba(10,76,118,1)"} />
           <Text style={styles.style_text}>Notification</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.line}></View>
       <View style={styles.Remaining_item_length}>
         <TouchableOpacity style={styles.style_container}>
-          <Ionicons name={"eye-outline"} size={20} color={"purple"} />
+          <Ionicons name={"eye-outline"} size={20} color={"rgba(10,76,118,1)"} />
           <Text style={styles.style_text}>Appearance</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.line}></View>
       <View style={styles.Remaining_item_length}>
         <TouchableOpacity style={styles.style_container}>
-          <Ionicons name={"shield-outline"} size={20} color={"purple"} />
+          <Ionicons name={"shield-outline"} size={20} color={"rgba(10,76,118,1)"} />
           <Text style={styles.style_text}>Security</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.line}></View>
       <View style={styles.Remaining_item_length}>
         <TouchableOpacity style={styles.style_container}>
-          <Ionicons name={"globe-outline"} size={20} color={"purple"} />
+          <Ionicons name={"globe-outline"} size={20} color={"rgba(10,76,118,1)"} />
           <Text style={styles.style_text}>Language</Text>
         </TouchableOpacity>
       </View>
@@ -89,7 +89,7 @@ export default function Setting({ navigation }) {
             navigation.navigate("Rules");
           }}
         >
-          <Ionicons name={"newspaper-outline"} size={20} color={"purple"} />
+          <Ionicons name={"newspaper-outline"} size={20} color={"rgba(10,76,118,1)"} />
           <Text style={styles.style_text}>Rules</Text>
         </TouchableOpacity>
       </View>
@@ -101,7 +101,7 @@ export default function Setting({ navigation }) {
             navigation.navigate("Help");
           }}
         >
-          <Ionicons name={"help-circle-outline"} size={20} color={"purple"} />
+          <Ionicons name={"help-circle-outline"} size={20} color={"rgba(10,76,118,1)"} />
           <Text style={styles.style_text}>Help and Support</Text>
         </TouchableOpacity>
       </View>
@@ -111,7 +111,7 @@ export default function Setting({ navigation }) {
           <Ionicons
             name={"information-circle-outline"}
             size={20}
-            color={"purple"}
+            color={"rgba(10,76,118,1)"}
           />
           <Text style={styles.style_text}>About</Text>
         </TouchableOpacity>
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   },
   Account_line: {
     height: responsiveHeight(0.2),
-    backgroundColor: "purple",
+    backgroundColor: "rgba(24,154,180,1)",
     alignSelf: "stretch",
     marginLeft: responsiveWidth(9),
     marginRight: responsiveWidth(9),
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
   },
   line: {
     height: responsiveHeight(0.2),
-    backgroundColor: "purple",
+    backgroundColor: "rgba(24,154,180,1)",
     alignSelf: "stretch",
     marginLeft: responsiveWidth(9),
     marginRight: responsiveWidth(9),
@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     color: "rgb(1,1,1)",
   },
   purple_background: {
-    backgroundColor: "rgba(215,152,246,1)",
+    backgroundColor: "rgba(10,76,118,1)",
     width: responsiveWidth(100),
     height: responsiveHeight(15),
     position: "absolute",
@@ -176,10 +176,10 @@ const styles = StyleSheet.create({
   Setting_Text: {
     color: "white",
     textAlign: "center",
-    marginTop: responsiveHeight(-5.5),
-    fontSize: responsiveFontSize(3),
+    marginTop: responsiveHeight(-6.5),
+    fontSize: responsiveFontSize(3.5),
     letterSpacing: 1.0,
-    fontFamily: "poppins-regular",
+    fontFamily: "poppins-bold",
     lineheight: 114.99999761581421,
     marginLeft: responsiveWidth(-5),
   },

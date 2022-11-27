@@ -71,15 +71,17 @@ const DATA = [
 export default function Rules({navigation}) {
   return (
     <View>
-      
-      <TouchableOpacity
-          onPress={()=>{
+      <View style={styles.purple_background}>
+        <TouchableOpacity
+          onPress={() => {
             navigation.goBack();
           }}
         >
+          <Ionicons name="arrow-back" size={45} color="white" style={styles.backArrow}/>
           <Text style={styles.Rule_Text_Header}>Rules</Text>
-        <Ionicons name="arrow-back" size={45} color="black" style={styles.backArrow}/>
         </TouchableOpacity>
+      </View>
+
 
       <FlatList
         data={DATA}
@@ -96,15 +98,21 @@ export default function Rules({navigation}) {
   );
 }
 const styles = StyleSheet.create({
+  purple_background:
+  {
+    backgroundColor: "rgba(10,76,118,1)",
+    width: responsiveWidth(100),
+    height: responsiveHeight(15),
+  },
   Rule_Text_Header: {
-    color: "#D798F6",
+    color: "white",
     fontFamily: "poppins-bold",
-    fontSize: responsiveFontSize(3.5),
-    marginLeft: responsiveWidth(37),
-    marginTop: responsiveHeight(6),
+    fontSize: responsiveFontSize(4),
+    marginLeft: responsiveWidth(36),
+    marginTop: responsiveHeight(-7),
   },
   Rule_Container: {
-    backgroundColor: "#D798F6",
+    backgroundColor: "rgba(24,154,180,1)",
     height: responsiveHeight(12),
     marginLeft: responsiveWidth(7),
     marginTop: responsiveHeight(3),
@@ -124,8 +132,8 @@ const styles = StyleSheet.create({
     marginTop: responsiveHeight(0.5),
     color: "#FFFFFF",
   },
-  backArrow: {
-    marginLeft: responsiveWidth(5),
-    marginTop: responsiveHeight(-7.5),
+    backArrow: {
+      marginLeft: responsiveWidth(5),
+      marginTop: responsiveHeight(4),
   }
 });

@@ -81,14 +81,21 @@ const DATA = [
 export default function ChallanHistory({navigation}) {
   return (
     <View>
-      <TouchableOpacity
-          onPress={()=>{
+<View style={styles.purple_background}>
+        <TouchableOpacity
+          onPress={() => {
             navigation.goBack();
           }}
         >
-          <Text style={styles.Challan_Text_Header}>Challan History</Text>
-        <Ionicons name="arrow-back" size={45} color="black" style={styles.backArrow}/>
+         <Ionicons
+            name="arrow-back"
+            size={45}
+            color="white"
+            style={styles.backArrow}
+          />
+        <Text style={styles.Challan_Text_Header}>Challan History</Text>
         </TouchableOpacity>
+      </View>
 
       <FlatList
         data={DATA}
@@ -106,15 +113,20 @@ export default function ChallanHistory({navigation}) {
   );
 }
 const styles = StyleSheet.create({
+  purple_background: {
+    backgroundColor: "rgba(10,76,118,1)",
+    width: responsiveWidth(100),
+    height: responsiveHeight(15),
+  },
   Challan_Text_Header: {
-    color: "#D798F6",
+    color: "white",
     fontFamily: "poppins-bold",
-    fontSize: responsiveFontSize(3),
-    marginLeft: responsiveWidth(25),
-    marginTop: responsiveHeight(6),
+    fontSize: responsiveFontSize(3.5),
+    marginLeft: responsiveWidth(23),
+    marginTop: responsiveHeight(-6),
   },
   Challan_Container: {
-    backgroundColor: "#D798F6",
+    backgroundColor: "rgba(24,154,180,1)",
     height: responsiveHeight(12),
     marginLeft: responsiveWidth(6),
     marginTop: responsiveHeight(3.5),
@@ -144,6 +156,6 @@ const styles = StyleSheet.create({
   },
   backArrow: {
     marginLeft: responsiveWidth(5),
-    marginTop: responsiveHeight(-7),
+    marginTop: responsiveHeight(4),
   }
 });

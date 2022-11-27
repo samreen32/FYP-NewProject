@@ -86,7 +86,7 @@ export default function PayChaSecond({ navigation }) {
                 navigation.goBack();
               }}
             >
-                <Text style={globalStyles.submitChallan_Text}>Pay</Text>
+                <Text style={[globalStyles.submitChallan_Text, {color: "white"}]}>Pay</Text>
             </TouchableOpacity>
         </View>
 

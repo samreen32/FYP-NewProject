@@ -18,25 +18,27 @@ import {
   responsiveFontSize,
 } from "react-native-responsive-dimensions";
 
-
-export default function FileComplaint({navigation}) {
+export default function FileComplaint({ navigation }) {
   const [name, setname] = useState("");
   return (
     <View>
       <View style={styles.purple_background}>
-
-      <TouchableOpacity
-          onPress={()=>{
+        <TouchableOpacity
+          onPress={() => {
             navigation.goBack();
           }}
         >
           <Text style={styles.File_Complaint_Text}>File Complaint</Text>
-          <Ionicons name="caret-back-sharp" size={40} color="black" style={styles.backArrow}/>
+          <Ionicons
+            name="caret-back-sharp"
+            size={40}
+            color="white"
+            style={styles.backArrow}
+          />
         </TouchableOpacity>
-
       </View>
       <View style={styles.icon_border}>
-        <Ionicons name={"chatbubbles"} size={100} color={"purple"} />
+        <Ionicons name={"chatbubbles"} size={100} color={"white"} />
       </View>
       <View
         style={{ height: responsiveHeight(67), width: responsiveWidth(100) }}
@@ -73,7 +75,10 @@ export default function FileComplaint({navigation}) {
           maxLength={20}
         />
       </View>
-      <TouchableOpacity style={styles.submit_btn}>
+      <TouchableOpacity style={styles.submit_btn}
+      onPress={()=>{
+        navigation.goBack()
+      }}>
         <Text style={styles.submit_text}>Submit</Text>
       </TouchableOpacity>
     </View>
@@ -133,7 +138,7 @@ const styles = StyleSheet.create({
     marginLeft: responsiveWidth(36),
   },
   purple_background: {
-    backgroundColor: "rgba(215,152,246,1)",
+    backgroundColor: "rgba(10,76,118,1)",
     width: responsiveWidth(100),
     height: responsiveHeight(30),
   },
@@ -142,14 +147,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: responsiveHeight(6),
     marginLeft: responsiveWidth(5),
-    fontSize: responsiveFontSize(3),
+    fontSize: responsiveFontSize(3.5),
     letterSpacing: 1.0,
     fontFamily: "poppins-bold",
     lineheight: 114.99999761581421,
   },
 
   submit_btn: {
-    backgroundColor: "rgba(215,152,246,1)",
+    backgroundColor: "rgba(24,154,180,1)",
     width: responsiveWidth(30),
     height: responsiveHeight(7),
     marginTop: responsiveHeight(-19),
@@ -158,6 +163,7 @@ const styles = StyleSheet.create({
   },
   submit_text: {
     fontSize: responsiveFontSize(2.5),
+    color: "white",
     justifyContent: "center",
     textAlign: "center",
     letterSpacing: 1.0,
@@ -167,6 +173,6 @@ const styles = StyleSheet.create({
   },
   backArrow: {
     marginLeft: responsiveWidth(5),
-    marginTop: responsiveHeight(-6),
-  }
+    marginTop: responsiveHeight(-6.4),
+  },
 });

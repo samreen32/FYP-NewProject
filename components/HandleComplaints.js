@@ -85,7 +85,7 @@ export default function HandleComplaints({navigation}) {
           }}
         >
             <Text style={[styles.Complain_Text_Header]}>Handle Complaints</Text>
-        <Ionicons name="arrow-back" size={45} color="black" style={styles.backArrow}/>
+        <Ionicons name="arrow-back" size={43} color="black" style={styles.backArrow}/>
       </TouchableOpacity>
 
       <FlatList
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   },
   Complain_Container: {
     flexDirection: "row",
-    backgroundColor: "#D798F6",
+    backgroundColor: "rgba(24,154,180,1)",
     height: responsiveHeight(15),
     marginLeft: responsiveWidth(5),
     marginTop: responsiveHeight(3.5),

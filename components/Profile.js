@@ -29,7 +29,7 @@ export default function Profile({ navigation }) {
             style={styles.back_icon}
             name={"chevron-back-outline"}
             size={45}
-            color={"black"}
+            color={"white"}
           />
           <Text style={styles.Profile_Text}>Profile</Text>
         </TouchableOpacity>
@@ -55,7 +55,7 @@ export default function Profile({ navigation }) {
             navigation.goBack();
           }}
         >
-          <Ionicons name={"keypad"} size={25} color={"purple"} />
+          <Ionicons name={"keypad"} size={25} color={"rgba(10,76,118,1)"} />
           <Text style={styles.dashboard_text}>Dashboard</Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -64,7 +64,7 @@ export default function Profile({ navigation }) {
             navigation.navigate("ChallanHistory");
           }}
         >
-          <Ionicons name={"clipboard"} size={25} color={"purple"} />
+          <Ionicons name={"clipboard"} size={25} color={"rgba(10,76,118,1)"} />
           <Text style={styles.challan_History_text}>Challan History</Text>
         </TouchableOpacity>
 
@@ -74,7 +74,7 @@ export default function Profile({ navigation }) {
             navigation.navigate("PayChallan");
           }}
         >
-          <Ionicons name={"logo-usd"} size={25} color={"purple"} />
+          <Ionicons name={"logo-usd"} size={25} color={"rgba(10,76,118,1)"} />
           <Text style={styles.Pay_text}>Pay Challan</Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -83,7 +83,7 @@ export default function Profile({ navigation }) {
             navigation.goBack();
           }}
         >
-          <Ionicons name={"log-out"} size={25} color={"purple"} />
+          <Ionicons name={"log-out"} size={25} color={"rgba(10,76,118,1)"} />
           <Text style={styles.Logout_text}>Logout</Text>
         </TouchableOpacity>
       </View>
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     color: "rgb(1,1,1)",
   },
   purple_background: {
-    backgroundColor: "rgba(215,152,246,1)",
+    backgroundColor: "rgba(10,76,118,1)",
     width: responsiveWidth(100),
     height: responsiveHeight(30),
   },
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     marginTop: responsiveHeight(-6.5),
     fontSize: responsiveFontSize(4),
     letterSpacing: 1.0,
-    fontFamily: "poppins-regular",
+    fontFamily: "poppins-bold",
     lineheight: 114.99999761581421,
   },
   Profile_Rectangle: {
@@ -143,8 +143,9 @@ const styles = StyleSheet.create({
     marginBottom: responsiveHeight(2),
   },
   Edit_Profile_Btn: {
-    backgroundColor: "rgba(215,152,246,1)",
-    width: responsiveWidth(38),
+   
+backgroundColor: "rgba(24,154,180,1)",
+    width: responsiveWidth(39),
     height: responsiveHeight(6.5),
     textAlign: "center",
     justifyContent: "center",

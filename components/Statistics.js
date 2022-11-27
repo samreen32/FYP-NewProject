@@ -18,7 +18,7 @@ export default function Statistics({navigation}) {
             navigation.goBack();
           }}
         >
-        <Ionicons name="arrow-back" size={50} color="black" style={styles.backArrow}/>
+        <Ionicons name="arrow-back" size={45} color="white" style={styles.backArrow}/>
         </TouchableOpacity>
 
       </View>
@@ -31,7 +31,7 @@ export default function Statistics({navigation}) {
 }
 const styles = StyleSheet.create({
   purple_background: {
-    backgroundColor: "rgba(215,152,246,1)",
+    backgroundColor: "rgba(10,76,118,1)",
     width: responsiveWidth(100),
     height: responsiveHeight(13),
     position: "absolute",
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(3.5),
     letterSpacing: 1.0,
     fontFamily: "poppins-bold",
-    marginLeft: responsiveWidth(-2.5),
+    marginLeft: responsiveWidth(-2),
   },
   challan_Text: {
     color: "black",

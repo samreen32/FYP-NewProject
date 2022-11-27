@@ -1,23 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
-  Button,
-  TextInput,
   Image,
-  FlatList,
   Text,
   View,
   TouchableOpacity,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import {
   MaterialCommunityIcons,
   Fontisto,
-  FontAwesome,
-  Foundation,
+  Ionicons
 } from "@expo/vector-icons";
 import { globalStyles } from "../styles/globalStyles";
 import {
-  responsiveFontSize,
   responsiveHeight,
   responsiveWidth,
 } from "react-native-responsive-dimensions";
@@ -62,9 +56,9 @@ export default function WardenScreen({ navigation }) {
             navigation.navigate("Places");
           }}
         >
-          <Text style={globalStyles.locationTop_Text}>
-            Blue Area, Islamabad
-          </Text>
+          <Text style={globalStyles.locationTop_Text}>Blue Area, Islamabad</Text>
+          {/* <Ionicons name="location-sharp" size={33} color="black" style={{ marginTop: responsiveHeight(-10),
+               marginLeft: responsiveWidth(-7),}}/> */}
         </TouchableOpacity>
       </View>
 
@@ -113,6 +107,11 @@ export default function WardenScreen({ navigation }) {
         </View>
       </View>
 
+      <Image style={{ marginTop: responsiveHeight(21), marginLeft: responsiveWidth(50),
+      width: responsiveWidth(47), height: responsiveHeight(22)}} 
+      source={require('../assets/images/car-park.png')}/>
+
+
       <View
         style={[globalStyles.challan_Rect, { marginLeft: responsiveWidth(4) }]}
       >
@@ -121,6 +120,7 @@ export default function WardenScreen({ navigation }) {
             navigation.navigate("Challan");
           }}
         >
+
           <Ionicons
             name="create"
             size={105}
@@ -184,7 +184,7 @@ export default function WardenScreen({ navigation }) {
             {
               width: responsiveWidth(54),
               marginLeft: responsiveWidth(1),
-              backgroundColor: "rgba(24,154,180,1)",
+              backgroundColor: "rgba(10,76,118,1)",
             },
           ]}
         >
@@ -211,7 +211,7 @@ export default function WardenScreen({ navigation }) {
             {
               width: responsiveWidth(53),
               marginLeft: responsiveWidth(40),
-              backgroundColor: "rgba(33,182,168,1)",
+              backgroundColor: "rgba(24,154,180,1)",
             },
           ]}
         >

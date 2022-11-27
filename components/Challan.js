@@ -33,11 +33,12 @@ export default function Challan({ navigation }) {
           { marginTop: responsiveHeight(4), marginLeft: responsiveWidth(39) }]}
           onPress={()=>{navigation.navigate("CameraComponent")}}
         >
-          <AntDesign name="camera" size={45} color="black" />
+          <AntDesign name="camera" size={45} color="white" />
         </TouchableOpacity>
         
         <Text style={[globalStyles.locationTop_Text, 
-          { marginTop: responsiveHeight(11), marginLeft: responsiveWidth(30) }]}>Capture Image</Text>
+          { marginTop: responsiveHeight(11), marginLeft: responsiveWidth(30), color: "white" }]}
+          >Capture Image</Text>
       </View>
 
 

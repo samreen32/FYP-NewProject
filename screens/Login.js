@@ -46,14 +46,14 @@ export default function Login({ navigation }) {
 
             <View style={{ flexDirection: "row" }}>
 
-                <Ionicons style={globalStyles.style_google_icon} name={"logo-google"} size={40} color={"purple"}
+                <Ionicons style={globalStyles.style_google_icon} name={"logo-google"} size={40} color={"rgba(10,76,118,1)"}
                     onPress={() => { Linking.openURL('http://www.google.com') }} />
 
 
-                <Ionicons style={globalStyles.style_apple_icon} name={"logo-apple"} size={40} color={"purple"}
+                <Ionicons style={globalStyles.style_apple_icon} name={"logo-apple"} size={40} color={"rgba(10,76,118,1)"}
                     onPress={() => { Linking.openURL('http://www.google.com') }} />
 
-                <Ionicons style={globalStyles.style_facebook_icon} name={"logo-facebook"} size={40} color={"purple"}
+                <Ionicons style={globalStyles.style_facebook_icon} name={"logo-facebook"} size={40} color={"rgba(10,76,118,1)"}
                     onPress={() => { Linking.openURL('http://www.google.com') }} />
 
             </View>

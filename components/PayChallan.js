@@ -12,15 +12,15 @@ export default function PayChallan({ navigation }) {
   const [name, setname] = useState("");
   return (
     <View>
-      <View style={globalStyles.challan_TopText}>
-        <TouchableOpacity style={{ marginLeft: responsiveWidth(-6), marginTop: responsiveHeight(4),}}
+      <View style={{ marginTop: responsiveHeight(6), marginLeft: responsiveWidth(7),}}>
+        <TouchableOpacity 
          onPress={()=>{
-          navigation.navigate("CitizenScreen")
+          navigation.goBack()
         }}
         >
-        <Text style={[globalStyles.challan_TopText, {width: responsiveWidth(45), marginTop: responsiveHeight(-2),
-          marginLeft: responsiveWidth(28),}]}>   Pay {'\n'}Challan</Text>
-        <Ionicons name="arrow-back" size={50} color="black"/>
+        <Text style={[globalStyles.challan_TopText, { marginTop: responsiveHeight(0),
+          marginLeft: responsiveWidth(22),}]}>Pay Challan</Text>
+        <Ionicons name="arrow-back" size={45} color="black"/>
         </TouchableOpacity>
       </View>
 

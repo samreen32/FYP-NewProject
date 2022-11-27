@@ -32,7 +32,9 @@ export default function CitizenStack() {
         component={Places}
         options={{
           headerShown: true,
-          title: "Current Loaction",
+          title: "Your Loaction",
+          headerTintColor: 'white',
+          headerStyle: {backgroundColor: "rgba(10,76,118,1)"}
         }}
       />
       <Stack.Screen
@@ -40,6 +42,8 @@ export default function CitizenStack() {
         component={Notifications}
         options={{
           headerShown: true,
+          headerTintColor: 'white',
+          headerStyle: {backgroundColor: "rgba(10,76,118,1)"}
         }}
       />
       <Stack.Screen
@@ -83,6 +87,8 @@ export default function CitizenStack() {
         component={Search}
         options={{
           headerShown: true,
+          headerTintColor: 'white',
+          headerStyle: {backgroundColor: "rgba(10,76,118,1)"}
         }}
       />
 

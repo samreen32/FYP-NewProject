@@ -89,7 +89,7 @@ export default function ManageChallan({navigation}) {
         <Text style={[styles.Challan_Text_Header]}>Manage Challan</Text>
         <Ionicons
           name="arrow-back"
-          size={45}
+          size={43}
           color="black"
           style={styles.backArrow}
         />
@@ -120,10 +120,10 @@ const styles = StyleSheet.create({
     fontFamily: "poppins-bold",
     fontSize: responsiveFontSize(3.5),
     marginLeft: responsiveWidth(20),
-    marginTop: responsiveHeight(6),
+    marginTop: responsiveHeight(5),
   },
   Challan_Container: {
-    backgroundColor: "#D798F6",
+    backgroundColor: "rgba(24,154,180,1)",
     height: responsiveHeight(12),
     marginLeft: responsiveWidth(6),
     marginTop: responsiveHeight(3.5),
@@ -153,6 +153,6 @@ const styles = StyleSheet.create({
   },
   backArrow: {
     marginLeft: responsiveWidth(5),
-    marginTop: responsiveHeight(-7),
+    marginTop: responsiveHeight(-6.5),
   }
 });

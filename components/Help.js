@@ -29,12 +29,12 @@ export default function Help({navigation}) {
           }}
         >
           <Text style={styles.Help_Text}>Help</Text>
-        <Ionicons name="arrow-back" size={50} color="black" style={styles.backArrow}/>
+        <Ionicons name="arrow-back" size={50} color="white" style={styles.backArrow}/>
         </TouchableOpacity>
       </View>
 
       <View style={styles.icon_border}>
-        <Ionicons name={"help-circle"} size={160} color={"purple"} />
+        <Ionicons name={"help-circle"} size={160} color={"white"} />
       </View>
       <View
         style={{ height: responsiveHeight(67), width: responsiveWidth(100) }}
@@ -134,11 +134,11 @@ const styles = StyleSheet.create({
     borderRadius: responsiveWidth(6),
   },
   icon_border: {
-    marginTop: responsiveHeight(-16),
-    marginLeft: responsiveWidth(28),
+    marginTop: responsiveHeight(-17),
+    marginLeft: responsiveWidth(27),
   },
   purple_background: {
-    backgroundColor: "rgba(215,152,246,1)",
+    backgroundColor: "rgba(10,76,118,1)",
     width: responsiveWidth(100),
     height: responsiveHeight(30),
   },
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
   },
 
   submit_btn: {
-    backgroundColor: "rgba(215,152,246,1)",
+    backgroundColor: "rgba(24,154,180,1)",
     width: responsiveWidth(30),
     height: responsiveHeight(7),
     marginTop: responsiveHeight(-19),
@@ -165,6 +165,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     textAlign: "center",
     letterSpacing: 1.0,
+    color: "white",
     fontFamily: "poppins-bold",
     fontWeight: "bold",
     paddingTop: responsiveHeight(1.6),

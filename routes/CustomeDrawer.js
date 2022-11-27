@@ -11,20 +11,19 @@ import {
     return (
       <>
         <View style={{ marginBottom: 20 }}>
-          <Image
-            style={{
-              width: 80,
-              height: 80,
+        
+         <Ionicons name="person-circle" size={95} color="white"  style={{
+              width: 100,
+              height: 95,
               marginLeft: 20,
               marginTop: 30,
               marginBottom: 30,
-            }}
-            // source={require('../assets/pic1.jpg')}
-          />
+            }} />
           <TouchableOpacity>
             <Ionicons
               name="close-outline"
               size={60}
+              color= "white"
               style={{ marginBottom: 20, marginLeft: 230, marginTop: -115 }}
               onPress={() => {
                 props.navigation.closeDrawer();
@@ -38,6 +37,8 @@ import {
             fontWeight: 'bold',
             marginLeft: 23,
             marginBottom: 10,
+            fontFamily: "poppins-bold",
+            color: "white",
           }}>
           Hey,{'\n'}Richard
         </Text>
@@ -45,6 +46,7 @@ import {
           <DrawerItemList {...props} />
           <View
             style={{
+              width: 245,
               height: 2,
               backgroundColor: 'black',
               alignSelf: 'stretch',
@@ -53,17 +55,17 @@ import {
               marginTop: 20,
             }}></View>
           <DrawerItem
-            activeBackgroundColor="#FAEBD7"
+            activeBackgroundColor="black"
             icon={({ focused, size, color, fontsize }) => {
-              iconName = 'home';
+              iconName = 'log-out';
   
               size = focused ? 25 : 20;
-              color = focused ? 'yellow' : 'orange';
+              color = focused ? 'white' : 'black';
               return <Ionicons name={iconName} size={size} color={color} />
             }}
-            labelStyle={{ marginLeft: -25, color: 'black', fontSize: 15 }}
+            labelStyle={{ marginLeft: -25, color: 'white', fontSize: 15 }}
             onPress={() => {
-              props.navigation.navigate('Sign_Out');
+              props.navigation.goBack()
             }}
             label="Logout"
           />

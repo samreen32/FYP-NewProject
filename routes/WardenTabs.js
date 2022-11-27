@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import Challan from "../components/Challan";
 import WardenProfile from "../components/WardenProfile";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Image } from "react-native";
 import StackWarden from "./StackWarden";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 
@@ -19,15 +19,15 @@ export default function WardenTabs() {
           if (route.name === "Home") {
             iconName = "home";
             size = focused ? 35 : 30;
-            color = focused ? "yellow" : "black";
+            color = focused ? "rgba(24,154,180,1)" : "black";
           } else if (route.name === "Profile") {
             iconName = "person";
             size = focused ? 30 : 35;
-            color = focused ? "yellow" : "black";
+            color = focused ? "black" : "black";
           } else if (route.name === "Add Challan") {
-            iconName = "add-circle";
+            iconName = "add-circle";           
             size = focused ? 30 : 45;
-            color = focused ? "yellow" : "black";
+            color = focused ? "black" : "black";
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -50,7 +50,7 @@ export default function WardenTabs() {
             borderBottomRightRadius: 60,
             borderTopRightRadius: 60,
             elevation: 0,
-            backgroundColor: "rgba(24,154,180,1)",
+            backgroundColor: "rgba(10,76,118,1)",
             height: 80,
             ...styles.shadow,
           },
@@ -73,7 +73,7 @@ export default function WardenTabs() {
             fontSize: 15,
             marginTop: -2,
             marginBottom: 15,
-            color: "black",
+            color: "white",
           },
         }}
       />
@@ -88,7 +88,7 @@ export default function WardenTabs() {
             fontSize: 15,
             marginTop: -2,
             marginBottom: 15,
-            color: "black",
+            color: "white",
           },
         }}
       />
