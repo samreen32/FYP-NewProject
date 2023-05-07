@@ -6,6 +6,18 @@ const { body, validationResult } = require("express-validator");
 const multer = require("multer");
 const cloudinary = require("../helper/ImageUpload");
 const AddMotors = require("../models/AddMotors");
+const qr = require("qrcode");
+
+// router.get('/qrcode', async (req, res) => {
+//   try {
+//     const qrData = 'https://example.com'; // The data you want to encode in the QR code
+//     const qrCode = await qr.toDataURL(qrData); // Generate the QR code as a data URL
+//     res.send(qrCode);
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).send('Internal Server Error');
+//   }
+// });
 
 const storage = multer.diskStorage({
   filename: (req, file, cb) => {
@@ -130,8 +142,12 @@ router.put(
         updatedFields,
         { new: true }
       );
+      // Generate QR code with the updated challan details
+      const qrData = JSON.stringify(updatedChallanDetails);
+      const qrCode = await qr.toDataURL(qrData);
+
       success = true;
-      res.json({ success, updatedChallanDetails });
+      res.json({ success, updatedChallanDetails, qrCode });
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Internal Server Error");

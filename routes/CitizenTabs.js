@@ -1,10 +1,10 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import PayChallan from "../components/PayChallan";
 import CitizenProfile from "../components/CitizenProfile";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { StyleSheet } from "react-native";
 import CitizenStack from "./CitizenStack";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
+import Citizen_AddMotors from "../components/Citizen_AddMotors";
 
 const Tab = createBottomTabNavigator();
 
@@ -23,8 +23,8 @@ export default function CitizenTabs() {
             iconName = "person";
             size = focused ? 30 : 35;
             color = focused ? "black" : "black";
-          } else if (route.name === "Pay Challan") {
-            iconName = "print";
+          } else if (route.name === "Add Motors") {
+            iconName = "car";
             size = focused ? 30 : 45;
             color = focused ? "black" : "black";
           }
@@ -63,8 +63,8 @@ export default function CitizenTabs() {
         })}
       />
       <Tab.Screen
-        name="Pay Challan"
-        component={PayChallan}
+        name="Add Motors"
+        component={Citizen_AddMotors}
         options={{
           tabBarStyle: { display: "none" },
           headerShown: false,

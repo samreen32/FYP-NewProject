@@ -174,7 +174,7 @@ export default function WardenScreen({ navigation }) {
       >
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("QrGeneration");
+            navigation.navigate("AddChallan");
           }}
         >
           <Ionicons

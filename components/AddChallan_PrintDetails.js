@@ -12,6 +12,7 @@ import { CHALLAN_API_URL, NOTIFI_API_URL } from "../Custom_Api_Calls/api_calls";
 import * as Notifications from "expo-notifications";
 import { useRef } from "react";
 import { useEffect } from "react";
+import * as Print from "expo-print";
 
 //Default Notification settings
 Notifications.setNotificationHandler({
@@ -23,8 +24,7 @@ Notifications.setNotificationHandler({
 });
 
 export default function AddChallan_PrintDetails({ navigation, route }) {
-  const { challanId, challanNum, vehicleNo, carType, amount, anyComment } =
-    route.params;
+  const { challanId, challanNum, carType, amount } = route.params;
   const [RegNo, setRegNo] = useState("");
   const [location, setLocation] = useState("");
   const [due_date, setDue_Date] = useState("");
@@ -76,18 +76,21 @@ export default function AddChallan_PrintDetails({ navigation, route }) {
           }
         );
         if (response.data.success) {
-          showToast("Challan has been added to print QR.");
-          navigation.navigate("QrGeneration", {
-            challanId: response.data.updatedChallanDetails._id,
-            challanNum,
-            vehicleNo,
-            RegNo,
-            carType,
-            amount,
-            location,
-            due_date,
-            anyComment,
+          showToast("Challan has been added. Print QR.");
+          const { qrCode } = response.data;
+          const base64ImageData = qrCode.split(",")[1]; // Generate base64 encoded image data from the QR code
+
+          // Print the QR code
+          await Print.printAsync({
+            html: `
+                  <div style="position: relative; height: 100vh;">
+            <img src="data:image/png;base64,${base64ImageData}"
+                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); height: 100%; width: auto;"
+            />
+          </div>
+          `,
           });
+
           addNotification();
           setUploadProgress(0);
         } else {

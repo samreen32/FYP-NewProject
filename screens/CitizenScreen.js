@@ -84,6 +84,7 @@ export default function CitizenScreen({ navigation }) {
           <Ionicons name="menu" size={40} color="black" />
         </Pressable>
       </View>
+
       {/* Notification */}
       <View
         style={[
@@ -149,7 +150,7 @@ export default function CitizenScreen({ navigation }) {
         <View style={globalStyles.viewPlaces}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("Citizen_AddMotors");
+              navigation.navigate("PayChallan");
             }}
           >
             <Text style={globalStyles.viewPlaces_Text}>Pay Challan</Text>
