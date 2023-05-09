@@ -108,7 +108,6 @@ const getRouteName = (route) => {
     routeName?.includes("ChallanHistory") ||
     routeName?.includes("WardenProfile") ||
     routeName?.includes("WardenEditProfile") ||
-    routeName?.includes("QrGeneration") ||
     routeName?.includes("WardenSearch") ||
     routeName?.includes("ViewComplaints") ||
     routeName?.includes("WardenSetting") ||

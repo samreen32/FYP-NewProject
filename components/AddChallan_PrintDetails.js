@@ -24,7 +24,15 @@ Notifications.setNotificationHandler({
 });
 
 export default function AddChallan_PrintDetails({ navigation, route }) {
-  const { challanId, challanNum, carType, amount } = route.params;
+  const {
+    challanId,
+    challanNum,
+    carType,
+    amount,
+    vehicleNo,
+    anyComment,
+  } = route.params;
+
   const [RegNo, setRegNo] = useState("");
   const [location, setLocation] = useState("");
   const [due_date, setDue_Date] = useState("");
@@ -54,9 +62,15 @@ export default function AddChallan_PrintDetails({ navigation, route }) {
     if (due_date == "") {
       return updateError("Select Due Date!", setError);
     }
+
     const formData = new FormData();
+    formData.append("challanNum", challanNum);
     formData.append("location", location);
     formData.append("regNumber", RegNo);
+    formData.append("vehicleNo", vehicleNo);
+    formData.append("carType", carType);
+    formData.append("amount", amount);
+    formData.append("anyComment", anyComment);
     formData.append("due_date", due_date);
 
     const DEMO_TOKEN = await AsyncStorage.getItem("token");
@@ -77,19 +91,26 @@ export default function AddChallan_PrintDetails({ navigation, route }) {
         );
         if (response.data.success) {
           showToast("Challan has been added. Print QR.");
-          const { qrCode } = response.data;
+          const { qrCode } = response.data.updatedChallanDetails;
           const base64ImageData = qrCode.split(",")[1]; // Generate base64 encoded image data from the QR code
 
           // Print the QR code
-          await Print.printAsync({
-            html: `
-                  <div style="position: relative; height: 100vh;">
-            <img src="data:image/png;base64,${base64ImageData}"
-                style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); height: 100%; width: auto;"
-            />
+          const htmlContent = `
+          <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <div style="text-align: center;margin-top: 50px;">
+              <span style="font-weight: bold; font-size: 30px;">WRONG PARKING CHALLAN</span>
+            </div>
+            <div style="margin-top: 30px;">
+              <img src="data:image/png;base64,${base64ImageData}" style="height: 75vh; width: 75vw; object-fit: contain;" />
+            </div>
+            <div style="margin-top: 30px; text-align: center;">
+              <span style="font-weight: italic; font-size: 30px;">You can download "E-Parking Challan App" to Pay the Challan.</span>
+            </div>
           </div>
-          `,
-          });
+        `;
+
+          const pdfUrl = await Print.printToFileAsync({ html: htmlContent });
+          await Print.printAsync({ uri: pdfUrl.uri });
 
           addNotification();
           setUploadProgress(0);
@@ -98,7 +119,7 @@ export default function AddChallan_PrintDetails({ navigation, route }) {
         }
       }
     } catch (error) {
-      showToast("Error occur", error.message);
+      showToast(error.message);
     }
   };
 
@@ -110,20 +131,18 @@ export default function AddChallan_PrintDetails({ navigation, route }) {
     setDate(currentDate);
     let tempDate = new Date(currentDate);
     let fDate =
-      "Date: " +
       tempDate.getDate() +
-      "-" +
+      "/" +
       (tempDate.getMonth() + 1) +
-      "-" +
+      "/" +
       tempDate.getFullYear();
     let fTime =
-      "Time: " +
       tempDate.getHours() +
       ":" +
       tempDate.getMinutes() +
       ":" +
       tempDate.getSeconds();
-    setDue_Date(fDate + "\n" + fTime);
+    setDue_Date(fDate + "  " + fTime);
   };
 
   const showMode = (currentMode) => {
@@ -385,3 +404,5 @@ export default function AddChallan_PrintDetails({ navigation, route }) {
     </>
   );
 }
+
+//style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); height: 100%; width: auto;"

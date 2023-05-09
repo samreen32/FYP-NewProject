@@ -20,7 +20,6 @@ import ContactScreen from "../components/ContactScreen";
 import Warden_Notifications from "../components/Warden_Notifications";
 import Warden_Logout from "../components/Warden_Logout";
 import WardenSearch from "../components/WardenSearch";
-import QrGeneration from "../components/QrGeneration";
 import Warden_ChangePassword from "../components/Warden_ChangePassword";
 
 
@@ -100,13 +99,6 @@ export default function StackWarden() {
           headerTintColor: "white",
           headerStyle: { backgroundColor: "rgba(10,76,118,1)" },
           headerTitle: "Search",
-        }}
-      />
-      <Stack.Screen
-        name="QrGeneration"
-        component={QrGeneration}
-        options={{
-          headerShown: false,
         }}
       />
       <Stack.Screen

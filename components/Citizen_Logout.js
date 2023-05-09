@@ -14,7 +14,7 @@ import { AUTH_API_URL } from "../Custom_Api_Calls/api_calls";
 
 export default function Citizen_Logout({ navigation }) {
   const [isLoading, setIsLoading] = useState(false);
-  const { setIsLoggedin, showToast } = userLogin();
+  const { setIsLogIn, showToast } = userLogin();
 
   /****** Citizen Logout Function  ******/
   const handleLogout = async () => {
@@ -33,7 +33,7 @@ export default function Citizen_Logout({ navigation }) {
         if (responseData.success) {
           await AsyncStorage.removeItem("token");
           setIsLoading(false);
-          setIsLoggedin(false);
+          setIsLogIn(false);
           showToast("You have been Logged Out.");
         } else {
           showToast("Error", "Failed to logout. Please try again.");
@@ -85,14 +85,13 @@ export default function Citizen_Logout({ navigation }) {
                 >
                   <TouchableOpacity
                     onPress={handleLogout}
-                    disabled={isLoading}
                     style={[
-                      globalStyles.Register_btn,
                       {
                         backgroundColor: "rgba(10,76,118,1)",
-                        width: responsiveWidth(30),
+                        width: responsiveWidth(33),
                         height: responsiveHeight(6),
-                        marginLeft: responsiveWidth(7),
+                        borderRadius: responsiveWidth(12),
+                        right: 15,
                       },
                     ]}
                   >
@@ -101,7 +100,7 @@ export default function Citizen_Logout({ navigation }) {
                         globalStyles.Register_Text,
                         {
                           marginTop: responsiveHeight(1),
-                          marginLeft: responsiveWidth(6),
+                          marginLeft: responsiveWidth(7),
                         },
                       ]}
                     >
@@ -109,14 +108,13 @@ export default function Citizen_Logout({ navigation }) {
                     </Text>
                   </TouchableOpacity>
                   <TouchableOpacity
-                    //onPress={() => navigation.navigate("CitizenDrawer")}
                     style={[
-                      globalStyles.Register_btn,
                       {
+                        right: 7,
                         backgroundColor: "black",
-                        width: responsiveWidth(30),
+                        width: responsiveWidth(33),
                         height: responsiveHeight(6),
-                        marginLeft: responsiveWidth(41),
+                        borderRadius: responsiveWidth(12),
                       },
                     ]}
                   >
@@ -125,7 +123,7 @@ export default function Citizen_Logout({ navigation }) {
                         globalStyles.Register_Text,
                         {
                           marginTop: responsiveHeight(1),
-                          marginLeft: responsiveWidth(8),
+                          marginLeft: responsiveWidth(9),
                         },
                       ]}
                       onPress={() => navigation.goBack()}
@@ -133,6 +131,7 @@ export default function Citizen_Logout({ navigation }) {
                       Cancel
                     </Text>
                   </TouchableOpacity>
+                  
                 </Card.Actions>
               </Card>
             </View>

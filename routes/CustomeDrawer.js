@@ -67,7 +67,7 @@ const CustomDrawer = (props) => {
           }}
         ></View>
 
-        <DrawerItem
+        {/* <DrawerItem
           activeBackgroundColor="black"
           icon={({ focused, size, color, iconName }) => {
             iconName = "log-out";
@@ -80,7 +80,7 @@ const CustomDrawer = (props) => {
             setIsLogIn(false);
           }}
           label="Logout"
-        />
+        /> */}
       </DrawerContentScrollView>
     </>
   );

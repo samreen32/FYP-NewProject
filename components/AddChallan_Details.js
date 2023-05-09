@@ -26,6 +26,7 @@ export default function AddChallan({ navigation, route }) {
   const [uploadProgress, setUploadProgress] = useState(0);
   const { updateError, error, setError, showToast } = userLogin();
 
+  
   /***************** Function to save challan details ***************/
   const handleChallanDetails = async () => {
     if (vehicleNo == "") {
@@ -64,6 +65,7 @@ export default function AddChallan({ navigation, route }) {
           navigation.navigate("AddChallan_PrintDetails", {
             challanId: response.data.updatedChallanDetails._id,
             challanNum,
+            cameraImage,
             vehicleNo,
             carType,
             amount,

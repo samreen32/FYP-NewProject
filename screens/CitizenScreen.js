@@ -81,7 +81,7 @@ export default function CitizenScreen({ navigation }) {
             navigation.openDrawer("CitizenDrawer");
           }}
         >
-          <Ionicons name="menu" size={40} color="black" />
+          <Ionicons name="menu" size={33} color="black" />
         </Pressable>
       </View>
 

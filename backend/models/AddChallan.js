@@ -39,7 +39,10 @@ const addChallanSchema = new mongoose.Schema({
   due_date: {
     type: String,
     require: false,
-  },  
+  }, 
+  qrCode: {
+    type: String,
+  },
   date: {
     type: Date,
     default: Date.now,

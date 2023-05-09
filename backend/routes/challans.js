@@ -8,17 +8,6 @@ const cloudinary = require("../helper/ImageUpload");
 const AddMotors = require("../models/AddMotors");
 const qr = require("qrcode");
 
-// router.get('/qrcode', async (req, res) => {
-//   try {
-//     const qrData = 'https://example.com'; // The data you want to encode in the QR code
-//     const qrCode = await qr.toDataURL(qrData); // Generate the QR code as a data URL
-//     res.send(qrCode);
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).send('Internal Server Error');
-//   }
-// });
-
 const storage = multer.diskStorage({
   filename: (req, file, cb) => {
     cb(null, file.originalname);
@@ -102,6 +91,7 @@ router.put(
     try {
       let success = false;
       const {
+        challanNum,
         vehicleNo,
         carType,
         regNumber,
@@ -122,7 +112,13 @@ router.put(
         imageUrl = result.secure_url;
       }
 
+      const addChallan = await AddChallan.findById(req.params.id);
+      if (!addChallan) {
+        return res.status(404).json({ msg: "Challan not found" });
+      }
+
       const updatedFields = {
+        challanNum: challanNum,
         vehicleNo: vehicleNo,
         regNumber: regNumber,
         carType: carType,
@@ -137,17 +133,30 @@ router.put(
         updatedFields.add_img = imageUrl;
       }
 
+      // Generate QR code
+      const qrCodeData = {
+        challanNum: updatedFields.challanNum,
+        add_img: updatedFields.add_img,
+        vehicleNo: updatedFields.vehicleNo,
+        regNumber: updatedFields.regNumber,
+        carType: updatedFields.carType,
+        amount: updatedFields.amount,
+        location: updatedFields.location,
+        anyComment: updatedFields.anyComment,
+        due_date: updatedFields.due_date,
+        date: addChallan.date,
+      };
+      const qrCodeImage = await qr.toDataURL(JSON.stringify(qrCodeData));
+      updatedFields.qrCode = qrCodeImage;
+
       const updatedChallanDetails = await AddChallan.findByIdAndUpdate(
         req.params.id,
         updatedFields,
         { new: true }
       );
-      // Generate QR code with the updated challan details
-      const qrData = JSON.stringify(updatedChallanDetails);
-      const qrCode = await qr.toDataURL(qrData);
 
       success = true;
-      res.json({ success, updatedChallanDetails, qrCode });
+      res.json({ success, updatedChallanDetails });
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Internal Server Error");

@@ -5,6 +5,7 @@ import {
   FontAwesome,
   Entypo,
   FontAwesome5,
+  MaterialCommunityIcons
 } from "@expo/vector-icons";
 import Places from "../components/Places";
 import FileComplaint from "../components/FileComplaint";
@@ -14,6 +15,7 @@ import CitizenTabs from "./CitizenTabs";
 import CustomDrawer from "../routes/CustomeDrawer";
 import Citizen_Logout from "../components/Citizen_Logout";
 import Citizen_AddMotors from "../components/Citizen_AddMotors";
+import QrScanner from "../components/QrScanner";
 
 const Drawer = createDrawerNavigator();
 
@@ -61,6 +63,21 @@ export default function CitizenDrawer() {
           drawerIcon: ({ focused }) => (
             <Ionicons
               name="location"
+              size={focused ? 25 : 20}
+              color={focused ? "rgba(10,76,118,1)" : "black"}
+            />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="QrScanner"
+        component={QrScanner}
+        options={{
+          headerShown: false,
+          title: "Scan QR",
+          drawerIcon: ({ focused }) => (
+            <MaterialCommunityIcons
+              name="qrcode-scan"
               size={focused ? 25 : 20}
               color={focused ? "rgba(10,76,118,1)" : "black"}
             />
