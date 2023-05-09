@@ -33,7 +33,7 @@ export default function AddChallan({ navigation, route }) {
       return updateError("Enter a Vehicle Number!", setError);
     }
     if (carType == "") {
-      return updateError("Select a Car type!", setError);
+      return updateError("Enter a Car type!", setError);
     }
     if (amount == "") {
       return updateError("Enter Challan Amount!", setError);
@@ -110,9 +110,9 @@ export default function AddChallan({ navigation, route }) {
         <Text
           style={{
             color: "red",
-            fontSize: responsiveFontSize(2.2),
+            fontSize: responsiveFontSize(2.5),
             textAlign: "center",
-            marginTop: responsiveHeight(36),
+            marginTop: responsiveHeight(25),
           }}
         >
           {error}

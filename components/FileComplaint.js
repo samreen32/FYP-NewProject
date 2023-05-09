@@ -90,8 +90,14 @@ export default function FileComplaint({ navigation }) {
 
   /***************Function to store images********************/
   const submitData = async () => {
+    if (name == "") {
+      return updateError("Enter your Name!", setError);
+    }
     if (name.length < 3) {
       return updateError("Name must be 3 character long!", setError);
+    }
+    if (email == "") {
+      return updateError("Enter your Email!", setError);
     }
     if (!isValidEmail(email)) {
       return updateError("Enter a valid emai!", setError);
@@ -227,6 +233,7 @@ export default function FileComplaint({ navigation }) {
             />
           </TouchableOpacity>
         </View>
+
         <View style={styles.icon_border}>
           <Ionicons name={"chatbubbles"} size={100} color={"white"} />
         </View>

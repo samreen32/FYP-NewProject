@@ -1,6 +1,6 @@
 import { React } from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { Ionicons, AntDesign } from "@expo/vector-icons";
+import { Ionicons, AntDesign, Feather } from "@expo/vector-icons";
 import Places from "../components/Places";
 import HandleComplaints from "../components/HandleComplaints";
 import AdminSetting from "../components/AdminSetting";
@@ -8,6 +8,7 @@ import Admin_Logout from "../components/Admin_Logout";
 import AdminTabs from "./AdminTabs";
 import CustomDrawer from "../routes/CustomeDrawer";
 import Guidelines from "../components/Guidelines";
+import RemoveWarden from "../components/RemoveWarden";
 
 const Drawer = createDrawerNavigator();
 
@@ -55,6 +56,20 @@ export default function AdminDrawer() {
           drawerIcon: ({ focused }) => (
             <Ionicons
               name="ios-remove-circle-outline"
+              size={focused ? 25 : 20}
+              color={focused ? "rgba(10,76,118,1)" : "black"}
+            />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Remove Warden"
+        component={RemoveWarden}
+        options={{
+          title: "Remove Warden",
+          drawerIcon: ({ focused }) => (
+            <Feather
+              name="user-minus"
               size={focused ? 25 : 20}
               color={focused ? "rgba(10,76,118,1)" : "black"}
             />

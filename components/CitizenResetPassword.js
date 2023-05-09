@@ -91,7 +91,7 @@ export default function CitizenResetPassword({ route }) {
 
 
   return (
-    <View>
+    <>
       <View style={styles.purple_background}>
         <TouchableOpacity
           onPress={() => {
@@ -119,7 +119,7 @@ export default function CitizenResetPassword({ route }) {
       <ScrollView>
         <View
           style={{
-            marginTop: responsiveHeight(8),
+            marginTop: responsiveHeight(13),
             alignItems: "center",
           }}
         >
@@ -129,7 +129,7 @@ export default function CitizenResetPassword({ route }) {
                 color: "red",
                 fontSize: responsiveFontSize(2.5),
                 textAlign: "center",
-                marginTop: responsiveHeight(-2),
+                marginTop: responsiveHeight(-3),
               }}
             >
               {error}
@@ -193,7 +193,7 @@ export default function CitizenResetPassword({ route }) {
         </View>
       </ScrollView>
       {isLoading ? <AppLoader /> : null}
-    </View>
+    </>
   );
 }
 

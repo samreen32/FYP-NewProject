@@ -178,7 +178,9 @@ export default function WardenLogin({ navigation }) {
         </Animated.Text>
       </View>
 
-      <Animated.View style={globalStyles.CitizenWarden_btn_Group}>
+      <Animated.View style={[globalStyles.CitizenWarden_btn_Group, {
+         marginTop: responsiveHeight(-43)
+      }]}>
         <TouchableOpacity
           style={[
             globalStyles.Register_btn,

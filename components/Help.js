@@ -4,8 +4,6 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  Platform,
-  ToastAndroid,
   ScrollView,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -26,9 +24,17 @@ export default function Help({ navigation }) {
   const [Email, setEmail] = useState("");
   const [description, setdescription] = useState("");
   const [Any_Comment, setAny_Comment] = useState("");
-  const { isLoading, setIsLoading, showToast } = userLogin();
+  const {
+    isLoading,
+    setIsLoading,
+    showToast,
+    error,
+    setError,
+    updateError,
+    isValidEmail,
+  } = userLogin();
 
-  /*************** Function to save help request ********************/
+  /*************** Function to save help request for citizen ********************/
   const handleHelp = async () => {
     const url = `${HELP_API_URL}/citizenHelp`;
     const data = {
@@ -39,6 +45,18 @@ export default function Help({ navigation }) {
     };
     const authToken = await AsyncStorage.getItem("token");
     try {
+      if (Name == "") {
+        return updateError("Enter your name!", setError);
+      }
+      if (Email == "") {
+        return updateError("Enter your email!", setError);
+      }
+      if (!isValidEmail(Email)) {
+        return updateError("Enter a valid emai!", setError);
+      }
+      if (description == "") {
+        return updateError("Enter a description!", setError);
+      }
       setIsLoading(true);
       const response = await fetch(url, {
         method: "POST",
@@ -65,7 +83,7 @@ export default function Help({ navigation }) {
   };
 
   return (
-    <View>
+    <>
       <View style={styles.purple_background}>
         <TouchableOpacity
           onPress={() => {
@@ -85,6 +103,18 @@ export default function Help({ navigation }) {
       <View style={styles.icon_border}>
         <Ionicons name={"help-circle"} size={160} color={"white"} />
       </View>
+      {error ? (
+        <Text
+          style={{
+            color: "red",
+            fontSize: responsiveFontSize(2.5),
+            textAlign: "center",
+            marginTop: responsiveHeight(-2),
+          }}
+        >
+          {error}
+        </Text>
+      ) : null}
 
       <ScrollView>
         <View
@@ -162,9 +192,9 @@ export default function Help({ navigation }) {
           </TouchableOpacity>
         </View>
       </ScrollView>
-      
+
       {isLoading ? <AppLoader /> : null}
-    </View>
+    </>
   );
 }
 

@@ -35,6 +35,11 @@ const AuthProvider = ({ children }) => {
     return regx.test(value);
   };
 
+  const isValidPhone = (value) => {
+    const regx = /^(?:\+92|0)3\d{2}(?:-)?\d{7}$/;
+    return regx.test(value);
+  };   
+
   const isValidObjField = (obj) => {
     return Object.values(obj).every((value) => value.trim());
   };
@@ -60,6 +65,7 @@ const AuthProvider = ({ children }) => {
         text,
         greeting,
         isValidEmail,
+        isValidPhone,
         isValidObjField,
         updateError,
         isPassSecure,

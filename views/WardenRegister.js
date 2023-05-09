@@ -1,5 +1,4 @@
 import { React, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
 import {
   Text,
   View,
@@ -26,13 +25,12 @@ export default function WardenRegister() {
     phone: "",
   });
   const { name, email, password, liscenceID, phone } = wardenCredentials;
-  const navigation = useNavigation();
   const [isPassSecure, setIsPassSecure] = useState(true);
   const [error, setError] = useState("");
   const {
-    isLoading,
     setIsLoading,
     isValidEmail,
+    isValidPhone,
     isValidObjField,
     updateError,
     showToast
@@ -45,7 +43,7 @@ export default function WardenRegister() {
         return updateError("Require All Fields!", setError);
       }
       if (!name.trim() || name.length < 3) {
-        return updateError("Name is not Valid!", setError);
+        return updateError("Name must be 3 Character long!", setError);
       }
       if (!isValidEmail(email)) {
         return updateError("Enter a valid emai!", setError);
@@ -53,9 +51,9 @@ export default function WardenRegister() {
       if (!password.trim() || password.length < 5) {
         return updateError("Password must be 5 character long!", setError);
       }
-      // if (!isValidPhone(phone)) {
-      //   return updateError("Phone number is not Valid!", setError);
-      // }
+      if (!isValidPhone(phone)) {
+        return updateError("Phone number is not Valid!", setError);
+      }
       setIsLoading(true);
       const response = await fetch(`${AUTH_API_URL}/createwarden`, {
         method: "POST",
@@ -83,7 +81,7 @@ export default function WardenRegister() {
         setIsLoading(false);
       }
     } catch (e) {
-      showToast(`warden register error ${e}`);
+      showToast(`Warden register error ${e}`);
       setIsLoading(false);
     }
   };
@@ -92,17 +90,10 @@ export default function WardenRegister() {
     setwardenCredentials({ ...wardenCredentials, [fieldName]: value });
   };
 
-
-  /***** Validation methods ******/
-  // const isValidPhone = (value) => {
-  //   const phoneRegx = /^((\\+92)?(0092)?(92)?(0)?)(3)([0-9]{9})$/;
-  //   return phoneRegx.test(value);
-  // };
-
   return (
     <View
       style={{
-        marginTop: responsiveHeight(4),
+        marginTop: responsiveHeight(2),
         paddingHorizontal: 20,
         width: Dimensions.get("window").width,
       }}

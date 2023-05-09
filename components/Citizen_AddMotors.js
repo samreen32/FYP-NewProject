@@ -183,12 +183,7 @@ export default function Citizen_AddMotors({ navigation }) {
         <TouchableOpacity style={styles.save_btn} onPress={handleAddMotors}>
           <Text style={styles.save_text}>Save</Text>
         </TouchableOpacity>
-
-        <TouchableOpacity onPress={()=> {
-          navigation.navigate("Citizen_ViewChallanMotors");
-        }}>
-          <Text style={styles.save_text}>Save</Text>
-        </TouchableOpacity>
+        
       </ScrollView>
 
       {isLoading ? <AppLoader /> : null}

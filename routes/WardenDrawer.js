@@ -12,6 +12,7 @@ import Help from "../components/Help";
 import WardenTabs from "./WardenTabs";
 import CustomDrawer from "./CustomeDrawer";
 import Warden_Logout from "../components/Warden_Logout";
+import AddChallan from "../components/AddChallan";
 
 const Drawer = createDrawerNavigator();
 
@@ -59,6 +60,21 @@ export default function WardenDrawer() {
           drawerIcon: ({ focused }) => (
             <Ionicons
               name="location"
+              size={focused ? 25 : 20}
+              color={focused ? "rgba(10,76,118,1)" : "black"}
+            />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="AddChallan"
+        component={AddChallan}
+        options={{
+          headerShown: true,
+          title: "Add Challan",
+          drawerIcon: ({ focused }) => (
+            <MaterialCommunityIcons
+              name="book-plus-multiple"
               size={focused ? 25 : 20}
               color={focused ? "rgba(10,76,118,1)" : "black"}
             />

@@ -17,7 +17,6 @@ import {
   responsiveWidth,
   responsiveFontSize,
 } from "react-native-responsive-dimensions";
-import { globalStyles } from "../styles/globalStyles";
 import { Card } from "react-native-paper";
 
 export default function ChooseView({ navigation }) {
@@ -74,21 +73,21 @@ export default function ChooseView({ navigation }) {
         <Card
           style={[
             styles.viewBlocks,
-            { transform: [{ translateX }], marginLeft: responsiveWidth(-55) },
+            {
+              marginLeft: responsiveWidth(-55),
+              transform: [{ translateX }],
+            },
           ]}
           onPress={() => {
-            navigation.navigate("AdminLogin");
+            navigation.navigate("CitizenLogin");
           }}
         >
           <Card.Content>
-            <MaterialCommunityIcons
-              name="account-wrench"
-              size={85}
-              color="rgba(10,76,118,1)"
-            />
-            <Text style={styles.ViewsText}>Admin</Text>
+            <FontAwesome name="user" size={85} color="rgba(10,76,118,1)" />
+            <Text style={styles.ViewsText}>Citizen</Text>
           </Card.Content>
         </Card>
+
         <Card
           style={[
             styles.viewBlocks,
@@ -108,24 +107,30 @@ export default function ChooseView({ navigation }) {
             <Text style={styles.ViewsText}>Traffic Warden</Text>
           </Card.Content>
         </Card>
+
         <Card
           style={[
             styles.viewBlocks,
             {
-              marginTop: responsiveHeight(1),
-              marginLeft: responsiveWidth(-55),
               transform: [{ translateX }],
+              marginLeft: responsiveWidth(-55),
+              marginTop: responsiveHeight(1),
             },
           ]}
           onPress={() => {
-            navigation.navigate("CitizenLogin");
+            navigation.navigate("AdminLogin");
           }}
         >
           <Card.Content>
-            <FontAwesome name="user" size={85} color="rgba(10,76,118,1)" />
-            <Text style={styles.ViewsText}>Citizen</Text>
+            <MaterialCommunityIcons
+              name="account-wrench"
+              size={85}
+              color="rgba(10,76,118,1)"
+            />
+            <Text style={styles.ViewsText}>Admin</Text>
           </Card.Content>
         </Card>
+
       </View>
     </>
   );

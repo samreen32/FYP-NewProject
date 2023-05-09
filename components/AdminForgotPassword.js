@@ -32,6 +32,9 @@ export default function AdminForgotPassword({ navigation }) {
 
   /*************** Function to handle forgot password ********************/
   const handleForgotPassword = async () => {
+    if (email == "") {
+      return updateError("Enter your email!", setError);
+    }
     if (!isValidEmail(email)) {
       return updateError("Enter a valid email!", setError);
     }
@@ -64,7 +67,6 @@ export default function AdminForgotPassword({ navigation }) {
       updateError("An error occurred, please try again later!", setError);
     });
   };
-
 
   return (
     <>
