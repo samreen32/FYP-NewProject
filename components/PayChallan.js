@@ -63,7 +63,7 @@ export default function PayChallan({ navigation }) {
 
         // Fetch the challans for all the vehicle numbers
         const challansResponse = await fetch(
-          `${CHALLAN_API_URL}/showChallans`,
+          `${CHALLAN_API_URL}/show_UnpaidChallans`,
           {
             method: "POST",
             headers: {
@@ -75,9 +75,7 @@ export default function PayChallan({ navigation }) {
         );
         const challansData = await challansResponse.json();
         console.log(challansData);
-
-        // Set the state of challans with the fetched data
-        setChallans(challansData.challans);
+        setChallans(challansData.challans); // Set the state of challans with the fetched data
       }
     } catch (error) {
       console.error(error.message);

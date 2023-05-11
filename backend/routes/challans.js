@@ -183,20 +183,17 @@ router.put(
 
 /********************** 3rd Route ************************/
 //Show challans to citizen using: POST "api/challans/showChallans"....Login required.....at CITIZEN side
-router.post("/showChallans", get_auth, async (req, res) => {
+router.post("/show_UnpaidChallans", get_auth, async (req, res) => {
   try {
     const { vehicleNo } = req.body;
-
-    // getting challan details corresponding to the vehicle numbers
-    const challans = await AddChallan.find({ vehicleNo: { $in: vehicleNo } })
-      .populate("warden", "name email -_id")
-      .sort("-date")
-      .exec();
-
-    res.json({ success: true, challans });
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).send("Internal Server Error");
+    const challans = await AddChallan.find({
+      vehicleNo: { $in: vehicleNo },
+      status: "Unpaid",
+    }).populate("warden", "name email");
+    res.send({ success: true, challans });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
   }
 });
 
