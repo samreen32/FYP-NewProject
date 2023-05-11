@@ -11,6 +11,14 @@ const citizenSchema = new Schema({
     required: true,
     unique: true,
   },
+  phoneNo: {
+    type: String,
+    required: true,
+  },
+  vehicleNo: {
+    type: String,
+    required: true,
+  },
   password: {
     type: String,
     required: true,

@@ -16,14 +16,15 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { userLogin } from "../context/AuthContext";
 import auth_api from "../Custom_Api_Calls/auth_api";
 
-export default function CitizenRegister({ navigation }) {
+export default function CitizenRegister({ }) {
   const [credentials, setCredentials] = useState({
     name: "",
     email: "",
+    phoneNo: "",
+    vehicleNo: "",
     password: "",
-    cpassword: "",
   });
-  const { name, email, password, cpassword } = credentials;
+  const { name, email, phoneNo, vehicleNo, password } = credentials;
   const [error, setError] = useState("");
   const {
     setIsLoading,
@@ -32,11 +33,11 @@ export default function CitizenRegister({ navigation }) {
     updateError,
     isPassSecure,
     setIsPassSecure,
-    showToast
+    showToast,
   } = userLogin();
 
   //Citizen Register function
-  const register = async (name, email, password) => {
+  const register = async (name, email, password, phoneNo, vehicleNo) => {
     try {
       if (!isValidObjField(credentials)) {
         return updateError("Require all fields!", setError);
@@ -50,14 +51,13 @@ export default function CitizenRegister({ navigation }) {
       if (!password.trim() || password.length < 5) {
         return updateError("Password must be 5 character long!", setError);
       }
-      if (password !== cpassword) {
-        return updateError("Password do not match!", setError);
-      }
       setIsLoading(true);
       const response = await auth_api.post("/create_citizen", {
         name,
         email,
         password,
+        phoneNo,
+        vehicleNo,
       });
       console.log(response.data);
       if (response.data.success) {
@@ -67,7 +67,8 @@ export default function CitizenRegister({ navigation }) {
           name: "",
           email: "",
           password: "",
-          cpassword: "",
+          phoneNo: "",
+          vehicleNo: "",
         });
         setIsLoading(false);
       }
@@ -80,7 +81,6 @@ export default function CitizenRegister({ navigation }) {
   const onChange = (value, fieldName) => {
     setCredentials({ ...credentials, [fieldName]: value });
   };
-
 
   return (
     <View
@@ -129,6 +129,30 @@ export default function CitizenRegister({ navigation }) {
         />
         <TextInput
           style={[globalStyles.textInput_register]}
+          value={phoneNo}
+          onChangeText={(value) => onChange(value, "phoneNo")}
+          label="Phone No"
+          mode="outlined"
+          activeOutlineColor="rgba(10,76,118,1)"
+          outlineColor="rgba(24,154,180,1)"
+          keyboardType="Number"
+          editable
+          autoCapitalize="none"
+        />
+        <TextInput
+          style={[globalStyles.textInput_register]}
+          value={vehicleNo}
+          onChangeText={(value) => onChange(value, "vehicleNo")}
+          label="Vehicle No"
+          mode="outlined"
+          activeOutlineColor="rgba(10,76,118,1)"
+          outlineColor="rgba(24,154,180,1)"
+          editable
+          autoCapitalize="none"
+        />
+
+        <TextInput
+          style={[globalStyles.textInput_register]}
           value={password}
           onChangeText={(value) => onChange(value, "password")}
           label="Password"
@@ -148,31 +172,10 @@ export default function CitizenRegister({ navigation }) {
             />
           }
         />
-        <TextInput
-          style={[globalStyles.textInput_register]}
-          value={cpassword}
-          onChangeText={(value) => onChange(value, "cpassword")}
-          label="Confirm Password"
-          mode="outlined"
-          activeOutlineColor="rgba(10,76,118,1)"
-          outlineColor="rgba(24,154,180,1)"
-          //keyboardType="alphabet"
-          editable
-          autoCapitalize="none"
-          secureTextEntry={isPassSecure}
-          right={
-            <TextInput.Icon
-              icon={isPassSecure ? "eye" : "eye-off"}
-              onPress={() => {
-                setIsPassSecure((prev) => !prev);
-              }}
-            />
-          }
-        />
         <TouchableOpacity
           style={[globalStyles.register_SignUp]}
           onPress={() => {
-            register(name, email, password);
+            register(name, email, password, phoneNo, vehicleNo);
           }}
         >
           <Text style={globalStyles.Sign_in_Text}>Sign Up</Text>

@@ -2,6 +2,7 @@ const express = require("express"); //importing express
 const router = express.Router();
 const get_auth = require("../middleware/get_auth");
 const AddChallan = require("../models/AddChallan");
+const Citizen = require("../models/Citizen");
 const { body, validationResult } = require("express-validator");
 const multer = require("multer");
 const cloudinary = require("../helper/ImageUpload");
@@ -98,6 +99,7 @@ router.put(
         amount,
         location,
         anyComment,
+        status,
         due_date,
       } = req.body;
       let imageUrl = null;
@@ -117,6 +119,19 @@ router.put(
         return res.status(404).json({ msg: "Challan not found" });
       }
 
+      // Retrieve all citizens from the database
+      const citizens = await Citizen.find();
+      // Filter the citizens whose vehicleNo matches the received value
+      const matchingCitizens = citizens.filter(
+        (citizen) => citizen.vehicleNo === vehicleNo
+      );
+      let phoneNumber;
+      if (matchingCitizens.length === 0) {
+        phoneNumber = "";
+      } else {
+        phoneNumber = matchingCitizens[0].phoneNo; // get the phone number from the first matching citizen
+      }
+
       const updatedFields = {
         challanNum: challanNum,
         vehicleNo: vehicleNo,
@@ -126,6 +141,7 @@ router.put(
         location: location,
         anyComment: anyComment,
         due_date: due_date,
+        status: status,
         warden: req.warden.id,
       };
 
@@ -144,6 +160,7 @@ router.put(
         location: updatedFields.location,
         anyComment: updatedFields.anyComment,
         due_date: updatedFields.due_date,
+        status: updatedFields.status,
         date: addChallan.date,
       };
       const qrCodeImage = await qr.toDataURL(JSON.stringify(qrCodeData));
@@ -156,7 +173,7 @@ router.put(
       );
 
       success = true;
-      res.json({ success, updatedChallanDetails });
+      res.json({ success, updatedChallanDetails, phoneNumber });
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Internal Server Error");
@@ -192,6 +209,25 @@ router.get("/fetch_single_challan/:id", get_auth, async (req, res) => {
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Internal Server Error");
+  }
+});
+
+/********************** 5th Route ************************/
+//Update status of single challan using: PUT "api/challans/challanStatus/:id". Login required......at CITIZEN side
+router.put("/challanStatus/:id", async (req, res) => {
+  try {
+    let success = false;
+    const challan = await AddChallan.findById(req.params.id);
+    if (!challan) {
+      return res.status(404).json({ message: "Challan not found" });
+    }
+    challan.status = "paid";
+    await challan.save();
+    success = true;
+    res.json({ success, challan });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server Error" });
   }
 });
 

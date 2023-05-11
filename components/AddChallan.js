@@ -209,12 +209,12 @@ export default function AddChallan({ navigation, route }) {
                 Capture Image
               </Text>
             </View>
-            <View>
+            <>
               <TouchableOpacity
                 style={[
                   globalStyles.searchIcon,
                   {
-                    marginTop: responsiveHeight(5),
+                    marginTop: responsiveHeight(33),
                     marginLeft: responsiveWidth(39),
                   },
                 ]}
@@ -234,7 +234,7 @@ export default function AddChallan({ navigation, route }) {
               >
                 Pick{"\n"}Image
               </Text>
-            </View>
+            </>
           </>
         )}
       </View>

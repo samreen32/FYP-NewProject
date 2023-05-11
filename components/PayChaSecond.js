@@ -25,7 +25,6 @@ export default function PayChaSecond({ navigation, route }) {
               },
             }
           );
-
           const data = await response.json();
           setChallan(data);
         }
@@ -114,7 +113,9 @@ export default function PayChaSecond({ navigation, route }) {
 
         <TextInput
           style={globalStyles.location_TextInput}
-          placeholder={challan.location}
+          placeholder={
+            challan && challan.location ? challan.location.toString() : ""
+          }
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
           outlineColor="rgba(24,154,180,1)"
@@ -134,7 +135,12 @@ export default function PayChaSecond({ navigation, route }) {
         />
       </View>
 
-      <TouchableOpacity style={globalStyles.printChallan_btn} onPress={""}>
+      <TouchableOpacity
+        style={globalStyles.printChallan_btn}
+        onPress={() => {
+          navigation.navigate("PayChallan_CheckOut", { challan: challan });
+        }}
+      >
         <Text style={globalStyles.submitChallan_Text}>Pay</Text>
       </TouchableOpacity>
     </>

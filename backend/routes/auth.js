@@ -20,6 +20,8 @@ router.post(
     body("password")
       .isLength({ min: 5 })
       .withMessage("Enter atleast 5 charater long password"),
+    body("phoneNo", "Enter 11 digit number").isLength({ min: 11 }),
+    body("vehicleNo", "Enter a valid  vehicle number"),
   ],
   async (req, res) => {
     let success = false;
@@ -42,6 +44,8 @@ router.post(
       citizen = await Citizen.create({
         name: req.body.name,
         email: req.body.email,
+        phoneNo: req.body.phoneNo,
+        vehicleNo: req.body.vehicleNo,
         password: securePasssword,
       });
 
@@ -61,6 +65,19 @@ router.post(
   }
 );
 
+router.get("/citizen_vehicleNo", get_auth, async (req, res) => {
+  try {
+    const citizen = await Citizen.findById(req.citizen.id);
+    if (!citizen) {
+      return res.status(404).json({ error: "Citizen not found" });
+    }
+    res.json({ vehicleNo: citizen.vehicleNo });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 /************************* 2nd Route *************************/
 //Authenticat a Citizen using: POST "api/auth/citizenlogin". No login required.
 router.post(
@@ -77,7 +94,7 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { email, password } = req.body;
+    const { email, password, phoneNo, vehicleNo } = req.body;
     try {
       let citizen = await Citizen.findOne({ email });
       if (!citizen) {
@@ -119,6 +136,8 @@ router.post(
         name: citizen.name,
         email: citizen.email,
         password: citizen.password,
+        phoneNo: citizen.phoneNo,
+        vehicleNo: citizen.vehicleNo,
         avatar: citizen.avatar ? citizen.avatar : "",
         notificationsData: citizen.notificationsData
           ? citizen.notificationsData
@@ -749,7 +768,6 @@ router.post(
     }
   }
 );
-
 
 /************************* 3rd Route *************************/
 //Admin forgot password using: POST "api/auth/admin_forgot_password". Login required.

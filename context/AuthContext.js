@@ -5,7 +5,6 @@ import { Alert, Platform, ToastAndroid } from "react-native";
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [text, setText] = useState("dghashbxdhjfjdgnndhj");
   const [greeting, setGreeting] = useState("");
   const [isLoading, setIsLoading] = useState(false); //loading state
   const [isLogIn, setIsLogIn] = useState(false); //logged in state
@@ -62,7 +61,6 @@ const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
-        text,
         greeting,
         isValidEmail,
         isValidPhone,

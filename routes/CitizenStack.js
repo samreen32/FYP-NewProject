@@ -22,6 +22,7 @@ import CitizenResetPassword from "../components/CitizenResetPassword";
 import Citizen_ChangePassword from "../components/Citizen_ChangePassword";
 import Citizen_AddMotors from "../components/Citizen_AddMotors";
 import Citizen_ViewChallanMotors from "../components/Citizen_ViewChallanMotors";
+import PayChallan_CheckOut from "../components/PayChallan_CheckOut";
 
 const Stack = createNativeStackNavigator();
 
@@ -71,6 +72,13 @@ export default function CitizenStack() {
       <Stack.Screen
         name="PayChaSecond"
         component={PayChaSecond}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="PayChallan_CheckOut"
+        component={PayChallan_CheckOut}
         options={{
           headerShown: false,
         }}

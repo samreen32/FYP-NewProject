@@ -14,6 +14,9 @@ import { useRef } from "react";
 import { useEffect } from "react";
 import * as Print from "expo-print";
 
+import * as SMS from "expo-sms";
+import * as Permissions from "expo-permissions";
+
 //Default Notification settings
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -23,15 +26,9 @@ Notifications.setNotificationHandler({
   }),
 });
 
-export default function AddChallan_PrintDetails({ navigation, route }) {
-  const {
-    challanId,
-    challanNum,
-    carType,
-    amount,
-    vehicleNo,
-    anyComment,
-  } = route.params;
+export default function AddChallan_PrintDetails({ route }) {
+  const { challanId, challanNum, carType, amount, vehicleNo, anyComment } =
+    route.params;
 
   const [RegNo, setRegNo] = useState("");
   const [location, setLocation] = useState("");
@@ -51,7 +48,7 @@ export default function AddChallan_PrintDetails({ navigation, route }) {
   const { updateError, error, setError, showToast, setBadgeValue } =
     userLogin();
 
-  /***************** Function to add challan details to print ***************/
+  /***************** Function to add challan details for print ***************/
   const handlePrintDetails = async () => {
     if (RegNo == "") {
       return updateError("Enter a Registration Number!", setError);
@@ -62,7 +59,6 @@ export default function AddChallan_PrintDetails({ navigation, route }) {
     if (due_date == "") {
       return updateError("Select Due Date!", setError);
     }
-
     const formData = new FormData();
     formData.append("challanNum", challanNum);
     formData.append("location", location);
@@ -108,7 +104,6 @@ export default function AddChallan_PrintDetails({ navigation, route }) {
             </div>
           </div>
         `;
-
           const pdfUrl = await Print.printToFileAsync({ html: htmlContent });
           await Print.printAsync({ uri: pdfUrl.uri });
 
@@ -404,5 +399,3 @@ export default function AddChallan_PrintDetails({ navigation, route }) {
     </>
   );
 }
-
-//style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); height: 100%; width: auto;"

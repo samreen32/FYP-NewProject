@@ -14,7 +14,11 @@ import {
   responsiveHeight,
   responsiveWidth,
 } from "react-native-responsive-dimensions";
-import { CHALLAN_API_URL, MOTORS_API_URL } from "../Custom_Api_Calls/api_calls";
+import {
+  AUTH_API_URL,
+  CHALLAN_API_URL,
+  MOTORS_API_URL,
+} from "../Custom_Api_Calls/api_calls";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import NoComplaint_Box from "../Loader/NoComplaint_Box";
 
@@ -26,7 +30,23 @@ export default function PayChallan({ navigation }) {
     const token = await AsyncStorage.getItem("token");
     try {
       if (token != null) {
-        console.log(token)
+        console.log(token);
+
+        // Fetch the vehicle number of the current citizen
+        const vehicleNoResponse = await fetch(
+          `${AUTH_API_URL}/citizen_vehicleNo`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "auth-token": token,
+            },
+          }
+        );
+        const vehicleNoData = await vehicleNoResponse.json();
+        console.log("Citizen Vehcile", vehicleNoData);
+
+        // Fetch the list of motors and extract their vehicle numbers
         const motorsResponse = await fetch(`${MOTORS_API_URL}/fetch_motors`, {
           method: "GET",
           headers: {
@@ -35,11 +55,13 @@ export default function PayChallan({ navigation }) {
           },
         });
         const motorsData = await motorsResponse.json();
-
-        // Extract the vehicle numbers from the fetched motors
         const vehicleNos = motorsData.map((motor) => motor.vehicleNo);
-        console.log(vehicleNos)
 
+        // Combine the citizen's vehicle number with the list of vehicle numbers from the motors
+        const allVehicleNos = [...vehicleNos, vehicleNoData.vehicleNo];
+        console.log("All vehcile numbers", allVehicleNos);
+
+        // Fetch the challans for all the vehicle numbers
         const challansResponse = await fetch(
           `${CHALLAN_API_URL}/showChallans`,
           {
@@ -48,12 +70,14 @@ export default function PayChallan({ navigation }) {
               "Content-Type": "application/json",
               "auth-token": token,
             },
-            body: JSON.stringify({ vehicleNo: vehicleNos }),
+            body: JSON.stringify({ vehicleNo: allVehicleNos }),
           }
         );
         const challansData = await challansResponse.json();
-        setChallans(challansData);
-        console.log(challans);
+        console.log(challansData);
+
+        // Set the state of challans with the fetched data
+        setChallans(challansData.challans);
       }
     } catch (error) {
       console.error(error.message);
@@ -65,99 +89,93 @@ export default function PayChallan({ navigation }) {
   }, []);
 
   return (
-    <View>
-     <Text>{JSON.stringify(challans)}</Text>
-    </View>
+    <>
+      <View style={styles.header}>
+        <Ionicons
+          name="arrow-back"
+          size={24}
+          color="white"
+          onPress={() => {
+            navigation.goBack();
+          }}
+        />
+        <Text style={styles.headerText}>PAY CHALLAN</Text>
+        <View style={{ width: 24 }}></View>
+      </View>
+
+      <FlatList
+        data={challans}
+        keyExtractor={(item) => item._id}
+        renderItem={({ item }) => (
+          <View style={styles.Complain_Container}>
+            <TouchableOpacity
+              style={[
+                globalStyles.searchIcon,
+                {
+                  marginTop: responsiveHeight(5),
+                  marginLeft: responsiveWidth(76),
+                },
+              ]}
+              onPress={() => {
+                navigation.navigate("PayChaSecond", { challanId: item._id });
+              }}
+            >
+              <AntDesign name="right" size={50} color="black" />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <View style={globalStyles.pendingChallanImage}>
+                <Image
+                  source={{ uri: item.add_img }}
+                  style={[
+                    globalStyles.pendingChallanImage,
+                    {
+                      width: responsiveWidth(28),
+                      height: responsiveHeight(13),
+                    },
+                  ]}
+                />
+              </View>
+            </TouchableOpacity>
+
+            <View
+              style={[
+                globalStyles.hisStat_Group,
+                {
+                  marginLeft: responsiveWidth(28),
+                  marginTop: responsiveHeight(5),
+                },
+              ]}
+            >
+              <Text
+                style={[
+                  globalStyles.tw_Profile_Name,
+                  {
+                    fontSize: responsiveFontSize(2),
+                    marginLeft: responsiveWidth(3),
+                  },
+                ]}
+              >
+                {item.vehicleNo}
+              </Text>
+              <View style={[globalStyles.tw_Profile_goodMorning]}>
+                <Text>RS. {item.amount}</Text>
+              </View>
+              <Text
+                style={[
+                  styles.description_Text,
+                  { width: responsiveWidth(60), marginTop: 52, left: 17 },
+                ]}
+              >
+                {item.due_date}
+              </Text>
+            </View>
+          </View>
+        )}
+      />
+
+      {challans.length === 0 && <NoComplaint_Box />}
+    </>
   );
-
-  // return (
-  //   <>
-  //    <View style={styles.header}>
-  //       <Ionicons
-  //         name="arrow-back"
-  //         size={24}
-  //         color="white"
-  //         onPress={() => {
-  //           navigation.goBack();
-  //         }}
-  //       />
-  //       <Text style={styles.headerText}>PAY CHALLAN</Text>
-  //       <View style={{ width: 24 }}></View>
-  //     </View>
-
-  //     <FlatList
-  //       data={challans}
-  //       keyExtractor={(item) => item._id}
-  //       renderItem={({ item }) => (
-  //         <View style={styles.Complain_Container}>
-  //           <TouchableOpacity
-  //             style={[
-  //               globalStyles.searchIcon,
-  //               {
-  //                 marginTop: responsiveHeight(5),
-  //                 marginLeft: responsiveWidth(76),
-  //               },
-  //             ]}
-  //             onPress={() => {
-  //               navigation.navigate("PayChaSecond", { challanId: item._id });
-  //             }}
-  //           >
-  //             <AntDesign name="right" size={50} color="black" />
-  //           </TouchableOpacity>
-  //           <TouchableOpacity>
-  //             <View style={globalStyles.pendingChallanImage}>
-  //               <Image
-  //                 source={{ uri: item.add_img }}
-  //                 style={[
-  //                   globalStyles.pendingChallanImage,
-  //                   {
-  //                     width: responsiveWidth(28),
-  //                     height: responsiveHeight(13),
-  //                   },
-  //                 ]}
-  //               />
-  //             </View>
-  //           </TouchableOpacity>
-
-  //           <View
-  //             style={[
-  //               globalStyles.hisStat_Group,
-  //               {
-  //                 marginLeft: responsiveWidth(28),
-  //                 marginTop: responsiveHeight(5),
-  //               },
-  //             ]}
-  //           >
-  //             <Text
-  //               style={[
-  //                 globalStyles.tw_Profile_Name,
-  //                 {
-  //                   fontSize: responsiveFontSize(2),
-  //                   marginLeft: responsiveWidth(3),
-  //                 },
-  //               ]}
-  //             >
-  //               {item.vehicleNo}
-  //             </Text>
-  //             <View style={[globalStyles.tw_Profile_goodMorning]}>
-  //               <Text>RS. {item.amount}</Text>
-  //             </View>
-  //             <Text
-  //               style={[
-  //                 styles.description_Text,
-  //                 { width: responsiveWidth(60), marginTop: 52, left: 17 },
-  //               ]}
-  //             >
-  //               {item.due_date}
-  //             </Text>
-  //           </View>
-  //         </View>
-  //       )}
-  //     />
-
-  //     {challans.length === 0 && <NoComplaint_Box />}
-  //   </>
-  // );
 }
 
 const styles = StyleSheet.create({

@@ -24,21 +24,21 @@ export default function Statistics({ navigation }) {
         setTotalChallans([
           {
             name: "Total Challans",
-            count: data.count,
+            count: data.totalChallans,
             color: "#F44336",
             legendFontColor: "#7F7F7F",
             legendFontSize: 15,
           },
           {
             name: "Total Paid",
-            count: 25,
+            count: data.paidChallans,
             color: "#4CAF50",
             legendFontColor: "#7F7F7F",
             legendFontSize: 15,
           },
           {
             name: "Total Unpaid",
-            count: 15,
+            count: data.unpaidChallans,
             color: "#FFEB3B",
             legendFontColor: "#7F7F7F",
             legendFontSize: 15,

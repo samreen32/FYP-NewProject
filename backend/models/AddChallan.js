@@ -5,7 +5,7 @@ const addChallanSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "warden",
   },
-  challanNum:{ 
+  challanNum: {
     type: Number,
     default: 1,
   },
@@ -39,9 +39,13 @@ const addChallanSchema = new mongoose.Schema({
   due_date: {
     type: String,
     require: false,
-  }, 
+  },
   qrCode: {
     type: String,
+  },
+  status: {
+    type: String,
+    default: "Unpaid",
   },
   date: {
     type: Date,
