@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { globalStyles } from "../styles/globalStyles";
+import {
+  responsiveHeight,
+} from "react-native-responsive-dimensions";
 import { PieChart } from "react-native-chart-kit";
 import { Ionicons } from "@expo/vector-icons";
 import { STATISTICS_API_URL } from "../Custom_Api_Calls/api_calls";
@@ -7,7 +11,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { userLogin } from "../context/AuthContext";
 
 export default function Statistics({ navigation }) {
-  const [totalChallans, setTotalChallans] = useState([]);
+  const [challanStatus, setChallanStatus] = useState([]);
   const { showToast } = userLogin();
 
   /******* Function to fetch total challans added *******/
@@ -21,26 +25,26 @@ export default function Statistics({ navigation }) {
           },
         });
         const data = await response.json();
-        setTotalChallans([
+        setChallanStatus([
           {
-            name: "Total Challans",
+            name: "Challans",
             count: data.totalChallans,
             color: "#F44336",
-            legendFontColor: "#7F7F7F",
+            legendFontColor: "white",
             legendFontSize: 15,
           },
           {
-            name: "Total Paid",
+            name: "Paid",
             count: data.paidChallans,
             color: "#4CAF50",
-            legendFontColor: "#7F7F7F",
+            legendFontColor: "white",
             legendFontSize: 15,
           },
           {
-            name: "Total Unpaid",
+            name: "Unpaid",
             count: data.unpaidChallans,
             color: "#FFEB3B",
-            legendFontColor: "#7F7F7F",
+            legendFontColor: "white",
             legendFontSize: 15,
           },
         ]);
@@ -64,32 +68,39 @@ export default function Statistics({ navigation }) {
         >
           <Ionicons name="arrow-back" size={24} color="white" />
         </TouchableOpacity>
-        <Text style={styles.headerText}>Statistics</Text>
+        <Text style={styles.headerText}>STATISTICS</Text>
         <View style={{ width: 24 }}></View>
       </View>
 
-      <PieChart
-        style={styles.PieChart}
-        data={totalChallans}
-        width={350}
-        height={250}
-        chartConfig={{
-          backgroundColor: "#FFFFFF",
-          backgroundGradientFrom: "#FFFFFF",
-          backgroundGradientTo: "#FFFFFF",
-          decimalPlaces: 0,
-          color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-          labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-          style: {
-            borderRadius: 16,
-          },
-        }}
-        accessor={"count"}
-        backgroundColor={"transparent"}
-        paddingLeft={"15"}
-        center={[0, 0]}
-        absolute
-      />
+      <View
+        style={[
+          globalStyles.easeTraffic_Rect,
+          { height: responsiveHeight(60) },
+        ]}
+      >
+        <PieChart
+          style={styles.PieChart}
+          data={challanStatus}
+          width={360}
+          height={250}
+          chartConfig={{
+            backgroundColor: "#FFFFFF",
+            backgroundGradientFrom: "#FFFFFF",
+            backgroundGradientTo: "#FFFFFF",
+            decimalPlaces: 0,
+            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+            labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+            style: {
+              borderRadius: 16,
+            },
+          }}
+          accessor={"count"}
+          backgroundColor={"transparent"}
+          paddingLeft={"15"}
+          center={[0, 0]}
+          absolute
+        />
+      </View>
     </View>
   );
 }
@@ -99,7 +110,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    height: 80,
+    height: 110,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",

@@ -108,6 +108,13 @@ export default function AddChallan_PrintDetails({ route }) {
           const pdfUrl = await Print.printToFileAsync({ html: htmlContent });
           await Print.printAsync({ uri: pdfUrl.uri });
 
+          // Check if phone number exists
+          const phoneNo = response.data.phoneNo;
+          if (phoneNo) {
+            // Send SMS
+            const message = `Dear Citizen, you have a challan to pay. \nChallan Number: ${challanNum}. Due Date: ${due_date}. \nDownload the "E-Parking Challan App" to Scan QR and Pay. \nThank You.`;
+            await SMS.sendSMSAsync([phoneNo], message);
+          }
           addNotification();
           setUploadProgress(0);
         } else {

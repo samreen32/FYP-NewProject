@@ -118,19 +118,6 @@ router.put(
         return res.status(404).json({ msg: "Challan not found" });
       }
 
-      // Retrieve all citizens from the database
-      const citizens = await Citizen.find();
-      // Filter the citizens whose vehicleNo matches the received value
-      const matchingCitizens = citizens.filter(
-        (citizen) => citizen.vehicleNo === vehicleNo
-      );
-      let phoneNumber;
-      if (matchingCitizens.length === 0) {
-        phoneNumber = "";
-      } else {
-        phoneNumber = matchingCitizens[0].phoneNo; // get the phone number from the first matching citizen
-      }
-
       const updatedFields = {
         challanNum: challanNum,
         vehicleNo: vehicleNo,
@@ -146,6 +133,18 @@ router.put(
 
       if (imageUrl) {
         updatedFields.add_img = imageUrl;
+      }
+
+      // Retrieve all citizens from the database
+      const citizens = await Citizen.find();
+      const matchingCitizens = citizens.filter(
+        (citizen) => citizen.vehicleNo === vehicleNo
+      );
+      let phoneNo;
+      if (matchingCitizens.length === 0) {
+        phoneNo = "";
+      } else {
+        phoneNo = matchingCitizens[0].phoneNo; // get the phone number from the first matching citizen
       }
 
       // Generate QR code
@@ -172,7 +171,7 @@ router.put(
       );
 
       success = true;
-      res.json({ success, updatedChallanDetails, phoneNumber });
+      res.json({ success, updatedChallanDetails, phoneNo });
     } catch (error) {
       console.error(error.message);
       res.status(500).send("Internal Server Error");

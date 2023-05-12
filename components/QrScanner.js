@@ -73,6 +73,9 @@ const QrScanner = ({ navigation }) => {
             <Text style={styles.qrDataText}>
               Amount (fine): {qrData.amount}
             </Text>
+            <Text style={styles.qrDataText}>
+              Status: {qrData.status}
+            </Text>
             <Text style={styles.qrDataText}>Car Type: {qrData.carType}</Text>
             <Text style={styles.qrDataText}>Due Date: {qrData.due_date}</Text>
             <Text style={styles.qrDataText}>Location: {qrData.location}</Text>

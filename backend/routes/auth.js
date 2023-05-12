@@ -65,22 +65,7 @@ router.post(
   }
 );
 
-/************************** 2nd Route **************************************/
-//Fetch citizen vehicle numbers using "GET": "api/auth/citizen_vehicleNo".
-router.get("/citizen_vehicleNo", get_auth, async (req, res) => {
-  try {
-    const citizen = await Citizen.findById(req.citizen.id);
-    if (!citizen) {
-      return res.status(404).json({ error: "Citizen not found" });
-    }
-    res.json({ vehicleNo: citizen.vehicleNo });
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).send("Internal Server Error");
-  }
-});
-
-/************************* 3rd Route *************************/
+/************************* 2nd Route *************************/
 //Authenticat a Citizen using: POST "api/auth/citizenlogin". No login required.
 router.post(
   "/citizenlogin",
@@ -152,6 +137,21 @@ router.post(
     }
   }
 );
+
+/************************** 3rd Route **************************************/
+//Fetch citizen vehicle numbers using "GET": "api/auth/citizen_vehicleNo".
+router.get("/citizen_vehicleNo", get_auth, async (req, res) => {
+  try {
+    const citizen = await Citizen.findById(req.citizen.id);
+    if (!citizen) {
+      return res.status(404).json({ error: "Citizen not found" });
+    }
+    res.json({ vehicleNo: citizen.vehicleNo });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 /************************* 4th Route *************************/
 //Citizen forgot password using: POST "api/auth/citizen_forgot_password". No Login required.
