@@ -1,16 +1,10 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import {
   Text,
   View,
-  Image,
   StyleSheet,
-  SafeAreaView,
-  Linking,
-  TextInput,
   FlatList,
   TouchableOpacity,
-  Button,
-  Pressable,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {
@@ -18,114 +12,79 @@ import {
   responsiveWidth,
   responsiveFontSize,
 } from "react-native-responsive-dimensions";
+import { CHALLAN_API_URL } from "../Custom_Api_Calls/api_calls";
 
+export default function ChallanHistory({ navigation }) {
+  const [challans, setChallans] = useState([]);
 
-const DATA = [
-  {
-    id: "1",
-    status: "CHALLAN PAID",
-    date: "10/02/2022",
-    Vehicle_no: "RIM \n2883",
-  },
-  {
-    id: "2",
-    status: "CHALLAN PAID",
-    date: "10/02/2022",
-    Vehicle_no: "RIM \n2883",
-  },
+  /************** Function to fecth all the challans ****************/
+  const fetchPaidChallans = async () => {
+    try {
+      const response = await fetch(
+        `${CHALLAN_API_URL}/show_paidChallans`,
+        {
+          method: "GET",
+        }
+      );
+      const responseData = await response.json();
+      setChallans(responseData.paidChallans);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
-  {
-    id: "3",
-    status: "CHALLAN PAID",
-    date: "10/02/2022",
-    Vehicle_no: "RIM \n2883",
-  },
-  {
-    id: "4",
-    status: "CHALLAN PAID",
-    date: "10/02/2022",
-    Vehicle_no: "RIM \n2883",
-  },
-  {
-    id: "5",
-    status: "CHALLAN PAID",
-    date: "10/02/2022",
-    Vehicle_no: "RIM \n2883",
-  },
-  {
-    id: "6",
-    status: "CHALLAN PAID",
-    date: "10/02/2022",
-    Vehicle_no: "RIM \n2883",
-  },
-  {
-    id: "7",
-    status: "CHALLAN PAID",
-    date: "10/02/2022",
-    Vehicle_no: "RIM \n2883",
-  },
-  {
-    id: "8",
-    status: "CHALLAN PAID",
-    date: "10/02/2022",
-    Vehicle_no: "RIM \n2883",
-  },
-  {
-    id: "9",
-    status: "CHALLAN PAID",
-    date: "10/02/2022",
-    Vehicle_no: "RIM \n2883",
-  },
-];
+  useEffect(() => {
+    fetchPaidChallans();
+  }, []);
 
-export default function ChallanHistory({navigation}) {
   return (
-    <View>
-<View style={styles.purple_background}>
-        <TouchableOpacity
+    <>
+      <View style={styles.header}>
+        <Ionicons
+          name="arrow-back"
+          size={24}
+          color="white"
           onPress={() => {
             navigation.goBack();
           }}
-        >
-         <Ionicons
-            name="arrow-back"
-            size={45}
-            color="white"
-            style={styles.backArrow}
-          />
-        <Text style={styles.Challan_Text_Header}>Challan History</Text>
-        </TouchableOpacity>
+        />
+        <Text style={styles.headerText}>CHALLAN HISTORY</Text>
+        <View style={{ width: 24 }}></View>
       </View>
 
       <FlatList
-        data={DATA}
+        data={challans}
         renderItem={({ item, description }) => (
           <View style={styles.Challan_Container}>
             <View>
-              <Text style={styles.Status_Text}>{item.status}</Text>
-              <Text style={styles.description_Text}>{item.date}</Text>
+              <Text style={styles.Status_Text}>{item.status.toUpperCase()}</Text>
+              <Text style={styles.description_Text}>{new Date(item.date).toLocaleDateString()}</Text>
             </View>
-            <Text style={styles.Vehicle_no_text}>{item.Vehicle_no}</Text>
+            <Text style={styles.Vehicle_no_text}>{item.vehicleNo.toUpperCase()}</Text>
           </View>
         )}
       />
-    </View>
+    </>
   );
 }
 const styles = StyleSheet.create({
-  purple_background: {
+  header: {
+    height: 110,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
     backgroundColor: "rgba(10,76,118,1)",
-    width: responsiveWidth(100),
-    height: responsiveHeight(15),
   },
-  Challan_Text_Header: {
-    color: "white",
+  headerText: {
     fontFamily: "poppins-bold",
-    fontSize: responsiveFontSize(3.5),
-    marginLeft: responsiveWidth(23),
-    marginTop: responsiveHeight(-6),
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
   },
-  Challan_Container: {
+ Challan_Container: {
     backgroundColor: "rgba(24,154,180,1)",
     height: responsiveHeight(12),
     marginLeft: responsiveWidth(6),
@@ -151,11 +110,11 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: responsiveFontSize(3),
     fontWeight: "bold",
-    marginLeft: responsiveWidth(55),
-    marginTop: responsiveHeight(-8),
+    marginLeft: responsiveWidth(62),
+    marginTop: responsiveHeight(-5.5),
   },
   backArrow: {
     marginLeft: responsiveWidth(5),
     marginTop: responsiveHeight(4),
-  }
+  },
 });

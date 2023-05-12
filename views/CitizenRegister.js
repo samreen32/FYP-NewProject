@@ -16,7 +16,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { userLogin } from "../context/AuthContext";
 import auth_api from "../Custom_Api_Calls/auth_api";
 
-export default function CitizenRegister({ }) {
+export default function CitizenRegister({}) {
   const [credentials, setCredentials] = useState({
     name: "",
     email: "",
@@ -102,48 +102,62 @@ export default function CitizenRegister({ }) {
           {error}
         </Text>
       ) : null}
+
       <ScrollView>
         <TextInput
-          style={globalStyles.textInput_register}
+          style={[
+            globalStyles.textInput_register,
+            { height: responsiveHeight(9) },
+          ]}
           onChangeText={(value) => onChange(value, "name")}
           value={name}
           label="Name"
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
           outlineColor="rgba(24,154,180,1)"
-          ////keyboardType="alphabet"
+          keyboardType="default"
           editable
           autoCapitalize="none"
         />
         <TextInput
-          style={[globalStyles.textInput_register]}
+          style={[
+            globalStyles.textInput_register,
+            { height: responsiveHeight(9) },
+          ]}
           value={email}
           onChangeText={(value) => onChange(value, "email")}
           label="Email"
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
           outlineColor="rgba(24,154,180,1)"
-          //keyboardType="alphabet"
+          keyboardType="default"
           editable
           autoCapitalize="none"
         />
         <TextInput
-          style={[globalStyles.textInput_register]}
+          style={[
+            globalStyles.textInput_register,
+            { height: responsiveHeight(9) },
+          ]}
           value={phoneNo}
           onChangeText={(value) => onChange(value, "phoneNo")}
-          label="Phone No"
+          label="Phone Number"
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
           outlineColor="rgba(24,154,180,1)"
-          keyboardType="Number"
+          keyboardType="numeric"
           editable
           autoCapitalize="none"
         />
         <TextInput
-          style={[globalStyles.textInput_register]}
+          style={[
+            globalStyles.textInput_register,
+            { height: responsiveHeight(9) },
+          ]}
           value={vehicleNo}
           onChangeText={(value) => onChange(value, "vehicleNo")}
-          label="Vehicle No"
+          label="Vehicle Number"
+          keyboardType="default"
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
           outlineColor="rgba(24,154,180,1)"
@@ -152,14 +166,17 @@ export default function CitizenRegister({ }) {
         />
 
         <TextInput
-          style={[globalStyles.textInput_register]}
+          style={[
+            globalStyles.textInput_register,
+            { height: responsiveHeight(9) },
+          ]}
           value={password}
           onChangeText={(value) => onChange(value, "password")}
           label="Password"
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
           outlineColor="rgba(24,154,180,1)"
-          //keyboardType="alphabet"
+          keyboardType="default"
           editable
           autoCapitalize="none"
           secureTextEntry={isPassSecure}
@@ -172,8 +189,15 @@ export default function CitizenRegister({ }) {
             />
           }
         />
+
         <TouchableOpacity
-          style={[globalStyles.register_SignUp]}
+          style={[
+            globalStyles.register_SignUp,
+            {
+              marginTop: responsiveHeight(2),
+              height: responsiveHeight(8),
+            },
+          ]}
           onPress={() => {
             register(name, email, password, phoneNo, vehicleNo);
           }}

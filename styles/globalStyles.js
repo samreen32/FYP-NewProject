@@ -649,7 +649,7 @@ export const globalStyles = StyleSheet.create({
   },
   submitChallan_Text: {
     fontSize: responsiveFontSize(2.3),
-    fontStyle: "noramal",
+    fontStyle: "normal",
     fontWeight: "bold",
   },
 

@@ -147,7 +147,7 @@ export default function AddChallan({ navigation, route }) {
           onChangeText={(value) => onChange(value, "vehicleNo")}
           value={vehicleNo}
           label="Enter Vehicle Number"
-          keyboardType="alphabet"
+          keyboardType="default"
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
           outlineColor="rgba(24,154,180,1)"
@@ -159,7 +159,7 @@ export default function AddChallan({ navigation, route }) {
           onChangeText={(value) => onChange(value, "carType")}
           value={carType}
           label="Enter Car Type"
-          keyboardType="alphabet"
+          keyboardType="default"
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
           outlineColor="rgba(24,154,180,1)"
@@ -171,7 +171,7 @@ export default function AddChallan({ navigation, route }) {
           onChangeText={(value) => onChange(value, "amount")}
           value={amount}
           label="Enter Amount"
-          keyboardType="alphabet"
+          keyboardType="numeric"
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
           outlineColor="rgba(24,154,180,1)"
@@ -183,7 +183,7 @@ export default function AddChallan({ navigation, route }) {
           onChangeText={(value) => onChange(value, "anyComment")}
           value={anyComment}
           label="Any Comment"
-          keyboardType="alphabet"
+          keyboardType="default"
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
           outlineColor="rgba(24,154,180,1)"

@@ -181,7 +181,8 @@ export default function CitizenLogin({ navigation }) {
         </Animated.Text>
       </View>
 
-      <Animated.View style={[globalStyles.CitizenWarden_btn_Group, { marginTop: responsiveHeight(-43)}]}>
+      <Animated.View style={[globalStyles.CitizenWarden_btn_Group, 
+        { marginTop: responsiveHeight(-43)}]}>
         <TouchableOpacity
           style={[
             globalStyles.Register_btn,
@@ -250,7 +251,7 @@ export default function CitizenLogin({ navigation }) {
               value={email}
               onChangeText={(value) => onChange(value, "email")}
               label="Email"
-              //keyboardType="alphabet"
+              keyboardType="default"
               mode="outlined"
               activeOutlineColor="rgba(10,76,118,1)"
               outlineColor="rgba(24,154,180,1)"
@@ -267,7 +268,7 @@ export default function CitizenLogin({ navigation }) {
               onChangeText={(value) => onChange(value, "password")}
               label="Password"
               mode="outlined"
-              //keyboardType="alphabet"
+              keyboardType="default"
               editable
               autoCapitalize="none"
               secureTextEntry={isPassSecure}
@@ -293,6 +294,7 @@ export default function CitizenLogin({ navigation }) {
                 Forgot Password ?
               </Text>
             </TouchableOpacity>
+
             <TouchableOpacity
               style={[
                 globalStyles.register_SignUp,
@@ -305,6 +307,7 @@ export default function CitizenLogin({ navigation }) {
               <Text style={globalStyles.Sign_in_Text}>Sign In</Text>
             </TouchableOpacity>
           </ScrollView>
+
           <TouchableOpacity>
             <Text style={globalStyles.login_or_continue}>Or continue with</Text>
           </TouchableOpacity>

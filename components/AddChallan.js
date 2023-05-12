@@ -35,11 +35,12 @@ export default function AddChallan({ navigation, route }) {
       aspect: [4, 3],
       quality: 1,
     });
-    if (!result.cancelled) {
+    if (!result.canceled) {
+      const selectedAsset = result.assets[0];
       const image = {
-        uri: result.uri,
-        name: result.uri.split("/").pop(),
-        type: "image/jpeg",
+        uri: selectedAsset.uri,
+        name: selectedAsset.filename,
+        type: selectedAsset.type,
       };
       setCameraImage(image);
     }

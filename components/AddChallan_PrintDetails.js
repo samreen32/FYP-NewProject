@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { globalStyles } from "../styles/globalStyles";
 import { Text, View, TouchableOpacity, Platform } from "react-native";
+import { responsiveHeight } from "react-native-responsive-dimensions";
 import { TextInput, List } from "react-native-paper";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
@@ -185,7 +186,7 @@ export default function AddChallan_PrintDetails({ route }) {
           const schedulingOptions = {
             content: {
               title: "New Notification",
-              body: "You have Add a Challan.",
+              body: "You have add a Challan.",
               data: { time },
               read: false,
               badge: badgeValue,
@@ -241,7 +242,6 @@ export default function AddChallan_PrintDetails({ route }) {
         <TextInput
           style={globalStyles.challanNum_TextInput}
           placeholder={`E-Parking Challan #${challanNum}`}
-          keyboardType="alphabet"
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
           outlineColor="rgba(24,154,180,1)"
@@ -255,7 +255,6 @@ export default function AddChallan_PrintDetails({ route }) {
         <TextInput
           style={globalStyles.vehicleDetail_TextInput}
           placeholder={carType}
-          keyboardType="alphabet"
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
           outlineColor="rgba(24,154,180,1)"
@@ -268,7 +267,7 @@ export default function AddChallan_PrintDetails({ route }) {
           style={globalStyles.regNum_TextInput}
           value={RegNo}
           onChangeText={setRegNo}
-          keyboardType="alphabet"
+          keyboardType="default"
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
           outlineColor="rgba(24,154,180,1)"
@@ -280,7 +279,6 @@ export default function AddChallan_PrintDetails({ route }) {
         <TextInput
           style={globalStyles.amount_TextInput}
           placeholder={amount}
-          keyboardType="alphabet"
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
           outlineColor="rgba(24,154,180,1)"
@@ -294,7 +292,6 @@ export default function AddChallan_PrintDetails({ route }) {
         <TextInput
           style={globalStyles.dateTime_TextInput}
           placeholder={curDateTime.toLocaleString()}
-          keyboardType="alphabet"
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
           outlineColor="rgba(24,154,180,1)"
@@ -303,56 +300,52 @@ export default function AddChallan_PrintDetails({ route }) {
         />
 
         <Text style={globalStyles.location_Text}>Location</Text>
-        <View style={{ position: "relative" }}>
-          {/* Dropdown */}
-          <View
-            style={[
-              globalStyles.location_TextInput,
-              {
-                zIndex: 1,
-                width: "100%",
-                backgroundColor: "none",
-                position: "absolute",
-                top: globalStyles.location_TextInput.height + 10,
-              },
-            ]}
-          >
-            {showDropdown &&
-              dropdownList.map((location) => (
-                <List.Item
-                  style={{
-                    backgroundColor: "white",
-                    textAlign: "center",
-                    width: globalStyles.location_TextInput.width,
-                  }}
-                  key={location}
-                  title={location}
-                  onPress={() => handleLocationSelect(location)}
-                />
-              ))}
-          </View>
 
-          <TextInput
-            style={globalStyles.location_TextInput}
-            value={location}
-            placeholder={`${"Enter Location"}${location}`}
-            onChangeText={setLocation}
-            autoCapitalize="none"
-            editable={!showDropdown}
-            right={
-              <TextInput.Icon
-                name={() => (
-                  <MaterialCommunityIcons
-                    name={showDropdown ? "chevron-up" : "chevron-down"}
-                    size={24}
-                    color="gray"
-                  />
-                )}
-                onPress={() => setShowDropdown(!showDropdown)}
+        {/* Dropdown */}
+        <View
+          style={[
+            globalStyles.location_TextInput,
+            {
+              zIndex: 1,
+              width: "100%",
+              backgroundColor: "none",
+              position: "absolute",
+              marginTop: responsiveHeight(56.5),
+              top: dropdownList.length * 60 + 20,
+            },
+          ]}
+        >
+          {showDropdown &&
+            dropdownList.map((location) => (
+              <List.Item
+                style={{
+                  backgroundColor: "white",
+                  textAlign: "center",
+                  width: globalStyles.location_TextInput.width,
+                }}
+                key={location}
+                title={location}
+                onPress={() => handleLocationSelect(location)}
               />
-            }
-          />
+            ))}
         </View>
+
+        <TextInput
+          style={globalStyles.location_TextInput}
+          value={location}
+          placeholder={`${"Enter Location"}${location}`}
+          onChangeText={setLocation}
+          autoCapitalize="none"
+          editable={!showDropdown}
+          right={
+            <TextInput.Icon
+              name={showDropdown ? "chevron-up" : "chevron-down"}
+              size={24}
+              color="gray"
+              onPress={() => setShowDropdown(!showDropdown)}
+            />
+          }
+        />
 
         <Text style={globalStyles.dueDate_Text}>Due Date</Text>
         <TextInput
@@ -360,7 +353,7 @@ export default function AddChallan_PrintDetails({ route }) {
           value={due_date}
           onChangeText={setDue_Date}
           placeholder={`${"Set Due Date"}${due_date}`}
-          keyboardType="alphabet"
+          keyboardType="default"
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
           outlineColor="rgba(24,154,180,1)"

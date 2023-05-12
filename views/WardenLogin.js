@@ -178,9 +178,14 @@ export default function WardenLogin({ navigation }) {
         </Animated.Text>
       </View>
 
-      <Animated.View style={[globalStyles.CitizenWarden_btn_Group, {
-         marginTop: responsiveHeight(-43)
-      }]}>
+      <Animated.View
+        style={[
+          globalStyles.CitizenWarden_btn_Group,
+          {
+            marginTop: responsiveHeight(-43),
+          },
+        ]}
+      >
         <TouchableOpacity
           style={[
             globalStyles.Register_btn,
@@ -249,7 +254,7 @@ export default function WardenLogin({ navigation }) {
               value={email}
               onChangeText={(value) => onChange(value, "email")}
               label="Email"
-              //keyboardType="alphabet"
+              keyboardType="default"
               mode="outlined"
               activeOutlineColor="rgba(10,76,118,1)"
               outlineColor="rgba(24,154,180,1)"
@@ -265,7 +270,7 @@ export default function WardenLogin({ navigation }) {
               onChangeText={(value) => onChange(value, "password")}
               label="Password"
               mode="outlined"
-              //keyboardType="alphabet"
+              keyboardType="default"
               editable
               autoCapitalize="none"
               secureTextEntry={isPassSecure}
@@ -291,6 +296,7 @@ export default function WardenLogin({ navigation }) {
                 Forgot Password ?
               </Text>
             </TouchableOpacity>
+
             <TouchableOpacity
               style={[
                 globalStyles.register_SignUp,

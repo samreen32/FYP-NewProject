@@ -11,7 +11,7 @@ const JWT_SECRETE = "Samreenisagoodgir@l";
 const nodemailer = require("nodemailer");
 
 /************************** 1st Route **************************************/
-//Now Creating"api/auth/create_citizen".......for citizen.
+//Citizen register using "POST": "api/auth/create_citizen".
 router.post(
   "/create_citizen",
   [
@@ -65,6 +65,8 @@ router.post(
   }
 );
 
+/************************** 2nd Route **************************************/
+//Fetch citizen vehicle numbers using "GET": "api/auth/citizen_vehicleNo".
 router.get("/citizen_vehicleNo", get_auth, async (req, res) => {
   try {
     const citizen = await Citizen.findById(req.citizen.id);
@@ -78,7 +80,7 @@ router.get("/citizen_vehicleNo", get_auth, async (req, res) => {
   }
 });
 
-/************************* 2nd Route *************************/
+/************************* 3rd Route *************************/
 //Authenticat a Citizen using: POST "api/auth/citizenlogin". No login required.
 router.post(
   "/citizenlogin",
@@ -151,7 +153,7 @@ router.post(
   }
 );
 
-/************************* 3rd Route *************************/
+/************************* 4th Route *************************/
 //Citizen forgot password using: POST "api/auth/citizen_forgot_password". No Login required.
 router.post(
   "/citizen_forgot_password",
@@ -183,7 +185,7 @@ router.post(
   }
 );
 
-/************************* 4th Route *************************/
+/************************* 5th Route *************************/
 //Citizen reset password using: PUT "api/auth/citizen_reset_password". Not Login required.
 router.put(
   "/citizen_reset_password",
@@ -260,7 +262,7 @@ router.put(
   }
 );
 
-/************************* 5th Route *************************/
+/************************* 6th Route *************************/
 //Citizen change password using: PUT "api/auth/citizen_change_password". Login required.
 router.put(
   "/citizen_change_password",
@@ -307,7 +309,7 @@ router.put(
   }
 );
 
-/****************************** 6th Route ****************************/
+/****************************** 7th Route ****************************/
 //Citizen logged out: POST "api/auth/citizen_logout". Login required.
 router.post("/citizen_logout", get_auth, async (req, res) => {
   const token = req.header("auth-token");

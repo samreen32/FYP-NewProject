@@ -6,7 +6,6 @@ const Citizen = require("../models/Citizen");
 const { body, validationResult } = require("express-validator");
 const multer = require("multer");
 const cloudinary = require("../helper/ImageUpload");
-const AddMotors = require("../models/AddMotors");
 const qr = require("qrcode");
 
 const storage = multer.diskStorage({
@@ -198,6 +197,21 @@ router.post("/show_UnpaidChallans", get_auth, async (req, res) => {
 });
 
 /********************** 4th Route ************************/
+//Show challans to citizen using: POST "api/challans/showChallans"....Login required.....at CITIZEN side
+router.get("/show_paidChallans", async (req, res) => {
+  try {
+    const paidChallans = await AddChallan.find({ status: "paid" }).populate(
+      "warden",
+      "name email"
+    );
+    res.send({ success: true, paidChallans });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+/********************** 5th Route ************************/
 //Fetch single challan to pay using: GET "api/challans/fetch_single_challan/:id". Login required......at CITIZEN side
 router.get("/fetch_single_challan/:id", get_auth, async (req, res) => {
   try {
@@ -209,7 +223,7 @@ router.get("/fetch_single_challan/:id", get_auth, async (req, res) => {
   }
 });
 
-/********************** 5th Route ************************/
+/********************** 6th Route ************************/
 //Update status of single challan using: PUT "api/challans/challanStatus/:id". Login required......at CITIZEN side
 router.put("/challanStatus/:id", async (req, res) => {
   try {

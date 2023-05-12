@@ -20,7 +20,6 @@ import { userLogin } from "../context/AuthContext";
 import auth_api from "../Custom_Api_Calls/auth_api";
 import AppLoader from "../Loader/AppLoader";
 
-
 export default function AdminLogin({ navigation }) {
   const [credentials, setCredentials] = useState({
     email: "",
@@ -39,7 +38,7 @@ export default function AdminLogin({ navigation }) {
     setIsPassSecure,
     error,
     setError,
-    showToast
+    showToast,
   } = userLogin();
 
   //Login function
@@ -85,7 +84,6 @@ export default function AdminLogin({ navigation }) {
     setCredentials({ ...credentials, [fieldName]: value });
   };
 
-
   return (
     <>
       <View
@@ -111,7 +109,13 @@ export default function AdminLogin({ navigation }) {
             { marginLeft: responsiveWidth(19) },
           ]}
         >
-          {""}<Text style={{color: "rgba(24,154,180,1)", fontFamily: "poppins-bold"}}>Admin</Text> Login{"\n"}to continue.
+          {""}
+          <Text
+            style={{ color: "rgba(24,154,180,1)", fontFamily: "poppins-bold" }}
+          >
+            Admin
+          </Text>{" "}
+          Login{"\n"}to continue.
         </Text>
       </View>
 
@@ -139,6 +143,7 @@ export default function AdminLogin({ navigation }) {
           style={[globalStyles.textInput, { marginTop: responsiveHeight(25) }]}
           value={email}
           onChangeText={(value) => onChange(value, "email")}
+          keyboardType="default"
           label="Email"
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
@@ -153,6 +158,7 @@ export default function AdminLogin({ navigation }) {
           onChangeText={(value) => onChange(value, "password")}
           label="Password"
           mode="outlined"
+          keyboardType="default"
           editable
           autoCapitalize="none"
           secureTextEntry={isPassSecure}

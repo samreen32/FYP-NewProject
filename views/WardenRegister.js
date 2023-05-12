@@ -33,7 +33,7 @@ export default function WardenRegister() {
     isValidPhone,
     isValidObjField,
     updateError,
-    showToast
+    showToast,
   } = userLogin();
 
   //Warden Register function
@@ -123,7 +123,7 @@ export default function WardenRegister() {
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
           outlineColor="rgba(24,154,180,1)"
-          //keyboardType="alphabet"
+          keyboardType="default"
           editable
           autoCapitalize="none"
         />
@@ -138,7 +138,7 @@ export default function WardenRegister() {
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
           outlineColor="rgba(24,154,180,1)"
-          //keyboardType="alphabet"
+          keyboardType="default"
           editable
           autoCapitalize="none"
         />
@@ -153,7 +153,7 @@ export default function WardenRegister() {
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
           outlineColor="rgba(24,154,180,1)"
-          //keyboardType="alphabet"
+          keyboardType="default"
           editable
           autoCapitalize="none"
           secureTextEntry={isPassSecure}
@@ -177,7 +177,7 @@ export default function WardenRegister() {
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
           outlineColor="rgba(24,154,180,1)"
-          //keyboardType="alphabet"
+          keyboardType="default"
           editable
           autoCapitalize="none"
         />
@@ -203,7 +203,7 @@ export default function WardenRegister() {
           globalStyles.register_SignUp,
           {
             marginTop: responsiveHeight(2),
-            height: responsiveHeight(7),
+            height: responsiveHeight(8),
           },
         ]}
         onPress={() => {
