@@ -90,7 +90,7 @@ export default function Admin_ChangePassword({ navigation }) {
 
   return (
     <>
-      <View style={styles.header}>
+      <View style={globalStyles.header}>
         <Ionicons
           name="arrow-back"
           size={24}
@@ -99,7 +99,7 @@ export default function Admin_ChangePassword({ navigation }) {
             navigation.goBack();
           }}
         />
-        <Text style={styles.headerText}>CHANGE PASSWORD</Text>
+        <Text style={globalStyles.headerText}>CHANGE PASSWORD</Text>
         <View style={{ width: 24 }}></View>
       </View>
 
@@ -210,22 +210,6 @@ export default function Admin_ChangePassword({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    height: 100,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    backgroundColor: "rgba(10,76,118,1)",
-  },
-  headerText: {
-    fontFamily: "poppins-bold",
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
   Help_Text: {
     color: "white",
     textAlign: "center",

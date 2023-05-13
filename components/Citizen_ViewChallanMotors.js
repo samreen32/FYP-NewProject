@@ -18,6 +18,7 @@ import { userLogin } from "../context/AuthContext";
 import { MOTORS_API_URL } from "../Custom_Api_Calls/api_calls";
 import { Card } from "react-native-paper";
 import NoComplaint_Box from "../Loader/NoComplaint_Box";
+import { globalStyles } from "../styles/globalStyles";
 
 export default function Citizen_ViewChallanMotors({ navigation }) {
   const [motors, setMotors] = useState([]);
@@ -26,7 +27,7 @@ export default function Citizen_ViewChallanMotors({ navigation }) {
   const [challanDetails, setChallanDetails] = useState(null);
   const { showToast } = userLogin();
 
-  /************** Function to fetch challan count corres to motor vehicle number ****************/
+  /************** Function to fetch unpaid challan count corres to motor vehicle number ****************/
   const fetchChallanCount = async (vehicleNo) => {
     const token = await AsyncStorage.getItem("token");
     try {
@@ -40,7 +41,7 @@ export default function Citizen_ViewChallanMotors({ navigation }) {
           }
         );
         const data = await response.json();
-        return data.challanCount;
+        return data.unpaidChallanCount;
       }
     } catch (error) {
       showToast("Error occurred", error.message);
@@ -128,7 +129,7 @@ export default function Citizen_ViewChallanMotors({ navigation }) {
 
   return (
     <>
-      <View style={styles.header}>
+      <View style={[globalStyles.header, { height: 120 }]}>
         <Ionicons
           name="arrow-back"
           size={24}
@@ -137,7 +138,7 @@ export default function Citizen_ViewChallanMotors({ navigation }) {
             navigation.goBack();
           }}
         />
-        <Text style={styles.headerText}>AVAILABLE MOTORS</Text>
+        <Text style={globalStyles.headerText}>AVAILABLE MOTORS</Text>
         <View style={{ width: 24 }}></View>
       </View>
 
@@ -472,22 +473,6 @@ const styles = StyleSheet.create({
     color: "grey",
     backgroundColor: "rgba(217,217,217,1)",
     borderRadius: responsiveWidth(6),
-  },
-  header: {
-    height: 120,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    backgroundColor: "rgba(10,76,118,1)",
-  },
-  headerText: {
-    fontFamily: "poppins-bold",
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
   },
   save_btn: {
     backgroundColor: "rgba(24,154,180,1)",

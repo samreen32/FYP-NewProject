@@ -37,9 +37,9 @@ const MyModal = ({
               Add New Guideline
             </Text>
 
-             <TextInput
+            <TextInput
               style={styles.textInput}
-              placeholder="Rule Number"
+              placeholder="Guideline Number"
               value={RuleNo}
               onChangeText={setRuleNo}
             />

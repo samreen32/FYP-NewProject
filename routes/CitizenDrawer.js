@@ -14,8 +14,8 @@ import Help from "../components/Help";
 import CitizenTabs from "./CitizenTabs";
 import CustomDrawer from "../routes/CustomeDrawer";
 import Citizen_Logout from "../components/Citizen_Logout";
-import Citizen_AddMotors from "../components/Citizen_AddMotors";
 import QrScanner from "../components/QrScanner";
+import Citizen_ViewChallanMotors from "../components/Citizen_ViewChallanMotors";
 
 const Drawer = createDrawerNavigator();
 
@@ -99,11 +99,11 @@ export default function CitizenDrawer() {
         }}
       />
       <Drawer.Screen
-        name="Citizen_AddMotors"
-        component={Citizen_AddMotors}
+        name="Citizen_ViewChallanMotors"
+        component={Citizen_ViewChallanMotors}
         options={{
           headerShown: false,
-          title: "Add Motors",
+          title: "View Motors",
           drawerIcon: ({ focused }) => (
             <FontAwesome5
               name="car"

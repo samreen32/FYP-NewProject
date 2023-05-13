@@ -7,6 +7,7 @@ import ModalsApp from "./ModalsApp";
 import { useEffect } from "react";
 import { useState } from "react";
 import { translation } from "./translation";
+import { globalStyles } from "../styles/globalStyles";
 
 export default function CitizenSetting({ navigation }) {
   const [langmodalvisible, setlangmodalvisible] = useState(false);
@@ -127,8 +128,8 @@ export default function CitizenSetting({ navigation }) {
         <View
           style={
             selectedApp == 1
-              ? [{ backgroundColor: "black" }, styles.header]
-              : [{ backgroundColor: "rgba(10,76,118,1)" }, styles.header]
+              ? [{ backgroundColor: "black" }, globalStyles.header]
+              : [{ backgroundColor: "rgba(10,76,118,1)" }, globalStyles.header]
           }
         >
           <Ionicons
@@ -139,7 +140,7 @@ export default function CitizenSetting({ navigation }) {
               navigation.goBack();
             }}
           />
-          <Text style={styles.headerText}>
+          <Text style={globalStyles.headerText}>
             {" "}
             {selectedlang == 0 ? translation[21].English : translation[21].Urdu}
           </Text>
@@ -370,6 +371,7 @@ export default function CitizenSetting({ navigation }) {
           saveselectedApp(y);
         }}
       />
+      
     </>
   );
 }
@@ -377,21 +379,6 @@ export default function CitizenSetting({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  header: {
-    height: 80,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-  },
-  headerText: {
-    fontFamily: "poppins-bold",
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
   },
   content: {
     flex: 1,

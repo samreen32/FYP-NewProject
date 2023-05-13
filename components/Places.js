@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { View } from "react-native";
+import { Text, View } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import * as Location from "expo-location";
 import { globalStyles } from "../styles/globalStyles";
-import SearchBar from '../components/SearchBar';
-
-
+import SearchBar from "../components/SearchBar";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function Places({ navigation }) {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
-
 
   useEffect(() => {
     (async () => {
@@ -41,9 +39,20 @@ export default function Places({ navigation }) {
     text = JSON.stringify(location);
   }
 
-
   return (
-    <View>
+    <>
+      <View style={globalStyles.header}>
+        <Ionicons
+          name="arrow-back"
+          size={24}
+          color="white"
+          onPress={() => {
+            navigation.goBack();
+          }}
+        />
+        <Text style={globalStyles.headerText}>YOUR LOCATION</Text>
+        <View style={{ width: 24 }}></View>
+      </View>
       {/* <Text>Your current location is {text}</Text> */}
       {/* <FlatList
         data={city}
@@ -57,13 +66,13 @@ export default function Places({ navigation }) {
       />  */}
 
       <SearchBar />
-      <MapView style={globalStyles.map}
+      <MapView
+        style={globalStyles.map}
         loadingEnabled={true}
         region={location}
         provider={PROVIDER_GOOGLE}
         showsUserLocation={true}
-      >
-      </MapView>
-    </View>
+      ></MapView>
+    </>
   );
 }

@@ -1,11 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { globalStyles } from "../styles/globalStyles";
 
 export default function WardenSetting({ navigation }) {
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      <View style={globalStyles.header}>
         <Ionicons
           name="arrow-back"
           size={24}
@@ -14,7 +15,7 @@ export default function WardenSetting({ navigation }) {
             navigation.goBack();
           }}
         />
-        <Text style={styles.headerText}>SETTING</Text>
+        <Text style={globalStyles.headerText}>SETTING</Text>
         <View style={{ width: 24 }}></View>
       </View>
 
@@ -62,6 +63,8 @@ export default function WardenSetting({ navigation }) {
             <Text style={styles.sectionItem}>Language</Text>
           </View>
         </View>
+
+        {/* Support */}
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <Ionicons name="help-circle" size={24} color="rgba(24,154,180,1)" />
@@ -107,6 +110,7 @@ export default function WardenSetting({ navigation }) {
           <Text style={styles.logoutText}>LOGOUT</Text>
         </View>
       </View>
+      
     </View>
   );
 }
@@ -114,22 +118,6 @@ export default function WardenSetting({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  header: {
-    height: 80,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    backgroundColor: "rgba(10,76,118,1)",
-  },
-  headerText: {
-    fontFamily: "poppins-bold",
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
   },
   content: {
     flex: 1,

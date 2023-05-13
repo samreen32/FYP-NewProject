@@ -40,7 +40,7 @@ const QrScanner = ({ navigation }) => {
   if (scanned) {
     return (
       <>
-        <View style={styles.header}>
+        <View style={globalStyles.header}>
           <Ionicons
             name="arrow-back"
             size={24}
@@ -49,7 +49,7 @@ const QrScanner = ({ navigation }) => {
               navigation.goBack();
             }}
           />
-          <Text style={styles.headerText}>SCAN QR CODE</Text>
+          <Text style={globalStyles.headerText}>SCAN QR CODE</Text>
           <View style={{ width: 24 }}></View>
         </View>
 
@@ -100,7 +100,7 @@ const QrScanner = ({ navigation }) => {
 
   return (
     <>
-      <View style={styles.header}>
+      <View style={globalStyles.header}>
         <Ionicons
           name="arrow-back"
           size={24}
@@ -109,7 +109,7 @@ const QrScanner = ({ navigation }) => {
             navigation.goBack();
           }}
         />
-        <Text style={styles.headerText}>SCAN QR CODE</Text>
+        <Text style={globalStyles.headerText}>SCAN QR CODE</Text>
         <View style={{ width: 24 }}></View>
       </View>
 
@@ -128,21 +128,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     justifyContent: "center",
-  },
-  header: {
-    height: 80,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    backgroundColor: "rgba(10,76,118,1)",
-  },
-  headerText: {
-    fontFamily: "poppins-bold",
-    color: "white",
-    fontSize: 18,
   },
   qrDataHeader: {
     top: 25,

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import Places from "./Places";
 import AdminSetting from "./AdminSetting";
+import { Ionicons } from "@expo/vector-icons";
 import { globalStyles } from "../styles/globalStyles";
 import { Searchbar } from "react-native-paper";
 import NoSearch from "../Loader/NoSearch";
@@ -48,12 +49,26 @@ const AdminSearch = ({ navigation }) => {
   };
 
   return (
-    <View>
+    <>
+      <View style={[globalStyles.header]}>
+        <Ionicons
+          name="arrow-back"
+          size={24}
+          color="white"
+          onPress={() => {
+            navigation.goBack();
+          }}
+        />
+        <Text style={[globalStyles.headerText, { right: 5 }]}>SEARCH</Text>
+        <View style={{ width: 24 }}></View>
+      </View>
+
       <Searchbar
         placeholder="Search your component here..."
         value={searchQuery}
         onChangeText={handleSearch}
       />
+
       <ScrollView>
         {filteredData.map((item) => (
           <SearchResult
@@ -63,8 +78,9 @@ const AdminSearch = ({ navigation }) => {
           />
         ))}
       </ScrollView>
+
       {filteredData.length === 0 && <NoSearch />}
-    </View>
+    </>
   );
 };
 

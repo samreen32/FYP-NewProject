@@ -150,10 +150,10 @@ export default function CitizenScreen({ navigation }) {
         <View style={globalStyles.viewPlaces}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("PayChallan");
+              navigation.navigate("QrScanner");
             }}
           >
-            <Text style={globalStyles.viewPlaces_Text}>Pay Challan</Text>
+            <Text style={globalStyles.viewPlaces_Text}>Scan QR Now</Text>
           </TouchableOpacity>
         </View>
       </View>

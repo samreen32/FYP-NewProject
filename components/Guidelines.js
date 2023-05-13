@@ -17,6 +17,7 @@ import { useRoute } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import MyModal from "./GuidelineModal";
 import { userLogin } from "../context/AuthContext";
+import { globalStyles } from "../styles/globalStyles";
 
 export default function Guidelines({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -70,20 +71,22 @@ export default function Guidelines({ navigation }) {
   };
 
   return (
-    <View>
-      <View style={styles.purple_background}>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.goBack();
-          }}
-        >
+    <>
+      <View style={globalStyles.header}>
+        <TouchableOpacity>
           <Ionicons
             name="arrow-back"
-            size={45}
+            size={24}
             color="white"
+            onPress={() => {
+              navigation.goBack();
+            }}
             style={styles.backArrow}
           />
-          <Text style={styles.Rule_Text_Header}>Guidelines</Text>
+          <Text style={[globalStyles.headerText, { left: 120 }]}>
+            GUIDELINE
+          </Text>
+          <View style={{ width: 24 }}></View>
           <Pressable onPressIn={() => setModalVisible(true)}>
             {showPlusIcon ? (
               <Ionicons
@@ -140,7 +143,7 @@ export default function Guidelines({ navigation }) {
         onClose={() => setModalVisible(false)}
         onAddItem={handleAddItem}
       />
-    </View>
+    </>
   );
 }
 const styles = StyleSheet.create({
@@ -182,11 +185,11 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
   },
   backArrow: {
-    marginLeft: responsiveWidth(5),
-    marginTop: responsiveHeight(4),
+    left: 10,
+    top: 20
   },
   plus_icon: {
     marginLeft: responsiveWidth(80),
-    marginTop: responsiveHeight(-7),
+    marginTop: responsiveHeight(-5),
   },
 });

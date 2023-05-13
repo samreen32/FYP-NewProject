@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
+import { Text, View, TouchableOpacity } from "react-native";
 import {
   responsiveHeight,
   responsiveWidth,
@@ -89,7 +89,7 @@ export default function AddChallan({ navigation, route }) {
 
   return (
     <>
-      <View style={styles.header}>
+      <View style={globalStyles.header}>
         <Ionicons
           name="arrow-back"
           size={24}
@@ -98,7 +98,7 @@ export default function AddChallan({ navigation, route }) {
             navigation.goBack();
           }}
         />
-        <Text style={styles.headerText}>ADD CHALLAN</Text>
+        <Text style={globalStyles.headerText}>ADD CHALLAN</Text>
         <View style={{ width: 24 }}></View>
       </View>
 
@@ -260,22 +260,3 @@ export default function AddChallan({ navigation, route }) {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  header: {
-    height: 80,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    backgroundColor: "rgba(10,76,118,1)",
-  },
-  headerText: {
-    fontFamily: "poppins-bold",
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-});

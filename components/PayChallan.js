@@ -88,7 +88,7 @@ export default function PayChallan({ navigation }) {
 
   return (
     <>
-      <View style={styles.header}>
+      <View style={globalStyles.header}>
         <Ionicons
           name="arrow-back"
           size={24}
@@ -97,7 +97,7 @@ export default function PayChallan({ navigation }) {
             navigation.goBack();
           }}
         />
-        <Text style={styles.headerText}>PAY CHALLAN</Text>
+        <Text style={globalStyles.headerText}>PAY CHALLAN</Text>
         <View style={{ width: 24 }}></View>
       </View>
 
@@ -153,7 +153,7 @@ export default function PayChallan({ navigation }) {
                   },
                 ]}
               >
-                {item.vehicleNo}
+                {item.vehicleNo.toUpperCase()}
               </Text>
               <View style={[globalStyles.tw_Profile_goodMorning]}>
                 <Text>RS. {item.amount}</Text>
@@ -177,22 +177,6 @@ export default function PayChallan({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    height: 100,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    backgroundColor: "rgba(10,76,118,1)",
-  },
-  headerText: {
-    fontFamily: "poppins-bold",
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
   Complain_Container: {
     flexDirection: "row",
     backgroundColor: "rgba(24,154,180,1)",

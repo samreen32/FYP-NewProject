@@ -56,18 +56,21 @@ export default function Citizen_ChangePassword({ navigation }) {
       const token = await AsyncStorage.getItem("token");
       if (token) {
         setIsLoading(true);
-        const response = await fetch(`${AUTH_API_URL}/citizen_change_password`, {
-          method: "PUT",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            "auth-token": token,
-          },
-          body: JSON.stringify({
-            oldPassword: oldPassword,
-            newPassword: newPassword,
-          }),
-        });
+        const response = await fetch(
+          `${AUTH_API_URL}/citizen_change_password`,
+          {
+            method: "PUT",
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              "auth-token": token,
+            },
+            body: JSON.stringify({
+              oldPassword: oldPassword,
+              newPassword: newPassword,
+            }),
+          }
+        );
         const responseData = await response.json();
         if (responseData.success) {
           showToast("Your password changed successfully.");
@@ -90,7 +93,7 @@ export default function Citizen_ChangePassword({ navigation }) {
 
   return (
     <>
-      <View style={styles.header}>
+      <View style={globalStyles.header}>
         <Ionicons
           name="arrow-back"
           size={24}
@@ -99,10 +102,10 @@ export default function Citizen_ChangePassword({ navigation }) {
             navigation.goBack();
           }}
         />
-        <Text style={styles.headerText}>CHANGE PASSWORD</Text>
+        <Text style={globalStyles.headerText}>CHANGE PASSWORD</Text>
         <View style={{ width: 24 }}></View>
       </View>
-      
+
       <ScrollView>
         <View
           style={{
@@ -194,6 +197,7 @@ export default function Citizen_ChangePassword({ navigation }) {
               />
             }
           />
+
           <TouchableOpacity
             style={[styles.submit_btn, { marginTop: responsiveHeight(50) }]}
             onPress={() => {
@@ -204,28 +208,13 @@ export default function Citizen_ChangePassword({ navigation }) {
           </TouchableOpacity>
         </View>
       </ScrollView>
+      
       {isLoading ? <AppLoader /> : null}
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  header: {
-    height: 100,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    backgroundColor: "rgba(10,76,118,1)",
-  },
-  headerText: {
-    fontFamily: "poppins-bold",
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
   Help_Text: {
     color: "white",
     textAlign: "center",
@@ -235,7 +224,6 @@ const styles = StyleSheet.create({
     fontFamily: "poppins-bold",
     lineheight: 114.99999761581421,
   },
-
   submit_btn: {
     backgroundColor: "rgba(10,76,118,1)",
     width: responsiveWidth(30),

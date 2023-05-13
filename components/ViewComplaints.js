@@ -65,7 +65,7 @@ export default function ViewComplaints({ navigation }) {
 
   return (
     <>
-      <View style={styles.header}>
+      <View style={globalStyles.header}>
         <Ionicons
           name="arrow-back"
           size={24}
@@ -74,7 +74,7 @@ export default function ViewComplaints({ navigation }) {
             navigation.goBack();
           }}
         />
-        <Text style={styles.headerText}>COMPLAINTS</Text>
+        <Text style={globalStyles.headerText}>COMPLAINTS</Text>
         <View style={{ width: 24 }}></View>
       </View>
 
@@ -133,15 +133,15 @@ export default function ViewComplaints({ navigation }) {
               )}
             >
               {images.length === 0 && (
-              <Text
-                style={{
-                  textAlign: "center",
-                  marginTop: responsiveHeight(15),
-                }}
-              >
-                There is not such relevent image!
-              </Text>
-            )}
+                <Text
+                  style={{
+                    textAlign: "center",
+                    marginTop: responsiveHeight(15),
+                  }}
+                >
+                  There is not such relevent image!
+                </Text>
+              )}
               {images.map((item) => (
                 <Card style={styles.cardContainer}>
                   <Card.Content>
@@ -160,22 +160,6 @@ export default function ViewComplaints({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    height: 100,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    backgroundColor: "rgba(10,76,118,1)",
-  },
-  headerText: {
-    fontFamily: "poppins-bold",
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
   cardContainer: {
     width: responsiveWidth(70),
     height: responsiveHeight(35),
@@ -187,7 +171,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     zIndex: 1,
     backgroundColor: "rgba(0,0,0,0.3)",
-
   },
   modalView: {
     margin: responsiveHeight(2.5),
@@ -242,5 +225,4 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontFamily: "poppins-regular",
   },
-
 });

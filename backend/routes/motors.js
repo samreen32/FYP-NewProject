@@ -73,22 +73,20 @@ router.get("/count_motor_challan/:vehicleNo", get_auth, async (req, res) => {
   try {
     const { vehicleNo } = req.params;
     const motorDoc = await AddMotors.findOne({ vehicleNo });
-    const challanCount = await AddChallan.countDocuments({ vehicleNo });
-    if (motorDoc && challanCount > 0) {
+    const unpaidChallanCount = await AddChallan.countDocuments({ vehicleNo, status: "Unpaid" });
+    if (motorDoc && unpaidChallanCount > 0) {
       res.json({
         success: true,
-        message: `${challanCount} challan(s) available.`,
+        message: `${unpaidChallanCount} unpaid challan(s) available.`,
         motor: motorDoc,
-        challanCount,
+        unpaidChallanCount,
       });
     } else {
-      res
-        .status(404)
-        .json({
-          success: false,
-          message: "No challan corresponding to this motor.",
-          challanCount: 0,
-        });
+      res.status(404).json({
+        success: false,
+        message: "No unpaid challan corresponding to this motor.",
+        unpaidChallanCount: 0,
+      });
     }
   } catch (error) {
     console.error(error);
@@ -103,16 +101,14 @@ router.get("/getChallan/:vehicleNo", get_auth, async (req, res) => {
     let success = false;
     const { vehicleNo } = req.params;
     const motorDoc = await AddMotors.findOne({ vehicleNo });
-    const challanDoc = await AddChallan.find({ vehicleNo });
-    if (motorDoc && challanDoc) {
+    const challanDoc = await AddChallan.find({ vehicleNo, status: "Unpaid" });
+    if (motorDoc && challanDoc && challanDoc.length > 0) {
       res.json({
         success: true,
         challan: challanDoc,
       });
     } else {
-      res
-        .status(404)
-        .send({ message: "No challan corresponding to this motor." });
+      res.status(404).send({ message: "No unpaid challan corresponding to this motor." });
     }
   } catch (error) {
     console.error(error);

@@ -1,11 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { globalStyles } from "../styles/globalStyles";
 
 export default function AdminSetting({ navigation }) {
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      <View style={globalStyles.header}>
         <Ionicons
           name="arrow-back"
           size={24}
@@ -14,7 +15,7 @@ export default function AdminSetting({ navigation }) {
             navigation.goBack();
           }}
         />
-        <Text style={styles.headerText}>SETTING</Text>
+        <Text style={globalStyles.headerText}>SETTING</Text>
         <View style={{ width: 24 }}></View>
       </View>
 
@@ -62,6 +63,8 @@ export default function AdminSetting({ navigation }) {
             <Text style={styles.sectionItem}>Language</Text>
           </View>
         </View>
+
+        {/* Security */}
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <MaterialCommunityIcons
@@ -104,22 +107,6 @@ export default function AdminSetting({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  header: {
-    height: 80,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    backgroundColor: "rgba(10,76,118,1)",
-  },
-  headerText: {
-    fontFamily: "poppins-bold",
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
   },
   content: {
     flex: 1,

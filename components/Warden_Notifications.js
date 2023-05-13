@@ -7,7 +7,7 @@ import {
   StyleSheet,
   FlatList,
 } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import {
   responsiveHeight,
   responsiveWidth,
@@ -20,7 +20,7 @@ import { NOTIFI_API_URL } from "../Custom_Api_Calls/api_calls";
 
 export default function Warden_Notifications() {
   const { notifications, setNotifications, showToast } = userLogin();
-
+ 
   /************* View Notifications Method *************/
   const viewNotifications = async () => {
     try {
@@ -76,6 +76,19 @@ export default function Warden_Notifications() {
 
   return (
     <>
+      <View style={[globalStyles.header]}>
+        <Ionicons
+          name="arrow-back"
+          size={24}
+          color="white"
+          onPress={() => {
+            navigation.goBack();
+          }}
+        />
+        <Text style={globalStyles.headerText}>NOTIFICATIONS</Text>
+        <View style={{ width: 24 }}></View>
+      </View>
+
       <FlatList
         data={notifications}
         renderItem={({ item }) => (

@@ -1,11 +1,5 @@
 import { React, useEffect, useState } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-} from "react-native";
+import { Text, View, StyleSheet, FlatList } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {
   responsiveHeight,
@@ -13,6 +7,7 @@ import {
   responsiveFontSize,
 } from "react-native-responsive-dimensions";
 import { CHALLAN_API_URL } from "../Custom_Api_Calls/api_calls";
+import { globalStyles } from "../styles/globalStyles";
 
 export default function ChallanHistory({ navigation }) {
   const [challans, setChallans] = useState([]);
@@ -20,12 +15,9 @@ export default function ChallanHistory({ navigation }) {
   /************** Function to fecth all the challans ****************/
   const fetchPaidChallans = async () => {
     try {
-      const response = await fetch(
-        `${CHALLAN_API_URL}/show_paidChallans`,
-        {
-          method: "GET",
-        }
-      );
+      const response = await fetch(`${CHALLAN_API_URL}/show_paidChallans`, {
+        method: "GET",
+      });
       const responseData = await response.json();
       setChallans(responseData.paidChallans);
     } catch (error) {
@@ -39,7 +31,7 @@ export default function ChallanHistory({ navigation }) {
 
   return (
     <>
-      <View style={styles.header}>
+      <View style={globalStyles.header}>
         <Ionicons
           name="arrow-back"
           size={24}
@@ -48,7 +40,7 @@ export default function ChallanHistory({ navigation }) {
             navigation.goBack();
           }}
         />
-        <Text style={styles.headerText}>CHALLAN HISTORY</Text>
+        <Text style={globalStyles.headerText}>CHALLAN HISTORY</Text>
         <View style={{ width: 24 }}></View>
       </View>
 
@@ -57,34 +49,25 @@ export default function ChallanHistory({ navigation }) {
         renderItem={({ item, description }) => (
           <View style={styles.Challan_Container}>
             <View>
-              <Text style={styles.Status_Text}>{item.status.toUpperCase()}</Text>
-              <Text style={styles.description_Text}>{new Date(item.date).toLocaleDateString()}</Text>
+              <Text style={styles.Status_Text}>
+                CHALLAN {item.status.toUpperCase()}
+              </Text>
+              <Text style={styles.description_Text}>
+                {new Date(item.date).toLocaleDateString()}
+              </Text>
             </View>
-            <Text style={styles.Vehicle_no_text}>{item.vehicleNo.toUpperCase()}</Text>
+            <Text style={styles.Vehicle_no_text}>
+              {item.vehicleNo.toUpperCase()}
+            </Text>
           </View>
         )}
       />
     </>
   );
 }
+
 const styles = StyleSheet.create({
-  header: {
-    height: 110,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    backgroundColor: "rgba(10,76,118,1)",
-  },
-  headerText: {
-    fontFamily: "poppins-bold",
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
- Challan_Container: {
+  Challan_Container: {
     backgroundColor: "rgba(24,154,180,1)",
     height: responsiveHeight(12),
     marginLeft: responsiveWidth(6),

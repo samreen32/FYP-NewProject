@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import PayChallan from "./PayChallan";
 import Help from "./Help";
+import { Ionicons } from "@expo/vector-icons";
 import FileComplaint from "./FileComplaint";
 import ChallanHistory from "./ChallanHistory";
 import Places from "./Places";
@@ -52,12 +53,26 @@ const CitizenSearch = ({ navigation }) => {
   };
 
   return (
-    <View>
+    <>
+      <View style={[globalStyles.header]}>
+        <Ionicons
+          name="arrow-back"
+          size={24}
+          color="white"
+          onPress={() => {
+            navigation.goBack();
+          }}
+        />
+        <Text style={[globalStyles.headerText, { right: 5 }]}>SEARCH</Text>
+        <View style={{ width: 24 }}></View>
+      </View>
+
       <Searchbar
         placeholder="Search your component here..."
         value={searchQuery}
         onChangeText={handleSearch}
       />
+
       <ScrollView>
         {filteredData.map((item) => (
           <SearchResult
@@ -67,8 +82,9 @@ const CitizenSearch = ({ navigation }) => {
           />
         ))}
       </ScrollView>
+      
       {filteredData.length === 0 && <NoSearch />}
-    </View>
+    </>
   );
 };
 

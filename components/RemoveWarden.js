@@ -71,9 +71,9 @@ export default function RemoveWarden({ navigation }) {
     })
       .then((response) => response.json())
       .then((data) => setModalDetails(data));
-      setModalVisible(false);
-      showToast("Warden Removed Successfully");
-      addNotification();
+    setModalVisible(false);
+    showToast("Warden Removed Successfully");
+    addNotification();
   };
 
   useEffect(() => {
@@ -124,7 +124,7 @@ export default function RemoveWarden({ navigation }) {
           const schedulingOptions = {
             content: {
               title: "New Notification",
-              body: "You have Removed a Warden.",
+              body: "You have removed a Warden.",
               data: { time },
               read: false,
               badge: badgeValue,
@@ -159,20 +159,19 @@ export default function RemoveWarden({ navigation }) {
   }, []);
 
   return (
-    <View>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.goBack();
-        }}
-      >
-        <Text style={[styles.Complain_Text_Header]}>Remove Warden</Text>
+    <>
+      <View style={globalStyles.header}>
         <Ionicons
           name="arrow-back"
-          size={43}
-          color="black"
-          style={styles.backArrow}
+          size={24}
+          color="white"
+          onPress={() => {
+            navigation.goBack();
+          }}
         />
-      </TouchableOpacity>
+        <Text style={globalStyles.headerText}>REMOVE WARDEN</Text>
+        <View style={{ width: 24 }}></View>
+      </View>
 
       {/********** Search Component *********/}
       <View style={{ height: responsiveHeight(5) }}>
@@ -285,9 +284,8 @@ export default function RemoveWarden({ navigation }) {
                 <TouchableOpacity
                   onPress={() => RemoveWarden(modalDetails._id)}
                   style={[
-                   
                     {
-                     backgroundColor: "rgba(10,76,118,1)",
+                      backgroundColor: "rgba(10,76,118,1)",
                       width: responsiveWidth(35),
                       height: responsiveHeight(6),
                       borderRadius: responsiveWidth(12),
@@ -335,7 +333,7 @@ export default function RemoveWarden({ navigation }) {
         </View>
       </Modal>
       {wardens.length === 0 && <NoComplaint_Box />}
-    </View>
+    </>
   );
 }
 
@@ -364,13 +362,7 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 50,
   },
-  Complain_Text_Header: {
-    color: "black",
-    fontFamily: "poppins-bold",
-    fontSize: responsiveFontSize(3.5),
-    marginLeft: responsiveWidth(20),
-    marginTop: responsiveHeight(6),
-  },
+
   Complain_Container: {
     flexDirection: "row",
     backgroundColor: "rgba(24,154,180,1)",
@@ -402,9 +394,5 @@ const styles = StyleSheet.create({
     marginLeft: responsiveWidth(5),
     marginTop: responsiveHeight(0.5),
     color: "#FFFFFF",
-  },
-  backArrow: {
-    marginLeft: responsiveWidth(5),
-    marginTop: responsiveHeight(-6.6),
   },
 });

@@ -1,22 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { globalStyles } from "../styles/globalStyles";
 import { Text, View, TouchableOpacity, Platform } from "react-native";
 import { responsiveHeight } from "react-native-responsive-dimensions";
 import { TextInput, List } from "react-native-paper";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import { FontAwesome, MaterialCommunityIcons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { userLogin } from "../context/AuthContext";
 import Progress from "../Loader/Progress";
 import { CHALLAN_API_URL, NOTIFI_API_URL } from "../Custom_Api_Calls/api_calls";
 import * as Notifications from "expo-notifications";
-import { useRef } from "react";
-import { useEffect } from "react";
 import * as Print from "expo-print";
-
 import * as SMS from "expo-sms";
-import * as Permissions from "expo-permissions";
 
 //Default Notification settings
 Notifications.setNotificationHandler({
@@ -88,10 +84,11 @@ export default function AddChallan_PrintDetails({ route }) {
         );
         if (response.data.success) {
           showToast("Challan has been added. Print QR.");
+
+          /***** Printing QR Code *****/
           const { qrCode } = response.data.updatedChallanDetails;
           const base64ImageData = qrCode.split(",")[1]; // Generate base64 encoded image data from the QR code
 
-          // Print the QR code
           const htmlContent = `
           <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
             <div style="text-align: center;margin-top: 50px;">
@@ -108,13 +105,14 @@ export default function AddChallan_PrintDetails({ route }) {
           const pdfUrl = await Print.printToFileAsync({ html: htmlContent });
           await Print.printAsync({ uri: pdfUrl.uri });
 
-          // Check if phone number exists
+          /***** Sending SMS *****/
           const phoneNo = response.data.phoneNo;
           if (phoneNo) {
-            // Send SMS
             const message = `Dear Citizen, you have a challan to pay. \nChallan Number: ${challanNum}. Due Date: ${due_date}. \nDownload the "E-Parking Challan App" to Scan QR and Pay. \nThank You.`;
             await SMS.sendSMSAsync([phoneNo], message);
           }
+
+          /***** Sending Notification *****/
           addNotification();
           setUploadProgress(0);
         } else {

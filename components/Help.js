@@ -93,7 +93,7 @@ export default function Help({ navigation }) {
           <Text style={styles.Help_Text}>Help</Text>
           <Ionicons
             name="arrow-back"
-            size={50}
+            size={24}
             color="white"
             style={styles.backArrow}
           />
@@ -215,7 +215,6 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(4),
     letterSpacing: 1.0,
     fontFamily: "poppins-bold",
-    //lineHeight: 114.99999761581421,
   },
 
   submit_btn: {
@@ -237,7 +236,7 @@ const styles = StyleSheet.create({
     paddingTop: responsiveHeight(1.6),
   },
   backArrow: {
-    marginLeft: responsiveWidth(5),
-    marginTop: responsiveHeight(-7.8),
+    left: 20,
+    top: -45
   },
 });

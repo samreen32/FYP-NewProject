@@ -60,7 +60,7 @@ export default function Statistics({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
+      <View style={globalStyles.header}>
         <TouchableOpacity
           onPress={() => {
             navigation.goBack();
@@ -68,7 +68,7 @@ export default function Statistics({ navigation }) {
         >
           <Ionicons name="arrow-back" size={24} color="white" />
         </TouchableOpacity>
-        <Text style={styles.headerText}>STATISTICS</Text>
+        <Text style={globalStyles.headerText}>STATISTICS</Text>
         <View style={{ width: 24 }}></View>
       </View>
 
@@ -108,21 +108,6 @@ export default function Statistics({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  header: {
-    height: 110,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    backgroundColor: "rgba(10,76,118,1)",
-  },
-  headerText: {
-    fontSize: 20,
-    fontFamily: "poppins-bold",
-    color: "white",
   },
   PieChart: {
     flex: 1,

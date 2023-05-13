@@ -79,19 +79,18 @@ export default function HandleComplaints({ navigation }) {
 
   return (
     <>
-      <TouchableOpacity
-        onPress={() => {
-          navigation.goBack();
-        }}
-      >
-        <Text style={[styles.Complain_Text_Header]}>Handle Complaints</Text>
+      <View style={globalStyles.header}>
         <Ionicons
           name="arrow-back"
-          size={43}
-          color="black"
-          style={styles.backArrow}
+          size={24}
+          color="white"
+          onPress={() => {
+            navigation.goBack();
+          }}
         />
-      </TouchableOpacity>
+        <Text style={globalStyles.headerText}>HANDLE COMPLAINTS</Text>
+        <View style={{ width: 24 }}></View>
+      </View>
 
       <FlatList
         data={complaints}
@@ -235,14 +234,14 @@ export default function HandleComplaints({ navigation }) {
             >
               <TouchableOpacity
                 style={[
-                 // globalStyles.Register_btn,
+                  // globalStyles.Register_btn,
                   {
                     backgroundColor: "rgba(10,76,118,1)",
                     width: responsiveWidth(35),
                     height: responsiveHeight(6),
                     borderRadius: responsiveWidth(12),
                     marginRight: responsiveWidth(20),
-                    marginTop: responsiveHeight(20)
+                    marginTop: responsiveHeight(20),
                   },
                 ]}
                 onPress={() => setModalVisible(!modalVisible)}
@@ -291,13 +290,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: responsiveHeight(30),
   },
-  Complain_Text_Header: {
-    color: "black",
-    fontFamily: "poppins-bold",
-    fontSize: responsiveFontSize(3),
-    marginLeft: responsiveWidth(20),
-    marginTop: responsiveHeight(6),
-  },
   complaint_details: {
     marginTop: responsiveHeight(1),
   },
@@ -332,9 +324,5 @@ const styles = StyleSheet.create({
     marginLeft: responsiveWidth(5),
     marginTop: responsiveHeight(0.5),
     color: "#FFFFFF",
-  },
-  backArrow: {
-    marginLeft: responsiveWidth(5),
-    marginTop: responsiveHeight(-6.5),
   },
 });

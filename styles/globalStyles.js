@@ -1004,4 +1004,20 @@ export const globalStyles = StyleSheet.create({
     color: "white",
     marginTop: responsiveHeight(-1.5),
   },
+  header: {
+    height: 105,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ccc",
+    backgroundColor: "rgba(10,76,118,1)",
+  },
+  headerText: {
+    fontFamily: "poppins-bold",
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
+  },
 });

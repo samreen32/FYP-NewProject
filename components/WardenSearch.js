@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import Help from "./Help";
 import AddChallan from "../components/AddChallan";
+import { Ionicons } from "@expo/vector-icons";
 import Places from "./Places";
 import WardenSetting from "./WardenSetting";
 import Statistics from "./Statistics";
@@ -54,12 +55,26 @@ const WardenSearch = ({ navigation }) => {
   };
 
   return (
-    <View>
+    <>
+      <View style={[globalStyles.header]}>
+        <Ionicons
+          name="arrow-back"
+          size={24}
+          color="white"
+          onPress={() => {
+            navigation.goBack();
+          }}
+        />
+        <Text style={[globalStyles.headerText, { right: 5 }]}>SEARCH</Text>
+        <View style={{ width: 24 }}></View>
+      </View>
+
       <Searchbar
         placeholder="Search your component here..."
         value={searchQuery}
         onChangeText={handleSearch}
       />
+
       <ScrollView>
         {filteredData.map((item) => (
           <SearchResult
@@ -69,8 +84,9 @@ const WardenSearch = ({ navigation }) => {
           />
         ))}
       </ScrollView>
+      
       {filteredData.length === 0 && <NoSearch />}
-    </View>
+    </>
   );
 };
 

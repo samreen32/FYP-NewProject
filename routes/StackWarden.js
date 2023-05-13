@@ -38,10 +38,7 @@ export default function StackWarden() {
         name="Places"
         component={Places}
         options={{
-          headerShown: true,
-          title: "Your Loaction",
-          headerTintColor: "white",
-          headerStyle: { backgroundColor: "rgba(10,76,118,1)" },
+          headerShown: false,
         }}
       />
 
@@ -95,10 +92,7 @@ export default function StackWarden() {
         name="WardenSearch"
         component={WardenSearch}
         options={{
-          headerShown: true,
-          headerTintColor: "white",
-          headerStyle: { backgroundColor: "rgba(10,76,118,1)" },
-          headerTitle: "Search",
+          headerShown: false,
         }}
       />
       <Stack.Screen
@@ -133,10 +127,7 @@ export default function StackWarden() {
         name="Warden_Notifications"
         component={Warden_Notifications}
         options={{
-          headerShown: true,
-          headerTintColor: "white",
-          headerStyle: { backgroundColor: "rgba(10,76,118,1)" },
-          headerTitle: "Notifications",
+          headerShown: false,
         }}
       />
       <Stack.Screen

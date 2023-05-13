@@ -5,9 +5,9 @@ import {
   TouchableOpacity,
   View,
   StyleSheet,
-  FlatList
+  FlatList,
 } from "react-native";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import {
   responsiveHeight,
   responsiveWidth,
@@ -21,21 +21,17 @@ import { NOTIFI_API_URL } from "../Custom_Api_Calls/api_calls";
 export default function Citizen_Notifications() {
   const { notifications, setNotifications, showToast } = userLogin();
 
-
   /************* View Notifications Method *************/
   const viewNotifications = async () => {
     try {
       const token = await AsyncStorage.getItem("token");
       if (token != null) {
-        await fetch(
-          `${NOTIFI_API_URL}/fetch_notifications`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              "auth-token": token,
-            },
-          }
-        )
+        await fetch(`${NOTIFI_API_URL}/fetch_notifications`, {
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": token,
+          },
+        })
           .then((response) => response.json())
           .then((data) => setNotifications(data.notificationsData))
           .catch((error) => console.error(error));
@@ -44,21 +40,18 @@ export default function Citizen_Notifications() {
       console.error(error.message);
     }
   };
-  
+
   /************* Delete Notification Method *************/
   const removeNotification = async (id) => {
     const token = await AsyncStorage.getItem("token");
     if (token != null) {
-      fetch(
-        `${NOTIFI_API_URL}/delete_notification/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            "auth-token": token,
-          },
-        }
-      )
+      fetch(`${NOTIFI_API_URL}/delete_notification/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": token,
+        },
+      })
         .then((response) => response.json())
         .then((data) => {
           if (data.success) {
@@ -81,9 +74,21 @@ export default function Citizen_Notifications() {
     }
   }, [notifications]);
 
-  
   return (
     <>
+      <View style={[globalStyles.header]}>
+        <Ionicons
+          name="arrow-back"
+          size={24}
+          color="white"
+          onPress={() => {
+            navigation.goBack();
+          }}
+        />
+        <Text style={globalStyles.headerText}>NOTIFICATIONS</Text>
+        <View style={{ width: 24 }}></View>
+      </View>
+
       <FlatList
         data={notifications}
         renderItem={({ item }) => (
@@ -125,6 +130,7 @@ export default function Citizen_Notifications() {
     </>
   );
 }
+
 const styles = StyleSheet.create({
   notifi_time: {
     fontFamily: "poppins-bold",
