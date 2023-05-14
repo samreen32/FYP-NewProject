@@ -193,7 +193,7 @@ export default function CitizenSetting({ navigation }) {
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate("CitizenForgotPassword");
+                  navigation.navigate("Citizen_ChangePassword");
                 }}
               >
                 <Text style={styles.sectionItem}>

@@ -16,7 +16,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NOTIFI_API_URL } from "../Custom_Api_Calls/api_calls";
 
 export default function CitizenScreen({ navigation }) {
-  const { profile, badgeValue, setBadgeValue, greeting } = userLogin();
+  const { profile, badgeValue, setBadgeValue, greeting, addressText } =
+    userLogin();
 
   /*************** Fetch Badge Value on Notification Icon *************/
   useEffect(() => {
@@ -78,7 +79,7 @@ export default function CitizenScreen({ navigation }) {
       >
         <Pressable
           onPress={() => {
-            navigation.openDrawer("CitizenDrawer");
+            navigation.openDrawer();
           }}
         >
           <Ionicons name="menu" size={33} color="black" />
@@ -107,9 +108,7 @@ export default function CitizenScreen({ navigation }) {
             navigation.navigate("Places");
           }}
         >
-          <Text style={globalStyles.locationTop_Text}>
-            Blue Area, Islamabad
-          </Text>
+          <Text style={globalStyles.locationTop_Text}>{addressText}</Text>
         </TouchableOpacity>
       </View>
 
@@ -145,7 +144,7 @@ export default function CitizenScreen({ navigation }) {
         Don't Worry {"\n"}it's easy to pay.
       </Text>
 
-      {/* Places */}
+      {/* QR Scanner */}
       <View style={globalStyles.viewPlaces_btn}>
         <View style={globalStyles.viewPlaces}>
           <TouchableOpacity

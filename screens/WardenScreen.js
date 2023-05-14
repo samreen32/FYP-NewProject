@@ -11,8 +11,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NOTIFI_API_URL } from "../Custom_Api_Calls/api_calls";
 
 export default function WardenScreen({ navigation }) {
-  const { profile, greeting, badgeValue, setBadgeValue, showToast } =
-    userLogin();
+  const {
+    profile,
+    greeting,
+    badgeValue,
+    setBadgeValue,
+    showToast,
+    addressText,
+  } = userLogin();
 
   /*************** Fetch Badge Value on Notification Icon *************/
   useEffect(() => {
@@ -74,7 +80,7 @@ export default function WardenScreen({ navigation }) {
       >
         <TouchableOpacity
           onPress={() => {
-            navigation.openDrawer("WardenDrawer");
+            navigation.openDrawer();
           }}
         >
           <Ionicons name="menu" size={33} color="black" />
@@ -103,11 +109,7 @@ export default function WardenScreen({ navigation }) {
             navigation.navigate("Places");
           }}
         >
-          <Text style={globalStyles.locationTop_Text}>
-            Blue Area, Islamabad
-          </Text>
-          {/* <Ionicons name="location-sharp" size={33} color="black" style={{ marginTop: responsiveHeight(-10),
-               marginLeft: responsiveWidth(-7),}}/> */}
+          <Text style={globalStyles.locationTop_Text}>{addressText}</Text>
         </TouchableOpacity>
       </View>
 

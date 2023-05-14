@@ -118,7 +118,7 @@ export default function ViewComplaints({ navigation }) {
               size={30}
               color="black"
               onPress={() => setModalVisible(!modalVisible)}
-              style={{ marginLeft: responsiveWidth(60) }}
+              style={{ marginLeft: responsiveWidth(60), bottom: 10 }}
             />
             {/* Display selected Images */}
             <ScrollView

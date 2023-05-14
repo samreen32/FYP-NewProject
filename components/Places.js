@@ -5,10 +5,12 @@ import * as Location from "expo-location";
 import { globalStyles } from "../styles/globalStyles";
 import SearchBar from "../components/SearchBar";
 import { Ionicons } from "@expo/vector-icons";
+import { userLogin } from "../context/AuthContext";
 
 export default function Places({ navigation }) {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
+  const { addressText, setAddressText } = userLogin();
 
   useEffect(() => {
     (async () => {
@@ -18,10 +20,11 @@ export default function Places({ navigation }) {
         return;
       }
 
-      /*Original work */
       let location = await Location.getCurrentPositionAsync({});
       let address = await Location.reverseGeocodeAsync(location.coords);
-      console.log(address);
+
+      setAddressText(`${address[0].district}, ${address[0].city}`);
+
       setLocation({
         longitude: location.coords.longitude,
         latitude: location.coords.latitude,
@@ -30,14 +33,6 @@ export default function Places({ navigation }) {
       });
     })();
   }, []);
-
-  /* Original work*/
-  let text = "Waiting..";
-  if (errorMsg) {
-    text = errorMsg;
-  } else if (location) {
-    text = JSON.stringify(location);
-  }
 
   return (
     <>
@@ -53,17 +48,6 @@ export default function Places({ navigation }) {
         <Text style={globalStyles.headerText}>YOUR LOCATION</Text>
         <View style={{ width: 24 }}></View>
       </View>
-      {/* <Text>Your current location is {text}</Text> */}
-      {/* <FlatList
-        data={city}
-        renderItem={({ item })=>(   //response array consist of country and city.
-          <View style={globalStyles.itemRedux}>
-            <Text style={globalStyles.titleRedux}>{item.district}</Text>   
-            <Text style={globalStyles.subtitleRedux}>{item.city}</Text>
-          </View>
-        )}
-        keyExtractor={(item, index)=> index.toString()}
-      />  */}
 
       <SearchBar />
       <MapView

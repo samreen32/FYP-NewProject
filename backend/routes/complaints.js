@@ -23,7 +23,11 @@ const fileFilter = (req, file, callback) => {
 var uploads = multer({
   storage: storage,
   fileFilter: fileFilter,
+  limits: {
+    fileSize: 2 * 1024 * 1024, // 2MB
+  },
 });
+
 
 /********************** 1st Route ************************/
 //Add a new Complaint using: POST "api/complaints/filecomplaint". Login required.......at CITIZEN side
@@ -41,7 +45,7 @@ router.post(
   async (req, res) => {
     try {
       let success = false;
-      const { name, email, officer_Name, any_image, description } = req.body;
+      const { name, email, officer_Name, description } = req.body;
       const urls = [];
       const files = req.files;
 
@@ -71,7 +75,8 @@ router.post(
       res.status(500).send("Internal Server Error");
     }
   }
-); 
+);
+
 
 /****************************** 2nd Route ****************************/
 //Handle Complaints using: GET "api/complaints/handleComplaints"......at ADMIN side

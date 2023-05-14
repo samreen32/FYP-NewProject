@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Modal,
 } from "react-native";
-import { Ionicons, AntDesign } from "@expo/vector-icons";
+import { Ionicons, AntDesign, Entypo } from "@expo/vector-icons";
 import {
   responsiveHeight,
   responsiveWidth,
@@ -133,24 +133,34 @@ export default function HandleComplaints({ navigation }) {
         onRequestClose={() => setModalVisible(false)}
       >
         <View style={styles.modalView}>
+          <Entypo
+            name="cross"
+            size={30}
+            color="black"
+            onPress={() => setModalVisible(!modalVisible)}
+            style={{ left: 120, bottom: 15 }}
+          />
+          
           <Card
             mode="outlined"
             style={{
               borderRadius: responsiveWidth(7),
               width: responsiveWidth(80),
-              height: responsiveHeight(80),
+              height: responsiveHeight(60),
             }}
           >
-            <Card.Title title="Handle Complaint" subtitle="Citizen Complaint" />
+            <Card.Title title="Citizen Complaint" />
 
             {images.length === 0 && (
               <Text
                 style={{
+                  top: 65,
+                  width: 295,
+                  height: 190,
                   textAlign: "center",
-                  marginTop: responsiveHeight(15),
                 }}
               >
-                There is not such relevent image!
+                There is no such relevent image!
               </Text>
             )}
             <FlatList
@@ -161,14 +171,14 @@ export default function HandleComplaints({ navigation }) {
                 <Card.Cover
                   source={{ uri: item }}
                   style={{
-                    width: responsiveWidth(80),
-                    height: responsiveHeight(37),
+                    width: 295,
+                    height: 190,
                   }}
                 />
               )}
             />
 
-            <Card.Content style={{ marginBottom: responsiveHeight(4.5) }}>
+            <Card.Content style={{ top: 20 }}>
               <Text
                 style={{
                   fontFamily: "poppins-bold",
@@ -226,39 +236,6 @@ export default function HandleComplaints({ navigation }) {
                 </TouchableOpacity>
               )}
             </Card.Content>
-            <Card.Actions
-              style={{
-                marginBottom: responsiveHeight(5),
-                marginLeft: responsiveWidth(17),
-              }}
-            >
-              <TouchableOpacity
-                style={[
-                  // globalStyles.Register_btn,
-                  {
-                    backgroundColor: "rgba(10,76,118,1)",
-                    width: responsiveWidth(35),
-                    height: responsiveHeight(6),
-                    borderRadius: responsiveWidth(12),
-                    marginRight: responsiveWidth(20),
-                    marginTop: responsiveHeight(20),
-                  },
-                ]}
-                onPress={() => setModalVisible(!modalVisible)}
-              >
-                <Text
-                  style={[
-                    globalStyles.Register_Text,
-                    {
-                      marginTop: responsiveHeight(1),
-                      marginLeft: responsiveWidth(10),
-                    },
-                  ]}
-                >
-                  Cancel
-                </Text>
-              </TouchableOpacity>
-            </Card.Actions>
           </Card>
         </View>
       </Modal>
@@ -271,6 +248,7 @@ const styles = StyleSheet.create({
   modalView: {
     margin: responsiveHeight(2.5),
     backgroundColor: "white",
+    top: 90,
     borderRadius: responsiveHeight(5),
     padding: 35,
     alignItems: "center",

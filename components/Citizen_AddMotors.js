@@ -127,7 +127,7 @@ export default function Citizen_AddMotors({ navigation }) {
             onChangeText={(value) => onChange(value, "motorName")}
             value={motorName}
             label="Motor Name"
-            keyboardType="alphabet"
+            keyboardType="default"
             mode="outlined"
             activeOutlineColor="rgba(10,76,118,1)"
             outlineColor="rgba(24,154,180,1)"
@@ -142,7 +142,7 @@ export default function Citizen_AddMotors({ navigation }) {
             onChangeText={(value) => onChange(value, "motorType")}
             value={motorType}
             label="Motor Type"
-            keyboardType="alphabet"
+            keyboardType="default"
             mode="outlined"
             activeOutlineColor="rgba(10,76,118,1)"
             outlineColor="rgba(24,154,180,1)"
@@ -157,7 +157,7 @@ export default function Citizen_AddMotors({ navigation }) {
             onChangeText={(value) => onChange(value, "vehicleNo")}
             value={vehicleNo}
             label="Vehicle No."
-            keyboardType="alphabet"
+            keyboardType="default"
             mode="outlined"
             activeOutlineColor="rgba(10,76,118,1)"
             outlineColor="rgba(24,154,180,1)"
@@ -172,7 +172,7 @@ export default function Citizen_AddMotors({ navigation }) {
             onChangeText={(value) => onChange(value, "regNo")}
             value={regNo}
             label="Registration No."
-            keyboardType="alphabet"
+            keyboardType="default"
             mode="outlined"
             activeOutlineColor="rgba(10,76,118,1)"
             outlineColor="rgba(24,154,180,1)"

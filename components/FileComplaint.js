@@ -64,27 +64,18 @@ export default function FileComplaint({ navigation }) {
 
   /***************Function to open image browser for selction*************/
   const pickMultipleImages = async () => {
-    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (status !== "granted") {
-      alert("Sorry, we need media library permissions to make this work!");
-      return;
-    }
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      aspect: [4, 3],
-      quality: 1,
       allowsMultipleSelection: true,
+      quality: 1,
+      base64: true,
+      assetType: "photos",
     });
 
-    if (!result.canceled && result.assets && result.assets.length > 0) {
-      const selectedImages = result.assets.map((asset) => {
-        return {
-          uri: asset.uri,
-          name: asset.fileName || "untitled.jpg",
-          type: asset.type || "image/jpeg",
-        };
-      });
-      setImages([...images, ...selectedImages]);
+    if (!result.canceled) {
+      const selectedAssets = result.assets;
+      const selectedUris = selectedAssets.map((asset) => asset.uri);
+      setImages((images) => [...images, ...selectedUris]);
     }
   };
 
@@ -110,15 +101,18 @@ export default function FileComplaint({ navigation }) {
     formData.append("email", email);
     formData.append("officer_Name", officer_Name);
     formData.append("description", description);
-    formData.append("any_image", images);
-    images.forEach((img) => {
-      formData.append("any_image", img);
-    });
+    for (let i = 0; i < images.length; i++) {
+      formData.append("any_image", {
+        uri: images[i],
+        type: "image/jpeg",
+        name: `image${i}.jpg`,
+      });
+    }
 
-    const DEMO_TOKEN = await AsyncStorage.getItem("token");
+    const token = await AsyncStorage.getItem("token");
     try {
-      if (DEMO_TOKEN != null) {
-        console.log("tokenresponse", DEMO_TOKEN);
+      if (token != null) {
+        console.log("tokenresponse", token);
         const response = await axios.post(
           `${COMPLAINT_API_URL}/filecomplaint`,
           formData,
@@ -126,7 +120,7 @@ export default function FileComplaint({ navigation }) {
             headers: {
               Accept: "application/json",
               "Content-Type": "multipart/form-data",
-              "auth-token": DEMO_TOKEN,
+              "auth-token": token,
             },
             onUploadProgress: ({ loaded, total }) =>
               setUploadProgress(loaded / total),
@@ -139,7 +133,7 @@ export default function FileComplaint({ navigation }) {
         }
       }
     } catch (error) {
-      showToast("Error occur", error.message);
+      showToast(error.message);
     }
   };
 
@@ -354,7 +348,7 @@ export default function FileComplaint({ navigation }) {
                       <Card.Content>
                         <Paragraph>Image {(number_id += 1)}</Paragraph>
                       </Card.Content>
-                      <Card.Cover source={{ uri: item.uri }} />
+                      <Card.Cover source={{ uri: item }} />
                     </Card>
                   ))}
                 </ScrollView>
@@ -451,7 +445,6 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(3.5),
     letterSpacing: 1.0,
     fontFamily: "poppins-bold",
-    lineheight: 114.99999761581421,
   },
 
   submit_btn: {

@@ -13,6 +13,7 @@ const AuthProvider = ({ children }) => {
   const [profile, setProfile] = useState({});
   const [notifications, setNotifications] = useState([]);
   const [badgeValue, setBadgeValue] = useState(0);
+  const [addressText, setAddressText] = useState("Waiting..");
 
   /********** Function to fetch greetings according to timezone and date ***********/
   useEffect(() => {
@@ -37,7 +38,7 @@ const AuthProvider = ({ children }) => {
   const isValidPhone = (value) => {
     const regx = /^(?:\+92|0)3\d{2}(?:-)?\d{7}$/;
     return regx.test(value);
-  };   
+  };
 
   const isValidObjField = (obj) => {
     return Object.values(obj).every((value) => value.trim());
@@ -81,6 +82,8 @@ const AuthProvider = ({ children }) => {
         setNotifications,
         badgeValue,
         setBadgeValue,
+        addressText,
+        setAddressText,
       }}
     >
       {children}

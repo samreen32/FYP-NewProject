@@ -204,7 +204,7 @@ export default function Citizen_ViewChallanMotors({ navigation }) {
               size={30}
               color="black"
               onPress={() => setModalVisible(!modalVisible)}
-              style={{ marginLeft: responsiveWidth(60) }}
+              style={{ marginLeft: responsiveWidth(60), bottom: 15 }}
             />
 
             <Card style={styles.cardContainer}>
