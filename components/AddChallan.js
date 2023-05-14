@@ -39,7 +39,7 @@ export default function AddChallan({ navigation, route }) {
       const selectedAsset = result.assets[0];
       const image = {
         uri: selectedAsset.uri,
-        name: selectedAsset.filename,
+        name: selectedAsset.fileName,
         type: selectedAsset.type,
       };
       setCameraImage(image);

@@ -76,20 +76,20 @@ export default function FileComplaint({ navigation }) {
       allowsMultipleSelection: true,
     });
 
-    if (!result.cancelled) {
-      const images = result.selected.map((selectedImage) => {
+    if (!result.canceled && result.assets && result.assets.length > 0) {
+      const selectedImages = result.assets.map((asset) => {
         return {
-          uri: selectedImage.uri,
-          name: selectedImage.uri.split("/").pop(),
-          type: "image/jpeg",
+          uri: asset.uri,
+          name: asset.fileName || "untitled.jpg",
+          type: asset.type || "image/jpeg",
         };
       });
-      setImages([...images]);
+      setImages([...images, ...selectedImages]);
     }
   };
 
-  /***************Function to store images********************/
-  const submitData = async () => {
+  /*************** Function to file complaints ********************/
+  const handleFileComplaint = async () => {
     if (name == "") {
       return updateError("Enter your Name!", setError);
     }
@@ -320,7 +320,7 @@ export default function FileComplaint({ navigation }) {
           />
 
           <View style={[globalStyles.camera]}>
-            {images == "" ? (
+            {images.length === 0 ? (
               <TouchableOpacity
                 style={[
                   globalStyles.cameraButtns,
@@ -349,8 +349,8 @@ export default function FileComplaint({ navigation }) {
                     { useNativeDriver: false }
                   )}
                 >
-                  {images.map((item) => (
-                    <Card style={styles.cardContainer}>
+                  {images.map((item, index) => (
+                    <Card key={index} style={styles.cardContainer}>
                       <Card.Content>
                         <Paragraph>Image {(number_id += 1)}</Paragraph>
                       </Card.Content>
@@ -362,7 +362,10 @@ export default function FileComplaint({ navigation }) {
             )}
           </View>
 
-          <TouchableOpacity style={styles.submit_btn} onPress={submitData}>
+          <TouchableOpacity
+            style={styles.submit_btn}
+            onPress={handleFileComplaint}
+          >
             <Text style={styles.submit_text}>Submit</Text>
           </TouchableOpacity>
         </View>
@@ -382,6 +385,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     width: 320,
     marginTop: responsiveHeight(3),
+    backgroundColor: "rgba(217,217,217,1)",
   },
   style_Rectangle4: {
     marginLeft: responsiveWidth(8),

@@ -13,7 +13,11 @@ const adminSchema = new Schema({
   },
   password: {
     type: String,
-    required: true, 
+    required: true,
+  },
+  phoneNo: {
+    type: Number,
+    required: true,
   },
   avatar: String,
   notificationsData: [

@@ -659,6 +659,9 @@ router.post(
     body("password")
       .isLength({ min: 5 })
       .withMessage("Enter atleast 5 charater long password"),
+    body("phoneNo", "Enter a valid phone number")
+      .isLength({ min: 11 })
+      .withMessage("Phone Number is not valid."),
   ],
   async (req, res) => {
     let success = false;
@@ -681,6 +684,7 @@ router.post(
       admin = await Admin.create({
         name: req.body.name,
         email: req.body.email,
+        phoneNo: req.body.phoneNo,
         password: securePasssword,
       });
 

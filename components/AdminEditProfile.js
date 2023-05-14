@@ -3,9 +3,9 @@ import {
   Text,
   View,
   StyleSheet,
-  TextInput,
   TouchableOpacity,
   Image,
+  ScrollView,
 } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {
@@ -19,12 +19,28 @@ import axios from "axios";
 import Progress from "../Loader/Progress";
 import { userLogin } from "../context/AuthContext";
 import { PROFILES_API_URL } from "../Custom_Api_Calls/api_calls";
+import { TextInput } from "react-native-paper";
 
 export default function AdminEditProfile({ navigation }) {
-  const [name, setname] = useState("");
+  const [credentials, setCredentials] = useState({
+    name: "",
+    email: "",
+    phoneNo: "",
+  });
+  const { name, email, phoneNo } = credentials;
   const [profileImage, setProfileImage] = useState("");
   const [uploadProgress, setUploadProgress] = useState(0);
-  const { profile, setProfile, showToast } = userLogin();
+  const {
+    profile,
+    setProfile,
+    showToast,
+    isValidEmail,
+    isValidPhone,
+    isValidObjField,
+    updateError,
+    error,
+    setError,
+  } = userLogin();
 
   /******************Function to open image browser for selction*************/
   const openImageSelection = async () => {
@@ -36,9 +52,13 @@ export default function AdminEditProfile({ navigation }) {
       const response = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
         allowsEditing: true,
+        quality: 1,
+        base64: true,
+        exif: true,
       });
-      if (!response.cancelled) {
-        setProfileImage(response.uri);
+      if (!response.canceled && response.assets.length > 0) {
+        const { uri } = response.assets[0];
+        setProfileImage(uri);
       }
     }
   };
@@ -82,6 +102,56 @@ export default function AdminEditProfile({ navigation }) {
     } catch (e) {
       showToast(`Profile Image error ${e}`);
     }
+  };
+
+  /*************** Function to update profile details *************/
+  const updateProfileDetails = async (name, email, phoneNo) => {
+    try {
+      if (!isValidObjField(credentials)) {
+        return updateError("Require all fields!", setError);
+      }
+      if (name.length < 3) {
+        return updateError("Name must be 3 character long!", setError);
+      }
+      if (!isValidEmail(email)) {
+        return updateError("Enter a valid emai!", setError);
+      }
+      if (!isValidPhone(phoneNo)) {
+        return updateError("Phone Number is not valid!", setError);
+      }
+      const token = await AsyncStorage.getItem("token");
+      if (token != null) {
+        const response = await axios.put(
+          `${PROFILES_API_URL}/update_admin_profile`,
+          { name, email, phoneNo },
+          {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+              "auth-token": token,
+            },
+            onUploadProgress: ({ loaded, total }) =>
+              setUploadProgress(loaded / total),
+          }
+        );
+        if (response.data.success) {
+          showToast("Your Profile Details Updated.");
+          navigation.goBack();
+          setCredentials({ name: "", email: "", phoneNo: "" });
+          setUploadProgress(0);
+        } else {
+          showToast("Profile Details Not Updated.");
+        }
+      } else {
+        showToast("Token not found");
+      }
+    } catch (e) {
+      showToast(`Error occur: ${e}`);
+    }
+  };
+
+  const onChange = (value, fieldName) => {
+    setCredentials({ ...credentials, [fieldName]: value });
   };
 
   return (
@@ -135,47 +205,68 @@ export default function AdminEditProfile({ navigation }) {
       <View
         style={{ height: responsiveHeight(60), width: responsiveWidth(100) }}
       >
-        <TextInput
-          style={styles.style_Rectangle4}
-          onChangeText={(value) => setname(value)}
-          placeholder="    Enter username"
-          //keyboardType="alphabet"
-          editable
-          maxLength={20}
-        />
-        <TextInput
-          style={styles.style_Rectangle5}
-          onChangeText={(value) => setname(value)}
-          placeholder="    Email"
-          //keyboardType="email"
-          editable
-          maxLength={20}
-        />
-        <TextInput
-          style={styles.style_Rectangle6}
-          onChangeText={(value) => setname(value)}
-          placeholder="    Change Password"
-          editable
-          maxLength={20}
-        />
-        <TextInput
-          style={styles.style_Rectangle7}
-          onChangeText={(value) => setname(value)}
-          placeholder="    Mobile No"
-          //keyboardType="numeric"
-          editable
-          maxLength={20}
-        />
+        {error ? (
+          <Text
+            style={{
+              color: "red",
+              fontSize: responsiveFontSize(2.5),
+              textAlign: "center",
+              marginTop: responsiveHeight(1),
+            }}
+          >
+            {error}
+          </Text>
+        ) : null}
+
+        <ScrollView>
+          <TextInput
+            style={styles.style_Rectangle4}
+            onChangeText={(value) => onChange(value, "name")}
+            value={name}
+            label="Name"
+            keyboardType="default"
+            mode="outlined"
+            activeOutlineColor="rgba(10,76,118,1)"
+            outlineColor="rgba(24,154,180,1)"
+            editable
+            autoCapitalize="none"
+          />
+          <TextInput
+            style={styles.style_Rectangle5}
+            onChangeText={(value) => onChange(value, "email")}
+            value={email}
+            label="Email"
+            keyboardType="default"
+            mode="outlined"
+            activeOutlineColor="rgba(10,76,118,1)"
+            outlineColor="rgba(24,154,180,1)"
+            editable
+            autoCapitalize="none"
+          />
+          <TextInput
+            style={styles.style_Rectangle6}
+            onChangeText={(value) => onChange(value, "phoneNo")}
+            value={phoneNo}
+            label="Phone Number"
+            keyboardType="numeric"
+            mode="outlined"
+            activeOutlineColor="rgba(10,76,118,1)"
+            outlineColor="rgba(24,154,180,1)"
+            editable
+            autoCapitalize="none"
+          />
+        </ScrollView>
       </View>
 
       <TouchableOpacity
         style={styles.save_btn}
         onPress={() => {
-          navigation.goBack();
+          updateProfileDetails(name, email, phoneNo);
         }}
       >
         <Text style={styles.save_text}>Save</Text>
       </TouchableOpacity>
+
       {uploadProgress ? <Progress /> : null}
     </>
   );
@@ -197,49 +288,25 @@ const styles = StyleSheet.create({
   },
   style_Rectangle4: {
     marginLeft: responsiveWidth(8),
-    marginTop: responsiveHeight(3),
-    position: "absolute",
+    marginTop: responsiveHeight(4),
     width: responsiveWidth(87),
     height: responsiveHeight(8),
-    opacity: 1,
-    color: "grey",
     backgroundColor: "rgba(217,217,217,1)",
-    borderRadius: responsiveWidth(6),
   },
   style_Rectangle6: {
     marginLeft: responsiveWidth(8),
-    marginTop: responsiveHeight(21),
-    position: "absolute",
+    marginTop: responsiveHeight(1),
     width: responsiveWidth(87),
     height: responsiveHeight(8),
-    opacity: 1,
-    color: "grey",
     backgroundColor: "rgba(217,217,217,1)",
-    borderRadius: responsiveWidth(6),
-  },
-  style_Rectangle7: {
-    marginLeft: responsiveWidth(8),
-    marginTop: responsiveHeight(30),
-    position: "absolute",
-    width: responsiveWidth(87),
-    height: responsiveHeight(8),
-    opacity: 1,
-    color: "grey",
-    backgroundColor: "rgba(217,217,217,1)",
-    borderRadius: responsiveWidth(6),
   },
   style_Rectangle5: {
     marginLeft: responsiveWidth(8),
-    marginTop: responsiveHeight(12),
-    position: "absolute",
+    marginTop: responsiveHeight(1),
     width: responsiveWidth(87),
     height: responsiveHeight(8),
-    opacity: 1,
-    color: "grey",
     backgroundColor: "rgba(217,217,217,1)",
-    borderRadius: responsiveWidth(6),
   },
-
   purple_background: {
     backgroundColor: "rgba(10,76,118,1)",
     width: responsiveWidth(100),
@@ -284,7 +351,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(24,154,180,1)",
     width: responsiveWidth(30),
     height: responsiveHeight(7),
-    marginTop: responsiveHeight(-19),
+    marginTop: responsiveHeight(-20),
     borderRadius: responsiveWidth(3),
     marginLeft: responsiveWidth(37),
   },

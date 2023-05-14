@@ -131,7 +131,6 @@ export default function Admin_Logout({ navigation }) {
                       Cancel
                     </Text>
                   </TouchableOpacity>
-                  
                 </Card.Actions>
               </Card>
             </View>

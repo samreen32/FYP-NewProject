@@ -142,8 +142,8 @@ export default function ViewComplaints({ navigation }) {
                   There is not such relevent image!
                 </Text>
               )}
-              {images.map((item) => (
-                <Card style={styles.cardContainer}>
+              {images.map((item, index) => (
+                <Card key={index} style={styles.cardContainer}>
                   <Card.Content>
                     <Paragraph>Image {(number_id += 1)}</Paragraph>
                     <Card.Cover source={{ uri: item }} />

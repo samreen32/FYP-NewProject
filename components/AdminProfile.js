@@ -1,15 +1,6 @@
-import { React, useState } from "react";
-import {
-  Text,
-  View,
-  StyleSheet,
-  Linking,
-  TextInput,
-  TouchableOpacity,
-  Button,
-  Pressable,
-} from "react-native";
-import { Ionicons, MaterialIcons }from "@expo/vector-icons";
+import { React } from "react";
+import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import {
   responsiveHeight,
   responsiveWidth,
@@ -21,10 +12,9 @@ export default function AdminProfile({ navigation }) {
   const { profile } = userLogin();
 
   return (
-    <View>
+    <>
       <View style={styles.purple_background}>
-
-      <TouchableOpacity
+        <TouchableOpacity
           onPress={() => {
             navigation.goBack();
           }}
@@ -35,13 +25,14 @@ export default function AdminProfile({ navigation }) {
             size={45}
             color={"white"}
           />
-        <Text style={styles.Profile_Text}>Profile</Text> 
+          <Text style={styles.Profile_Text}>Profile</Text>
         </TouchableOpacity>
-
       </View>
 
       <View style={styles.Profile_Rectangle}>
-        <Text style={styles.Richard_Text}>{profile.name.charAt(0).toUpperCase() + profile.name.slice(1)}</Text>
+        <Text style={styles.Richard_Text}>
+          {profile.name.charAt(0).toUpperCase() + profile.name.slice(1)}
+        </Text>
         <TouchableOpacity
           style={styles.Edit_Profile_Btn}
           onPress={() => {
@@ -81,22 +72,25 @@ export default function AdminProfile({ navigation }) {
             navigation.navigate("HandleComplaints");
           }}
         >
-          <MaterialIcons name="headset-mic" size={25} color={"rgba(10,76,118,1)"}/>
+          <MaterialIcons
+            name="headset-mic"
+            size={25}
+            color={"rgba(10,76,118,1)"}
+          />
           <Text style={styles.Pay_text}>Handle Complaints</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.style_Logout}
           onPress={() => {
-            navigation.goBack()
+            navigation.navigate("Admin_Logout");
           }}
         >
-          <Ionicons name={"log-out"} size={25} color={"rgba(10,76,118,1)"}/>
+          <Ionicons name={"log-out"} size={25} color={"rgba(10,76,118,1)"} />
           <Text style={styles.Logout_text}>Logout</Text>
         </TouchableOpacity>
       </View>
-
-    </View>
+    </>
   );
 }
 

@@ -12,7 +12,7 @@ export default function CitizenProfile({ navigation }) {
   const { profile } = userLogin();
 
   return (
-    <View>
+    <>
       <View style={styles.purple_background}>
         <TouchableOpacity
           onPress={() => {
@@ -42,6 +42,7 @@ export default function CitizenProfile({ navigation }) {
           <Text style={styles.Edit_Profile_Btn}>Edit Profile</Text>
         </TouchableOpacity>
       </View>
+
       <View
         style={{ height: responsiveHeight(50), width: responsiveWidth(100) }}
       >
@@ -76,14 +77,14 @@ export default function CitizenProfile({ navigation }) {
         <TouchableOpacity
           style={styles.style_Logout}
           onPress={() => {
-            navigation.goBack();
+            navigation.navigate("Citizen_Logout");
           }}
         >
           <Ionicons name={"log-out"} size={25} color={"rgba(10,76,118,1)"} />
           <Text style={styles.Logout_text}>Logout</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </>
   );
 }
 
