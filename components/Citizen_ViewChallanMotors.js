@@ -1,4 +1,4 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useState, useCallback } from "react";
 import {
   Text,
   View,
@@ -15,12 +15,20 @@ import {
 } from "react-native-responsive-dimensions";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { userLogin } from "../context/AuthContext";
-import { MOTORS_API_URL } from "../Custom_Api_Calls/api_calls";
+import {
+  LANG_API_URL,
+  MOTORS_API_URL,
+  THEME_API_URL,
+} from "../Custom_Api_Calls/api_calls";
 import { Card } from "react-native-paper";
 import NoComplaint_Box from "../Loader/NoComplaint_Box";
 import { globalStyles } from "../styles/globalStyles";
+import { translation } from "./translation";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function Citizen_ViewChallanMotors({ navigation }) {
+  const [selectedlang, setselectedlang] = useState(0);
+  const [selectedApp, setselectedApp] = useState(0);
   const [motors, setMotors] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalDetails, setModalDetails] = useState([]);
@@ -127,9 +135,69 @@ export default function Citizen_ViewChallanMotors({ navigation }) {
     }
   };
 
+  /********** Method to fetch Citizen Language **********/
+  const fetchLanguage = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${LANG_API_URL}/citizen_languageId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const langs = data.language;
+
+      setselectedlang(langs);
+      console.log("chk" + selectedlang);
+      console.log("lang is" + langs);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  /********** Method to fetch Citizen Theme **********/
+  const fetchTheme = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${THEME_API_URL}/citizen_themeId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const themes = data.theme;
+      setselectedApp(themes);
+
+      console.log("theme is" + themes);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchLanguage();
+      fetchTheme();
+    }, [])
+  );
+
   return (
-    <>
-      <View style={[globalStyles.header, { height: 120 }]}>
+    <View
+      style={
+        selectedApp == 1
+          ? { backgroundColor: "#333333" }
+          : { backgroundColor: "none" }
+      }
+    >
+      <View
+        style={
+          selectedApp == 1
+            ? [{ backgroundColor: "black" }, globalStyles.header]
+            : [{ backgroundColor: "rgba(10,76,118,1)" }, globalStyles.header]
+        }
+      >
         <Ionicons
           name="arrow-back"
           size={24}
@@ -138,21 +206,38 @@ export default function Citizen_ViewChallanMotors({ navigation }) {
             navigation.goBack();
           }}
         />
-        <Text style={globalStyles.headerText}>AVAILABLE MOTORS</Text>
+        <Text style={[globalStyles.headerText, { textTransform: "uppercase" }]}>
+          {selectedlang == 0 ? translation[107].English : translation[107].Urdu}
+        </Text>
         <View style={{ width: 24 }}></View>
       </View>
 
       <FlatList
         data={motors}
         renderItem={({ item }) => (
-          <View style={styles.Complain_Container}>
+          <View
+            style={
+              selectedApp == 1
+                ? [{ backgroundColor: "grey" }, styles.Complain_Container]
+                : [
+                    { backgroundColor: "rgba(24,154,180,1)" },
+                    styles.Complain_Container,
+                  ]
+            }
+          >
             <TouchableOpacity
               onPress={() => {
                 fetchSingleMotor(item._id);
               }}
             >
               <View style={styles.Image} resizeMode="contain">
-                <Text style={styles.imageText}>View Details</Text>
+                {/* View Details */}
+                <Text style={styles.imageText}>
+                  {" "}
+                  {selectedlang == 0
+                    ? translation[112].English
+                    : translation[112].Urdu}
+                </Text>
               </View>
             </TouchableOpacity>
 
@@ -179,9 +264,13 @@ export default function Citizen_ViewChallanMotors({ navigation }) {
                   style={[styles.Image, { marginLeft: responsiveWidth(-22) }]}
                   resizeMode="contain"
                 >
+                  {/* Challan */}
                   <Text style={styles.imageText}>
                     {item.challanCount}
-                    {"\n"}Challan
+                    {"\n"}{" "}
+                    {selectedlang == 0
+                      ? translation[113].English
+                      : translation[113].Urdu}
                   </Text>
                 </View>
               </TouchableOpacity>
@@ -198,13 +287,30 @@ export default function Citizen_ViewChallanMotors({ navigation }) {
         onRequestClose={() => setModalVisible(false)}
       >
         <View style={styles.modalContainer}>
-          <View style={styles.modalView}>
+          <View
+            style={
+              selectedApp == 1
+                ? [{ backgroundColor: "gray" }, styles.modalView]
+                : [{ backgroundColor: "white" }, styles.modalView]
+            }
+          >
             <Entypo
               name="cross"
               size={30}
-              color="black"
               onPress={() => setModalVisible(!modalVisible)}
-              style={{ marginLeft: responsiveWidth(60), bottom: 15 }}
+              style={
+                selectedApp == 1
+                  ? {
+                      color: "white",
+                      marginLeft: responsiveWidth(60),
+                      bottom: 15,
+                    }
+                  : {
+                      color: "black",
+                      marginLeft: responsiveWidth(60),
+                      bottom: 15,
+                    }
+              }
             />
 
             <Card style={styles.cardContainer}>
@@ -217,7 +323,9 @@ export default function Citizen_ViewChallanMotors({ navigation }) {
                     marginTop: responsiveHeight(2),
                   }}
                 >
-                  Motor Details
+                  {selectedlang == 0
+                    ? translation[111].English
+                    : translation[111].Urdu}
                 </Text>
                 <View style={{ marginTop: responsiveHeight(4) }}>
                   <Text
@@ -227,7 +335,11 @@ export default function Citizen_ViewChallanMotors({ navigation }) {
                       textAlign: "center",
                     }}
                   >
-                    Motor Name: {modalDetails.motorName}
+                    {/* Motor Name */}
+                    {selectedlang == 0
+                      ? translation[102].English
+                      : translation[102].Urdu}
+                    : {modalDetails.motorName}
                   </Text>
                   <Text
                     variant="titleLarge"
@@ -236,7 +348,11 @@ export default function Citizen_ViewChallanMotors({ navigation }) {
                       textAlign: "center",
                     }}
                   >
-                    Motor Type: {modalDetails.motorType}
+                    {/* Motor Type */}
+                    {selectedlang == 0
+                      ? translation[106].English
+                      : translation[106].Urdu}
+                    : {modalDetails.motorType}
                   </Text>
                   <Text
                     variant="titleLarge"
@@ -245,7 +361,14 @@ export default function Citizen_ViewChallanMotors({ navigation }) {
                       textAlign: "center",
                     }}
                   >
-                    Vehicle Number: {modalDetails.vehicleNo}
+                    {/* Vehicle Number */}
+                    {selectedlang == 0
+                      ? translation[54].English
+                      : translation[54].Urdu}{" "}
+                    {selectedlang == 0
+                      ? translation[55].English
+                      : translation[55].Urdu}{" "}
+                    : {modalDetails.vehicleNo}
                   </Text>
                   <Text
                     variant="bodyMedium"
@@ -254,7 +377,14 @@ export default function Citizen_ViewChallanMotors({ navigation }) {
                       textAlign: "center",
                     }}
                   >
-                    Registration Number: {modalDetails.regNo}
+                    {/* Registration Number */}
+                    {selectedlang == 0
+                      ? translation[57].English
+                      : translation[57].Urdu}{" "}
+                    {selectedlang == 0
+                      ? translation[53].English
+                      : translation[53].Urdu}{" "}
+                    : {modalDetails.regNo}
                   </Text>
                 </View>
               </Card.Content>
@@ -271,13 +401,57 @@ export default function Citizen_ViewChallanMotors({ navigation }) {
         onRequestClose={() => setChallanDetails(null)}
       >
         <View style={styles.modalContainer}>
-          <View style={[styles.modalView, { height: responsiveHeight(65) }]}>
+          <View
+            style={
+              selectedApp == 1
+                ? [
+                    {
+                      backgroundColor: "gray",
+                      margin: responsiveHeight(2.5),
+                      borderRadius: responsiveHeight(5),
+                      padding: 35,
+                      alignItems: "center",
+                      shadowColor: "#000",
+                      height: responsiveHeight(65),
+                      shadowOpacity: 0.25,
+                      shadowRadius: 7,
+                      elevation: 100,
+                    },
+                  ]
+                : [
+                    {
+                      backgroundColor: "white",
+                      margin: responsiveHeight(2.5),
+                      borderRadius: responsiveHeight(5),
+                      padding: 35,
+                      alignItems: "center",
+                      shadowColor: "#000",
+                      height: responsiveHeight(65),
+                      shadowOpacity: 0.25,
+                      shadowRadius: 7,
+                      elevation: 100,
+                    },
+                  ]
+            }
+          >
             <Entypo
               name="cross"
               size={30}
               color="black"
               onPress={() => setChallanDetails(null)}
-              style={{ marginLeft: responsiveWidth(60) }}
+              style={
+                selectedApp == 1
+                  ? {
+                      color: "white",
+                      marginLeft: responsiveWidth(60),
+                      bottom: 15,
+                    }
+                  : {
+                      color: "black",
+                      marginLeft: responsiveWidth(60),
+                      bottom: 15,
+                    }
+              }
             />
 
             {challanDetails && (
@@ -292,7 +466,10 @@ export default function Citizen_ViewChallanMotors({ navigation }) {
                       textAlign: "center",
                     }}
                   >
-                    Challan Details
+                    {/* Challan Details */}
+                    {selectedlang == 0
+                      ? translation[108].English
+                      : translation[108].Urdu}
                   </Text>
                   <FlatList
                     data={challanDetails}
@@ -315,9 +492,25 @@ export default function Citizen_ViewChallanMotors({ navigation }) {
                             marginTop: 12,
                           }}
                         >
-                          Challan number: {item.challanNum}
+                          {/* Challan number  */}
+                          {selectedlang == 0
+                            ? translation[52].English
+                            : translation[52].Urdu}{" "}
+                          {selectedlang == 0
+                            ? translation[53].English
+                            : translation[53].Urdu}{" "}
+                          : {item.challanNum}
                         </Text>
-                        <View style={styles.footer}>
+                        <View
+                          style={
+                            selectedApp == 1
+                              ? [{ backgroundColor: "black" }, styles.footer]
+                              : [
+                                  { backgroundColor: "rgba(10,76,118,1)" },
+                                  styles.footer,
+                                ]
+                          }
+                        >
                           <View style={styles.logout}>
                             <TouchableOpacity
                               onPress={() =>
@@ -334,14 +527,24 @@ export default function Citizen_ViewChallanMotors({ navigation }) {
                               }
                             >
                               <Text style={styles.logoutText}>
-                                {item.showDetails ? "Show less" : "Show more"}
+                                {item.showDetails
+                                  ? selectedlang == 0
+                                    ? translation[109].English
+                                    : translation[109].Urdu
+                                  : selectedlang == 0
+                                  ? translation[110].English
+                                  : translation[110].Urdu}
                               </Text>
                             </TouchableOpacity>
                           </View>
                         </View>
                         {item.showDetails && (
                           <View
-                            style={{ backgroundColor: "rgba(24,154,180,1)" }}
+                            style={
+                              selectedApp == 1
+                                ? { backgroundColor: "#333333" }
+                                : { backgroundColor: "rgba(24,154,180,1)" }
+                            }
                           >
                             <Text
                               variant="titleLarge"
@@ -351,7 +554,14 @@ export default function Citizen_ViewChallanMotors({ navigation }) {
                                 color: "white",
                               }}
                             >
-                              Reg Number: {item.regNumber}
+                              {/* Reg Number */}
+                              {selectedlang == 0
+                                ? translation[57].English
+                                : translation[57].Urdu}{" "}
+                              {selectedlang == 0
+                                ? translation[53].English
+                                : translation[53].Urdu}{" "}
+                              : {item.regNumber}
                             </Text>
                             <Text
                               variant="titleLarge"
@@ -361,7 +571,11 @@ export default function Citizen_ViewChallanMotors({ navigation }) {
                                 color: "white",
                               }}
                             >
-                              Amount: {item.amount}
+                              {/* Amount */}
+                              {selectedlang == 0
+                                ? translation[56].English
+                                : translation[56].Urdu}{" "}
+                              : {item.amount}
                             </Text>
                             <Text
                               variant="bodyMedium"
@@ -371,7 +585,11 @@ export default function Citizen_ViewChallanMotors({ navigation }) {
                                 color: "white",
                               }}
                             >
-                              Due Date: {item.due_date}
+                              {/* Due Date */}
+                              {selectedlang == 0
+                                ? translation[61].English
+                                : translation[61].Urdu}{" "}
+                              : {item.due_date}
                             </Text>
                           </View>
                         )}
@@ -386,7 +604,7 @@ export default function Citizen_ViewChallanMotors({ navigation }) {
       </Modal>
 
       {motors.length === 0 && <NoComplaint_Box />}
-    </>
+    </View>
   );
 }
 
@@ -405,7 +623,6 @@ const styles = StyleSheet.create({
   },
   modalView: {
     margin: responsiveHeight(2.5),
-    backgroundColor: "white",
     borderRadius: responsiveHeight(5),
     padding: 35,
     alignItems: "center",
@@ -417,7 +634,7 @@ const styles = StyleSheet.create({
   },
   Complain_Container: {
     flexDirection: "row",
-    backgroundColor: "rgba(24,154,180,1)",
+    // backgroundColor: "rgba(24,154,180,1)",
     height: responsiveHeight(15),
     marginLeft: responsiveWidth(5),
     marginTop: responsiveHeight(3),
@@ -493,7 +710,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     height: 40,
-    backgroundColor: "rgba(10,76,118,1)",
+    // backgroundColor: "rgba(10,76,118,1)",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 3.5,

@@ -304,12 +304,11 @@ export default function FileComplaint({ navigation }) {
             selectedApp == 1
               ? {
                   backgroundColor: "#333333",
-                  marginTop: responsiveHeight(4),
+                  marginTop: responsiveHeight(3),
                   paddingHorizontal: 20,
                   width: Dimensions.get("window").width,
                 }
               : {
-                  backgroundColor: "white",
                   marginTop: responsiveHeight(4),
                   paddingHorizontal: 20,
                   width: Dimensions.get("window").width,
@@ -412,8 +411,8 @@ export default function FileComplaint({ navigation }) {
                       ]
                     : [
                         {
-                          backgroundColor: "black",
-                          width: responsiveWidth(86),
+                          backgroundColor: "rgba(24,154,180,1)",
+                          width: responsiveWidth(60),
                         },
                         globalStyles.cameraButtns,
                       ]
@@ -423,7 +422,10 @@ export default function FileComplaint({ navigation }) {
                 <Text
                   style={[globalStyles.submitChallan_Text, { color: "white" }]}
                 >
-                  Add Image{"                                     "}
+                  {selectedlang == 0
+                    ? translation[103].English
+                    : translation[103].Urdu}
+                  {"                                     "}
                   <Entypo name="folder-images" size={24} color="white" />
                 </Text>
               </TouchableOpacity>
@@ -458,7 +460,7 @@ export default function FileComplaint({ navigation }) {
             style={
               selectedApp == 1
                 ? [{ backgroundColor: "black" }, styles.submit_btn]
-                : [{ backgroundColor: "rgba(10,76,118,1)" }, styles.submit_btn]
+                : [{ backgroundColor: "rgba(24,154,180,1)" }, styles.submit_btn]
             }
             onPress={handleFileComplaint}
           >
