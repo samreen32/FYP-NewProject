@@ -108,7 +108,7 @@ export default function AddChallan_PrintDetails({ route }) {
           /***** Sending SMS *****/
           const phoneNo = response.data.phoneNo;
           if (phoneNo) {
-            const message = `Dear Citizen, you have a challan to pay. \nChallan Number: ${challanNum}. Due Date: ${due_date}. \nDownload the "E-Parking Challan App" to Scan QR and Pay. \nThank You.`;
+            const message = `Dear Citizen, you have a challan to pay. Challan Number: ${challanNum}. Due Date: ${due_date}. Download the "E-Parking Challan App" to Scan QR and Pay. Thank You.`;
             await SMS.sendSMSAsync([phoneNo], message);
           }
 

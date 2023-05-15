@@ -13,7 +13,7 @@ import {
 } from "react-native-responsive-dimensions";
 import { userLogin } from "../context/AuthContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { NOTIFI_API_URL } from "../Custom_Api_Calls/api_calls";
+import { LANG_API_URL, NOTIFI_API_URL, THEME_API_URL } from "../Custom_Api_Calls/api_calls";
 import { useFocusEffect } from "@react-navigation/native";
 import { translation } from "../components/translation";
 
@@ -77,7 +77,7 @@ export default function CitizenScreen({ navigation }) {
     try {
       const authToken = await AsyncStorage.getItem("token");
       const response = await fetch(
-        "http://192.168.8.100:8000/api/language/citizen_languageId",
+        `${LANG_API_URL}/citizen_languageId`,
         {
           headers: {
             "auth-token": authToken,
@@ -101,7 +101,7 @@ export default function CitizenScreen({ navigation }) {
     try {
       const authToken = await AsyncStorage.getItem("token");
       const response = await fetch(
-        "http://192.168.8.100:8000/api/theme/citizen_themeId",
+        `${THEME_API_URL}/citizen_themeId`,
         {
           headers: {
             "auth-token": authToken,
@@ -488,11 +488,14 @@ export default function CitizenScreen({ navigation }) {
           </View>
         </View>
         <Text
-          style={
+          style={[
             selectedApp == 1
-              ? [{ color: "white", flex: 1 }, globalStyles.setting_Text]
-              : [{ color: "black" }, globalStyles.setting_Text]
-          }
+              ? [{ color: "white" }, globalStyles.setting_Text]
+              : [{ color: "black" }, globalStyles.setting_Text],
+            selectedlang == 1
+              ? [{ left: 8 }, globalStyles.setting_Text]
+              : globalStyles.setting_Text,
+          ]}
         >
           {selectedlang == 0 ? translation[26].English : translation[26].Urdu}
         </Text>
@@ -519,11 +522,14 @@ export default function CitizenScreen({ navigation }) {
           </View>
         </View>
         <Text
-          style={
+          style={[
             selectedApp == 1
-              ? [{ color: "white", flex: 1 }, globalStyles.places_Text]
-              : [{ color: "black" }, globalStyles.places_Text]
-          }
+              ? [{ color: "white" }, globalStyles.places_Text]
+              : [{ color: "black" }, globalStyles.places_Text],
+            selectedlang == 1
+              ? [{ left: 3 }, globalStyles.places_Text]
+              : globalStyles.places_Text,
+          ]}
         >
           {selectedlang == 0 ? translation[31].English : translation[31].Urdu}
         </Text>
@@ -550,11 +556,14 @@ export default function CitizenScreen({ navigation }) {
           </View>
         </View>
         <Text
-          style={
+          style={[
             selectedApp == 1
-              ? [{ color: "white", flex: 1 }, globalStyles.rules_Text]
-              : [{ color: "black" }, globalStyles.rules_Text]
-          }
+              ? [{ color: "white" }, globalStyles.rules_Text]
+              : [{ color: "black" }, globalStyles.rules_Text],
+            selectedlang == 1
+              ? [{ left: 20 }, globalStyles.rules_Text]
+              : globalStyles.rules_Text,
+          ]}
         >
           {selectedlang == 0 ? translation[18].English : translation[18].Urdu}
         </Text>
@@ -585,11 +594,14 @@ export default function CitizenScreen({ navigation }) {
           </View>
         </View>
         <Text
-          style={
+          style={[
             selectedApp == 1
-              ? [{ color: "white", flex: 1 }, globalStyles.help_Text]
-              : [{ color: "black" }, globalStyles.help_Text]
-          }
+              ? [{ color: "white" }, globalStyles.help_Text]
+              : [{ color: "black" }, globalStyles.help_Text],
+            selectedlang == 1
+              ? [{ left: 9 }, globalStyles.help_Text]
+              : globalStyles.help_Text,
+          ]}
         >
           {selectedlang == 0 ? translation[27].English : translation[27].Urdu}
         </Text>

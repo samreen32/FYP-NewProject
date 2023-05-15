@@ -1,3 +1,5 @@
+import { React, useState, useEffect } from "react";
+import { Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import CitizenProfile from "../components/CitizenProfile";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -5,10 +7,62 @@ import { StyleSheet } from "react-native";
 import CitizenStack from "./CitizenStack";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import Citizen_AddMotors from "../components/Citizen_AddMotors";
+import { translation } from "../components/translation";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { LANG_API_URL, THEME_API_URL } from "../Custom_Api_Calls/api_calls";
 
 const Tab = createBottomTabNavigator();
 
 export default function CitizenTabs() {
+  const [selectedlang, setselectedlang] = useState(0);
+  const [selectedApp, setselectedApp] = useState(0);
+
+  /********** Method to fetch Citizen Language **********/
+  const fetchLanguage = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${LANG_API_URL}/citizen_languageId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const langs = data.language;
+
+      setselectedlang(langs);
+      console.log("chk" + selectedlang);
+      console.log("lang is" + langs);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  /********** Method to fetch Citizen Theme **********/
+  const fetchTheme = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${THEME_API_URL}/citizen_themeId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const themes = data.theme;
+      setselectedApp(themes);
+
+      console.log("theme is" + themes);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchLanguage();
+    fetchTheme();
+  }, []);
+
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -37,6 +91,20 @@ export default function CitizenTabs() {
         name="Home"
         component={CitizenStack}
         options={({ route }) => ({
+          title: ({ focused }) => (
+            <Text
+              style={[
+                selectedApp == 1
+                  ? { color: "white", fontFamily: "poppins-bold", top: -5 }
+                  : { color: "white", top: -10 },
+                selectedlang == 1 ? { textAlign: "left" } : null,
+              ]}
+            >
+              {selectedlang == 0
+                ? translation[43].English
+                : translation[43].Urdu}
+            </Text>
+          ),
           tabBarStyle: {
             display: getRouteName(route),
             position: "absolute",
@@ -49,7 +117,7 @@ export default function CitizenTabs() {
             borderBottomRightRadius: 60,
             borderTopRightRadius: 60,
             elevation: 0,
-            backgroundColor: "rgba(10,76,118,1)",
+            backgroundColor: selectedApp == 1 ? "grey" : "rgba(10,76,118,1)",
             height: 80,
             ...styles.shadow,
           },
@@ -62,10 +130,25 @@ export default function CitizenTabs() {
           headerShown: false,
         })}
       />
+
       <Tab.Screen
         name="Add Motors"
         component={Citizen_AddMotors}
         options={{
+          title: ({ focused }) => (
+            <Text
+              style={[
+                selectedApp == 1
+                  ? { color: "white", fontFamily: "poppins-bold", top: -5 }
+                  : { color: "white", top: -10 },
+                selectedlang == 1 ? { textAlign: "left" } : null,
+              ]}
+            >
+              {selectedlang == 0
+                ? translation[101].English
+                : translation[101].Urdu}
+            </Text>
+          ),
           tabBarStyle: { display: "none" },
           headerShown: false,
           tabBarLabelStyle: {
@@ -81,6 +164,20 @@ export default function CitizenTabs() {
         name="Profile"
         component={CitizenProfile}
         options={{
+          title: ({ focused }) => (
+            <Text
+              style={[
+                selectedApp == 1
+                  ? { color: "white", fontFamily: "poppins-bold", top: -5 }
+                  : { color: "white", top: -10 },
+                selectedlang == 1 ? { textAlign: "left" } : null,
+              ]}
+            >
+              {selectedlang == 0
+                ? translation[23].English
+                : translation[23].Urdu}
+            </Text>
+          ),
           tabBarStyle: { display: "none" },
           headerShown: false,
           tabBarLabelStyle: {

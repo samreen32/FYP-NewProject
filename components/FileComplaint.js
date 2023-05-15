@@ -1,4 +1,4 @@
-import { React, useEffect, useRef, useState } from "react";
+import { React, useEffect, useRef, useState, useCallback } from "react";
 import {
   Text,
   View,
@@ -25,8 +25,12 @@ import * as Notifications from "expo-notifications";
 import { userLogin } from "../context/AuthContext";
 import {
   COMPLAINT_API_URL,
+  LANG_API_URL,
   NOTIFI_API_URL,
+  THEME_API_URL,
 } from "../Custom_Api_Calls/api_calls";
+import { translation } from "./translation";
+import { useFocusEffect } from "@react-navigation/native";
 
 //Default Notification settings
 Notifications.setNotificationHandler({
@@ -39,6 +43,8 @@ Notifications.setNotificationHandler({
 
 export default function FileComplaint({ navigation }) {
   let number_id = 0;
+  const [selectedlang, setselectedlang] = useState(0);
+  const [selectedApp, setselectedApp] = useState(0);
   const [credentials, setCredentials] = useState({
     name: "",
     email: "",
@@ -209,16 +215,77 @@ export default function FileComplaint({ navigation }) {
     setCredentials({ ...credentials, [fieldName]: value });
   };
 
+  /********** Method to fetch Citizen Language **********/
+  const fetchLanguage = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${LANG_API_URL}/citizen_languageId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const langs = data.language;
+
+      setselectedlang(langs);
+      console.log("chk" + selectedlang);
+      console.log("lang is" + langs);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  /********** Method to fetch Citizen Theme **********/
+  const fetchTheme = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${THEME_API_URL}/citizen_themeId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const themes = data.theme;
+      setselectedApp(themes);
+
+      console.log("theme is" + themes);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchLanguage();
+      fetchTheme();
+    }, [])
+  );
+
   return (
     <>
       <ScrollView>
-        <View style={styles.purple_background}>
+        <View
+          style={
+            selectedApp == 1
+              ? [{ backgroundColor: "black" }, styles.purple_background]
+              : [
+                  { backgroundColor: "rgba(10,76,118,1)" },
+                  styles.purple_background,
+                ]
+          }
+        >
           <TouchableOpacity
             onPress={() => {
               navigation.goBack();
             }}
           >
-            <Text style={styles.File_Complaint_Text}>File Complaint</Text>
+            <Text style={styles.File_Complaint_Text}>
+              {selectedlang == 0
+                ? translation[25].English
+                : translation[25].Urdu}
+            </Text>
             <Ionicons
               name="caret-back-sharp"
               size={40}
@@ -233,11 +300,21 @@ export default function FileComplaint({ navigation }) {
         </View>
 
         <View
-          style={{
-            marginTop: responsiveHeight(4),
-            paddingHorizontal: 20,
-            width: Dimensions.get("window").width,
-          }}
+          style={
+            selectedApp == 1
+              ? {
+                  backgroundColor: "#333333",
+                  marginTop: responsiveHeight(4),
+                  paddingHorizontal: 20,
+                  width: Dimensions.get("window").width,
+                }
+              : {
+                  backgroundColor: "white",
+                  marginTop: responsiveHeight(4),
+                  paddingHorizontal: 20,
+                  width: Dimensions.get("window").width,
+                }
+          }
         >
           {error ? (
             <Text
@@ -256,7 +333,9 @@ export default function FileComplaint({ navigation }) {
             style={globalStyles.textInput_register}
             onChangeText={(value) => onChange(value, "name")}
             value={name}
-            label="Name"
+            label={
+              selectedlang == 0 ? translation[9].English : translation[9].Urdu
+            }
             mode="outlined"
             activeOutlineColor="rgba(10,76,118,1)"
             outlineColor="rgba(24,154,180,1)"
@@ -272,7 +351,9 @@ export default function FileComplaint({ navigation }) {
             ]}
             value={email}
             onChangeText={(value) => onChange(value, "email")}
-            label="Email"
+            label={
+              selectedlang == 0 ? translation[10].English : translation[10].Urdu
+            }
             mode="outlined"
             activeOutlineColor="rgba(10,76,118,1)"
             outlineColor="rgba(24,154,180,1)"
@@ -288,7 +369,9 @@ export default function FileComplaint({ navigation }) {
             ]}
             onChangeText={(value) => onChange(value, "description")}
             value={description}
-            label="Description"
+            label={
+              selectedlang == 0 ? translation[11].English : translation[11].Urdu
+            }
             mode="outlined"
             activeOutlineColor="rgba(10,76,118,1)"
             outlineColor="rgba(24,154,180,1)"
@@ -304,7 +387,9 @@ export default function FileComplaint({ navigation }) {
             ]}
             onChangeText={(value) => onChange(value, "officer_Name")}
             value={officer_Name}
-            label="Officer Name(optional)"
+            label={
+              selectedlang == 0 ? translation[35].English : translation[35].Urdu
+            }
             mode="outlined"
             activeOutlineColor="rgba(10,76,118,1)"
             outlineColor="rgba(24,154,180,1)"
@@ -316,10 +401,23 @@ export default function FileComplaint({ navigation }) {
           <View style={[globalStyles.camera]}>
             {images.length === 0 ? (
               <TouchableOpacity
-                style={[
-                  globalStyles.cameraButtns,
-                  { width: responsiveWidth(86) },
-                ]}
+                style={
+                  selectedApp == 1
+                    ? [
+                        {
+                          backgroundColor: "black",
+                          width: responsiveWidth(86),
+                        },
+                        globalStyles.cameraButtns,
+                      ]
+                    : [
+                        {
+                          backgroundColor: "black",
+                          width: responsiveWidth(86),
+                        },
+                        globalStyles.cameraButtns,
+                      ]
+                }
                 onPress={pickMultipleImages}
               >
                 <Text
@@ -357,10 +455,18 @@ export default function FileComplaint({ navigation }) {
           </View>
 
           <TouchableOpacity
-            style={styles.submit_btn}
+            style={
+              selectedApp == 1
+                ? [{ backgroundColor: "black" }, styles.submit_btn]
+                : [{ backgroundColor: "rgba(10,76,118,1)" }, styles.submit_btn]
+            }
             onPress={handleFileComplaint}
           >
-            <Text style={styles.submit_text}>Submit</Text>
+            <Text style={styles.submit_text}>
+              {selectedlang == 0
+                ? translation[13].English
+                : translation[13].Urdu}
+            </Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
@@ -381,59 +487,12 @@ const styles = StyleSheet.create({
     marginTop: responsiveHeight(3),
     backgroundColor: "rgba(217,217,217,1)",
   },
-  style_Rectangle4: {
-    marginLeft: responsiveWidth(8),
-    marginTop: responsiveHeight(3),
-    position: "absolute",
-    width: responsiveWidth(87),
-    height: responsiveHeight(10),
-    opacity: 1,
-    color: "grey",
-    backgroundColor: "rgba(217,217,217,1)",
-    borderRadius: responsiveWidth(6),
-  },
-  style_Rectangle6: {
-    marginLeft: responsiveWidth(8),
-    marginTop: responsiveHeight(25),
-    position: "absolute",
-    width: responsiveWidth(87),
-    height: responsiveHeight(10),
-    opacity: 1,
-    color: "grey",
-
-    backgroundColor: "rgba(217,217,217,1)",
-    borderRadius: responsiveWidth(6),
-  },
-  style_Rectangle7: {
-    marginLeft: responsiveWidth(8),
-    marginTop: responsiveHeight(36),
-    position: "absolute",
-    width: responsiveWidth(87),
-    height: responsiveHeight(10),
-    opacity: 1,
-    color: "grey",
-
-    backgroundColor: "rgba(217,217,217,1)",
-    borderRadius: responsiveWidth(6),
-  },
-  style_Rectangle5: {
-    marginLeft: responsiveWidth(8),
-    marginTop: responsiveHeight(14),
-    position: "absolute",
-    width: responsiveWidth(87),
-    height: responsiveHeight(10),
-    opacity: 1,
-    color: "grey",
-    background: "#D9D9D9",
-    backgroundColor: "rgba(217,217,217,1)",
-    borderRadius: responsiveWidth(6),
-  },
   icon_border: {
     marginTop: responsiveHeight(-16),
     marginLeft: responsiveWidth(36),
   },
   purple_background: {
-    backgroundColor: "rgba(10,76,118,1)",
+    //backgroundColor: "rgba(10,76,118,1)",
     width: responsiveWidth(100),
     height: responsiveHeight(30),
   },
@@ -448,7 +507,6 @@ const styles = StyleSheet.create({
   },
 
   submit_btn: {
-    backgroundColor: "rgba(24,154,180,1)",
     alignItems: "center",
     textAlign: "center",
     width: responsiveWidth(30),
@@ -460,12 +518,12 @@ const styles = StyleSheet.create({
   },
   submit_text: {
     fontSize: responsiveFontSize(2.5),
-    color: "white",
     justifyContent: "center",
     textAlign: "center",
     letterSpacing: 1.0,
     fontFamily: "poppins-bold",
     paddingTop: responsiveHeight(1.6),
+    color: "white",
   },
   backArrow: {
     marginLeft: responsiveWidth(5),

@@ -727,7 +727,6 @@ export const globalStyles = StyleSheet.create({
     marginTop: responsiveHeight(5),
     marginLeft: responsiveWidth(4),
     marginRight: responsiveWidth(6),
-    backgroundColor: "rgba(10,76,118,1)",
   },
   challanSecond_Group: {
     position: "absolute",
@@ -930,7 +929,6 @@ export const globalStyles = StyleSheet.create({
     width: responsiveWidth(30),
     height: responsiveHeight(8),
     opacity: 1,
-    backgroundColor: "rgba(24,154,180,1)",
     borderRadius: responsiveWidth(6),
   },
 
@@ -958,7 +956,7 @@ export const globalStyles = StyleSheet.create({
     position: "relative",
     width: responsiveWidth(95),
     height: responsiveHeight(8),
-    backgroundColor: "rgba(24,154,180,1)",
+    //backgroundColor: "rgba(24,154,180,1)",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: responsiveWidth(6),
@@ -1010,7 +1008,7 @@ export const globalStyles = StyleSheet.create({
     paddingHorizontal: 10,
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
-    backgroundColor: "rgba(10,76,118,1)",
+    //backgroundColor: "rgba(10,76,118,1)",
   },
   headerText: {
     fontFamily: "poppins-bold",

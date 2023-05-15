@@ -8,51 +8,47 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { translation } from "./translation";
 import { globalStyles } from "../styles/globalStyles";
+import { LANG_API_URL, THEME_API_URL } from "../Custom_Api_Calls/api_calls";
 
 export default function CitizenSetting({ navigation }) {
   const [langmodalvisible, setlangmodalvisible] = useState(false);
   const [selectedlang, setselectedlang] = useState(0);
   const [selectedApp, setselectedApp] = useState(0);
   const [Appmodalvisible, setAppmodalvisible] = useState(false);
-  const [language, setLanguage] = useState(0);
-  const [Theme, setTheme] = useState(0);
 
+
+  /********** Method to fetch Citizen Language **********/
   const fetchLanguage = async () => {
     try {
       const authToken = await AsyncStorage.getItem("token");
-      const response = await fetch(
-        "http://192.168.8.100:8000/api/language/citizen_languageId",
-        {
-          headers: {
-            "auth-token": authToken,
-          },
-        }
-      );
+      const response = await fetch(`${LANG_API_URL}/citizen_languageId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
       const data = await response.json();
       console.log(data);
-      setLanguage(data.language);
       const langs = data.language;
-      setselectedlang(langs);
 
+      setselectedlang(langs);
+      console.log("chk" + selectedlang);
       console.log("lang is" + langs);
     } catch (err) {
       console.error(err);
     }
   };
+
+  /********** Method to fetch Citizen Theme **********/
   const fetchTheme = async () => {
     try {
       const authToken = await AsyncStorage.getItem("token");
-      const response = await fetch(
-        "http://192.168.8.100:8000/api/theme/citizen_themeId",
-        {
-          headers: {
-            "auth-token": authToken,
-          },
-        }
-      );
+      const response = await fetch(`${THEME_API_URL}/citizen_themeId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
       const data = await response.json();
       console.log(data);
-      setTheme(data.theme);
       const themes = data.theme;
       setselectedApp(themes);
 
@@ -61,16 +57,18 @@ export default function CitizenSetting({ navigation }) {
       console.error(err);
     }
   };
+
   useEffect(() => {
     fetchLanguage();
     fetchTheme();
   }, []);
+
   const saveselectedlanguage = async (index) => {
     try {
       const authToken = await AsyncStorage.getItem("token");
 
       const response = await fetch(
-        `http://192.168.8.100:8000/api/language/citizen_language`,
+        `${LANG_API_URL}/citizen_language`,
         {
           method: "PUT",
           headers: {
@@ -94,7 +92,7 @@ export default function CitizenSetting({ navigation }) {
       const authToken = await AsyncStorage.getItem("token");
 
       const response = await fetch(
-        `http://192.168.8.100:8000/api/theme/citizen_theme`,
+        `${THEME_API_URL}/citizen_theme`,
         {
           method: "PUT",
           headers: {
@@ -371,7 +369,6 @@ export default function CitizenSetting({ navigation }) {
           saveselectedApp(y);
         }}
       />
-      
     </>
   );
 }

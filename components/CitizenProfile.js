@@ -1,4 +1,4 @@
-import { React } from "react";
+import { Reacteact, useState, useEffect, useRef, useCallback } from "react";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {
@@ -7,13 +7,82 @@ import {
   responsiveFontSize,
 } from "react-native-responsive-dimensions";
 import { userLogin } from "../context/AuthContext";
+import { LANG_API_URL, THEME_API_URL } from "../Custom_Api_Calls/api_calls";
+import { useFocusEffect } from "@react-navigation/native";
+import { translation } from "./translation";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function CitizenProfile({ navigation }) {
+  const [selectedlang, setselectedlang] = useState(0);
+  const [selectedApp, setselectedApp] = useState(0);
   const { profile } = userLogin();
 
+  /********** Method to fetch Citizen Language **********/
+  const fetchLanguage = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${LANG_API_URL}/citizen_languageId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const langs = data.language;
+
+      setselectedlang(langs);
+      console.log("chk" + selectedlang);
+      console.log("lang is" + langs);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  /********** Method to fetch Citizen Theme **********/
+  const fetchTheme = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${THEME_API_URL}/citizen_themeId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const themes = data.theme;
+      setselectedApp(themes);
+
+      console.log("theme is" + themes);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchLanguage();
+      fetchTheme();
+    }, [])
+  );
+
   return (
-    <>
-      <View style={styles.purple_background}>
+    <View
+      style={
+        selectedApp == 1
+          ? { backgroundColor: "#333333", flex: 1 }
+          : { backgroundColor: "white", flex: 1 }
+      }
+    >
+      <View
+        style={
+          selectedApp == 1
+            ? [{ backgroundColor: "black" }, styles.purple_background]
+            : [
+                { backgroundColor: "rgba(10,76,118,1)" },
+                styles.purple_background,
+              ]
+        }
+      >
         <TouchableOpacity
           onPress={() => {
             navigation.goBack();
@@ -25,7 +94,9 @@ export default function CitizenProfile({ navigation }) {
             size={45}
             color={"white"}
           />
-          <Text style={styles.Profile_Text}>Profile</Text>
+          <Text style={styles.Profile_Text}>
+            {selectedlang == 0 ? translation[23].English : translation[23].Urdu}
+          </Text>
         </TouchableOpacity>
       </View>
 
@@ -39,7 +110,18 @@ export default function CitizenProfile({ navigation }) {
             navigation.navigate("CitizenEditProfile");
           }}
         >
-          <Text style={styles.Edit_Profile_Btn}>Edit Profile</Text>
+          <Text
+            style={
+              selectedApp == 1
+                ? [{ backgroundColor: "#333333" }, styles.Edit_Profile_Btn]
+                : [
+                    { backgroundColor: "rgba(24,154,180,1)" },
+                    styles.Edit_Profile_Btn,
+                  ]
+            }
+          >
+            {selectedlang == 0 ? translation[34].English : translation[34].Urdu}
+          </Text>
         </TouchableOpacity>
       </View>
 
@@ -52,17 +134,50 @@ export default function CitizenProfile({ navigation }) {
             navigation.goBack();
           }}
         >
-          <Ionicons name={"keypad"} size={25} color={"rgba(10,76,118,1)"} />
-          <Text style={styles.dashboard_text}>Dashboard</Text>
+          <Ionicons
+            name={"keypad"}
+            size={25}
+            style={
+              selectedApp == 1
+                ? { color: "white" }
+                : { color: "rgba(10,76,118,1)" }
+            }
+          />
+          <Text
+            style={[
+              selectedApp == 1
+                ? [{ color: "white" }, styles.style_text]
+                : [{ color: "rgb(1,1,1)" }, styles.style_text],
+            ]}
+          >
+            {selectedlang == 0 ? translation[33].English : translation[33].Urdu}
+          </Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.style_challan_History}
           onPress={() => {
             navigation.navigate("ChallanHistory");
           }}
         >
-          <Ionicons name={"clipboard"} size={25} color={"rgba(10,76,118,1)"} />
-          <Text style={styles.challan_History_text}>Challan History</Text>
+          <Ionicons
+            name={"clipboard"}
+            size={25}
+            style={
+              selectedApp == 1
+                ? { color: "white" }
+                : { color: "rgba(10,76,118,1)" }
+            }
+          />
+          <Text
+            style={[
+              selectedApp == 1
+                ? [{ color: "white" }, styles.style_text]
+                : [{ color: "rgb(1,1,1)" }, styles.style_text],
+            ]}
+          >
+            {selectedlang == 0 ? translation[30].English : translation[30].Urdu}
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -71,20 +186,54 @@ export default function CitizenProfile({ navigation }) {
             navigation.navigate("PayChallan");
           }}
         >
-          <Ionicons name={"logo-usd"} size={25} color={"rgba(10,76,118,1)"} />
-          <Text style={styles.Pay_text}>Pay Challan</Text>
+          <Ionicons
+            name={"logo-usd"}
+            size={25}
+            style={
+              selectedApp == 1
+                ? { color: "white" }
+                : { color: "rgba(10,76,118,1)" }
+            }
+          />
+          <Text
+            style={[
+              selectedApp == 1
+                ? [{ color: "white" }, styles.style_text]
+                : [{ color: "rgb(1,1,1)" }, styles.style_text],
+            ]}
+          >
+            {selectedlang == 0 ? translation[36].English : translation[36].Urdu}{" "}
+            {selectedlang == 0 ? translation[37].English : translation[37].Urdu}
+          </Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.style_Logout}
           onPress={() => {
             navigation.navigate("Citizen_Logout");
           }}
         >
-          <Ionicons name={"log-out"} size={25} color={"rgba(10,76,118,1)"} />
-          <Text style={styles.Logout_text}>Logout</Text>
+          <Ionicons
+            name={"log-out"}
+            size={25}
+            style={
+              selectedApp == 1
+                ? { color: "white" }
+                : { color: "rgba(10,76,118,1)" }
+            }
+          />
+          <Text
+            style={[
+              selectedApp == 1
+                ? [{ color: "white" }, styles.style_text]
+                : [{ color: "rgb(1,1,1)" }, styles.style_text],
+            ]}
+          >
+            {selectedlang == 0 ? translation[28].English : translation[28].Urdu}
+          </Text>
         </TouchableOpacity>
       </View>
-    </>
+    </View>
   );
 }
 
@@ -99,16 +248,7 @@ const styles = StyleSheet.create({
     marginTop: responsiveHeight(1),
     marginLeft: responsiveWidth(10),
   },
-  dashboard_text: {
-    fontSize: responsiveFontSize(2.5),
-    marginLeft: responsiveWidth(3),
-    letterSpacing: 1.0,
-    fontFamily: "poppins-regular",
-    //lineheight: 114.99999761581421,
-    color: "rgb(1,1,1)",
-  },
   purple_background: {
-    backgroundColor: "rgba(10,76,118,1)",
     width: responsiveWidth(100),
     height: responsiveHeight(30),
   },
@@ -141,7 +281,6 @@ const styles = StyleSheet.create({
     marginBottom: responsiveHeight(2),
   },
   Edit_Profile_Btn: {
-    backgroundColor: "rgba(24,154,180,1)",
     width: responsiveWidth(39),
     height: responsiveHeight(6.5),
     textAlign: "center",
@@ -164,13 +303,11 @@ const styles = StyleSheet.create({
     marginTop: responsiveHeight(-7),
     marginLeft: responsiveWidth(10),
   },
-  challan_History_text: {
+  style_text: {
     fontSize: responsiveFontSize(2.5),
     marginLeft: responsiveWidth(3),
     letterSpacing: 1.0,
     fontFamily: "poppins-regular",
-    //lineheight: 114.99999761581421,
-    color: "rgb(1,1,1)",
   },
   style_Logout: {
     flex: 1,
@@ -182,14 +319,6 @@ const styles = StyleSheet.create({
     marginTop: responsiveHeight(-7),
     marginLeft: responsiveWidth(10),
   },
-  Logout_text: {
-    fontSize: responsiveFontSize(2.5),
-    marginLeft: responsiveWidth(3),
-    letterSpacing: 1.0,
-    fontFamily: "poppins-regular",
-    //lineheight: 114.99999761581421,
-    color: "rgb(1,1,1)",
-  },
   style_Pay: {
     flex: 1,
     flexDirection: "row",
@@ -200,14 +329,7 @@ const styles = StyleSheet.create({
     marginTop: responsiveHeight(-7),
     marginLeft: responsiveWidth(10),
   },
-  Pay_text: {
-    fontSize: responsiveFontSize(2.5),
-    marginLeft: responsiveWidth(3),
-    letterSpacing: 1.0,
-    fontFamily: "poppins-regular",
-    //lineheight: 114.99999761581421,
-    color: "rgb(1,1,1)",
-  },
+
   back_icon: {
     marginTop: responsiveHeight(5),
     marginLeft: responsiveWidth(6),

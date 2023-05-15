@@ -20,7 +20,7 @@ export const translation = [
       English: 'Citizen',
       Urdu: 'شہری',//4
   }, {
-      English: 'Enter Username',
+      English: 'Enter Name',
       Urdu: 'صارف نام درج کریں۔',//5
   }, {
       English: 'Email',
@@ -93,7 +93,7 @@ export const translation = [
       Urdu: 'سائن آؤٹ ',
   }, {
       English: 'Scan QR Now',//29
-      Urdu: 'اسکین کریں QR ابھی',
+      Urdu: 'اسکین کریں QR',
   }, {
       English: 'Challan History',
       Urdu: 'چالان کی تاریخ',//30
@@ -110,8 +110,8 @@ export const translation = [
       English: 'Edit Profile',
       Urdu: 'پروفائل ترمیم ',//34
   }, {
-      English: 'Officer(optional)',
-      Urdu: 'افسر (اختیاری)',//35
+      English: 'Officer Name (optional)',
+      Urdu: 'افسر نام (اختیاری)',//35
   }, {
       English: 'Pay',
       Urdu: 'ادائیگی',//36
@@ -197,7 +197,7 @@ export const translation = [
       English: "Change Password",
       Urdu:" پاس ورڈ تبدیل کریں" //63
   }, {
-      English: "Mobile No",
+      English: "Phone Number",
       Urdu:"موبائل نمبر" //64
   }, {
       English: "Save",
@@ -299,5 +299,20 @@ export const translation = [
       English: "Nothing to Display",
       Urdu: "ظاہر کرنے کے لئے کچھ بھی نہیں" //97
   },
-  
+  {
+    English: 'Dashboard',//98
+    Urdu: 'ڈیش بورڈ',
+}, 
+{
+    English: 'Scan QR',//99
+    Urdu: 'اسکین QR',
+}, 
+{
+    English: 'View Motors',//100
+    Urdu: 'موٹرز دیکھیں',
+}, 
+{
+    English: 'Add Motors',//101
+    Urdu: 'موٹرز شامل کریں',
+}, 
 ];

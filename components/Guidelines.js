@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useCallback } from "react";
 import { MaterialIcons, Ionicons } from "@expo/vector-icons";
 import {
   Text,
@@ -18,8 +18,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import MyModal from "./GuidelineModal";
 import { userLogin } from "../context/AuthContext";
 import { globalStyles } from "../styles/globalStyles";
+import { useFocusEffect } from "@react-navigation/native";
+import { translation } from "./translation";
+import { LANG_API_URL, THEME_API_URL } from "../Custom_Api_Calls/api_calls";
 
 export default function Guidelines({ navigation }) {
+  const [selectedlang, setselectedlang] = useState(0);
+  const [selectedApp, setselectedApp] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
   const [RuleNo, setRuleNo] = useState("");
   const [Ruledesc, setRuledisc] = useState("");
@@ -70,9 +75,69 @@ export default function Guidelines({ navigation }) {
     showToast("Guideline has been Deleted.");
   };
 
+  /********** Method to fetch Citizen Language **********/
+  const fetchLanguage = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${LANG_API_URL}/citizen_languageId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const langs = data.language;
+
+      setselectedlang(langs);
+      console.log("chk" + selectedlang);
+      console.log("lang is" + langs);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  /********** Method to fetch Citizen Theme **********/
+  const fetchTheme = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${THEME_API_URL}/citizen_themeId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const themes = data.theme;
+      setselectedApp(themes);
+
+      console.log("theme is" + themes);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchLanguage();
+      fetchTheme();
+    }, [])
+  );
+
   return (
-    <>
-      <View style={globalStyles.header}>
+    <View
+      style={
+        selectedApp == 1
+          ? { backgroundColor: "#333333" }
+          : { backgroundColor: "white" }
+      }
+    >
+      <View
+        style={
+          selectedApp == 1
+            ? [{ backgroundColor: "black" }, globalStyles.header]
+            : [{ backgroundColor: "rgba(10,76,118,1)" }, globalStyles.header]
+        }
+      >
         <TouchableOpacity>
           <Ionicons
             name="arrow-back"
@@ -83,10 +148,20 @@ export default function Guidelines({ navigation }) {
             }}
             style={styles.backArrow}
           />
-          <Text style={[globalStyles.headerText, { left: 120 }]}>
-            GUIDELINE
+          <Text
+            style={
+              selectedlang == 1
+                ? [{ textAlign: "left", left: 150 }, globalStyles.headerText]
+                : [
+                    globalStyles.headerText,
+                    { left: 118, textTransform: "uppercase" },
+                  ]
+            }
+          >
+            {selectedlang == 0 ? translation[18].English : translation[18].Urdu}
           </Text>
           <View style={{ width: 24 }}></View>
+
           <Pressable onPressIn={() => setModalVisible(true)}>
             {showPlusIcon ? (
               <Ionicons
@@ -103,7 +178,16 @@ export default function Guidelines({ navigation }) {
       <FlatList
         data={DATA}
         renderItem={({ item }) => (
-          <View style={styles.Rule_Container}>
+          <View
+            style={
+              selectedApp == 1
+                ? [{ backgroundColor: "grey" }, styles.Rule_Container]
+                : [
+                    { backgroundColor: "rgba(24,154,180,1)" },
+                    styles.Rule_Container,
+                  ]
+            }
+          >
             <View>
               <View style={{ flexDirection: "row" }}>
                 <Text style={styles.Rule_no_Text}>{item.title}</Text>
@@ -133,6 +217,7 @@ export default function Guidelines({ navigation }) {
           </View>
         )}
       />
+
       <MyModal
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
@@ -143,31 +228,18 @@ export default function Guidelines({ navigation }) {
         onClose={() => setModalVisible(false)}
         onAddItem={handleAddItem}
       />
-    </>
+    </View>
   );
 }
+
 const styles = StyleSheet.create({
-  purple_background: {
-    backgroundColor: "rgba(10,76,118,1)",
-    width: responsiveWidth(100),
-    height: responsiveHeight(15),
-  },
-  Rule_Text_Header: {
-    color: "white",
-    fontFamily: "poppins-bold",
-    fontSize: responsiveFontSize(4),
-    textAlign: "center",
-    marginTop: responsiveHeight(-7),
-  },
   Rule_Container: {
-    backgroundColor: "rgba(24,154,180,1)",
     height: responsiveHeight(12),
     marginLeft: responsiveWidth(7),
     marginTop: responsiveHeight(3),
     marginRight: responsiveWidth(7),
     marginVertical: responsiveHeight(-1),
     borderRadius: 15,
-
     flexDirection: "row",
   },
   Rule_no_Text: {
@@ -186,7 +258,7 @@ const styles = StyleSheet.create({
   },
   backArrow: {
     left: 10,
-    top: 20
+    top: 20,
   },
   plus_icon: {
     marginLeft: responsiveWidth(80),

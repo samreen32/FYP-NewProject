@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useCallback } from "react";
 import {
   Text,
   View,
@@ -17,9 +17,17 @@ import { globalStyles } from "../styles/globalStyles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { userLogin } from "../context/AuthContext";
 import AppLoader from "../Loader/AppLoader";
-import { HELP_API_URL } from "../Custom_Api_Calls/api_calls";
+import {
+  HELP_API_URL,
+  LANG_API_URL,
+  THEME_API_URL,
+} from "../Custom_Api_Calls/api_calls";
+import { useFocusEffect } from "@react-navigation/native";
+import { translation } from "./translation";
 
 export default function Help({ navigation }) {
+  const [selectedlang, setselectedlang] = useState(0);
+  const [selectedApp, setselectedApp] = useState(0);
   const [Name, setName] = useState("");
   const [Email, setEmail] = useState("");
   const [description, setdescription] = useState("");
@@ -82,15 +90,80 @@ export default function Help({ navigation }) {
     }
   };
 
+  /********** Method to fetch Citizen Language **********/
+  const fetchLanguage = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${LANG_API_URL}/citizen_languageId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const langs = data.language;
+
+      setselectedlang(langs);
+      console.log("chk" + selectedlang);
+      console.log("lang is" + langs);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  /********** Method to fetch Citizen Theme **********/
+  const fetchTheme = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${THEME_API_URL}/citizen_themeId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const themes = data.theme;
+      setselectedApp(themes);
+
+      console.log("theme is" + themes);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchLanguage();
+      fetchTheme();
+    }, [])
+  );
+
   return (
-    <>
-      <View style={styles.purple_background}>
+    <View
+      style={
+        selectedApp == 1
+          ? { backgroundColor: "#333333", flex: 1 }
+          : { backgroundColor: "white", flex: 1 }
+      }
+    >
+      <View
+        style={
+          selectedApp == 1
+            ? [{ backgroundColor: "grey" }, styles.purple_background]
+            : [
+                { backgroundColor: "rgba(10,76,118,1)" },
+                styles.purple_background,
+              ]
+        }
+      >
         <TouchableOpacity
           onPress={() => {
             navigation.goBack();
           }}
         >
-          <Text style={styles.Help_Text}>Help</Text>
+          <Text style={styles.Help_Text}>
+            {selectedlang == 0 ? translation[8].English : translation[8].Urdu}
+          </Text>
           <Ionicons
             name="arrow-back"
             size={24}
@@ -103,6 +176,7 @@ export default function Help({ navigation }) {
       <View style={styles.icon_border}>
         <Ionicons name={"help-circle"} size={160} color={"white"} />
       </View>
+
       {error ? (
         <Text
           style={{
@@ -129,7 +203,9 @@ export default function Help({ navigation }) {
             ]}
             onChangeText={setName}
             value={Name}
-            label="Name"
+            label={
+              selectedlang == 0 ? translation[9].English : translation[9].Urdu
+            }
             keyboardType="alphabet"
             mode="outlined"
             activeOutlineColor="rgba(10,76,118,1)"
@@ -144,7 +220,9 @@ export default function Help({ navigation }) {
             ]}
             onChangeText={setEmail}
             value={Email}
-            label="Email"
+            label={
+              selectedlang == 0 ? translation[10].English : translation[10].Urdu
+            }
             keyboardType="alphabet"
             mode="outlined"
             activeOutlineColor="rgba(10,76,118,1)"
@@ -159,7 +237,9 @@ export default function Help({ navigation }) {
             ]}
             onChangeText={setdescription}
             value={description}
-            label="Description"
+            label={
+              selectedlang == 0 ? translation[11].English : translation[11].Urdu
+            }
             keyboardType="alphabet"
             mode="outlined"
             activeOutlineColor="rgba(10,76,118,1)"
@@ -174,7 +254,9 @@ export default function Help({ navigation }) {
             ]}
             onChangeText={setAny_Comment}
             value={Any_Comment}
-            label="Any Comment"
+            label={
+              selectedlang == 0 ? translation[12].English : translation[12].Urdu
+            }
             keyboardType="alphabet"
             mode="outlined"
             activeOutlineColor="rgba(10,76,118,1)"
@@ -182,19 +264,28 @@ export default function Help({ navigation }) {
             editable
             autoCapitalize="none"
           />
+          
           <TouchableOpacity
-            style={styles.submit_btn}
+            style={
+              selectedApp == 1
+                ? [{ backgroundColor: "grey" }, styles.submit_btn]
+                : [{ backgroundColor: "rgba(24,154,180,1)" }, styles.submit_btn]
+            }
             onPress={() => {
               handleHelp();
             }}
           >
-            <Text style={styles.submit_text}>Submit</Text>
+            <Text style={styles.submit_text}>
+              {selectedlang == 0
+                ? translation[13].English
+                : translation[13].Urdu}
+            </Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
 
       {isLoading ? <AppLoader /> : null}
-    </>
+    </View>
   );
 }
 
@@ -204,7 +295,6 @@ const styles = StyleSheet.create({
     marginLeft: responsiveWidth(27),
   },
   purple_background: {
-    backgroundColor: "rgba(10,76,118,1)",
     width: responsiveWidth(100),
     height: responsiveHeight(30),
   },
@@ -215,10 +305,10 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(4),
     letterSpacing: 1.0,
     fontFamily: "poppins-bold",
+    textTransform: "uppercase",
   },
 
   submit_btn: {
-    backgroundColor: "rgba(24,154,180,1)",
     width: responsiveWidth(30),
     height: responsiveHeight(7),
     marginTop: responsiveHeight(48),
@@ -237,6 +327,6 @@ const styles = StyleSheet.create({
   },
   backArrow: {
     left: 20,
-    top: -45
+    top: -45,
   },
 });

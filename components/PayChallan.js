@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Text,
   View,
@@ -17,12 +17,18 @@ import {
 import {
   AUTH_API_URL,
   CHALLAN_API_URL,
+  LANG_API_URL,
   MOTORS_API_URL,
+  THEME_API_URL,
 } from "../Custom_Api_Calls/api_calls";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import NoComplaint_Box from "../Loader/NoComplaint_Box";
+import { useFocusEffect } from "@react-navigation/native";
+import { translation } from "./translation";
 
 export default function PayChallan({ navigation }) {
+  const [selectedlang, setselectedlang] = useState(0);
+  const [selectedApp, setselectedApp] = useState(0);
   const [challans, setChallans] = useState([]);
 
   /************** Function to fecth all the challans ****************/
@@ -84,9 +90,69 @@ export default function PayChallan({ navigation }) {
     fetchChallans();
   }, []);
 
+  /********** Method to fetch Citizen Language **********/
+  const fetchLanguage = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${LANG_API_URL}/citizen_languageId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const langs = data.language;
+
+      setselectedlang(langs);
+      console.log("chk" + selectedlang);
+      console.log("lang is" + langs);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  /********** Method to fetch Citizen Theme **********/
+  const fetchTheme = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${THEME_API_URL}/citizen_themeId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const themes = data.theme;
+      setselectedApp(themes);
+
+      console.log("theme is" + themes);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchLanguage();
+      fetchTheme();
+    }, [])
+  );
+
   return (
-    <>
-      <View style={globalStyles.header}>
+    <View
+      style={
+        selectedApp == 1
+          ? { backgroundColor: "#333333" }
+          : { backgroundColor: "none" }
+      }
+    >
+      <View
+        style={
+          selectedApp == 1
+            ? [{ backgroundColor: "black" }, globalStyles.header]
+            : [{ backgroundColor: "rgba(10,76,118,1)" }, globalStyles.header]
+        }
+      >
         <Ionicons
           name="arrow-back"
           size={24}
@@ -95,7 +161,10 @@ export default function PayChallan({ navigation }) {
             navigation.goBack();
           }}
         />
-        <Text style={globalStyles.headerText}>PAY CHALLAN</Text>
+        <Text style={[globalStyles.headerText, { textTransform: "uppercase" }]}>
+          {selectedlang == 0 ? translation[36].English : translation[36].Urdu}{" "}
+          {selectedlang == 0 ? translation[37].English : translation[37].Urdu}
+        </Text>
         <View style={{ width: 24 }}></View>
       </View>
 
@@ -103,7 +172,16 @@ export default function PayChallan({ navigation }) {
         data={challans}
         keyExtractor={(item) => item._id}
         renderItem={({ item }) => (
-          <View style={styles.Complain_Container}>
+          <View
+            style={
+              selectedApp == 1
+                ? [{ backgroundColor: "grey" }, styles.Complain_Container]
+                : [
+                    { backgroundColor: "rgba(24,154,180,1)" },
+                    styles.Complain_Container,
+                  ]
+            }
+          >
             <TouchableOpacity
               style={[
                 globalStyles.searchIcon,
@@ -118,6 +196,7 @@ export default function PayChallan({ navigation }) {
             >
               <AntDesign name="right" size={50} color="black" />
             </TouchableOpacity>
+
             <TouchableOpacity>
               <View style={globalStyles.pendingChallanImage}>
                 <Image
@@ -170,14 +249,13 @@ export default function PayChallan({ navigation }) {
       />
 
       {challans.length === 0 && <NoComplaint_Box />}
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   Complain_Container: {
     flexDirection: "row",
-    backgroundColor: "rgba(24,154,180,1)",
     height: responsiveHeight(18.5),
     marginLeft: responsiveWidth(5),
     marginTop: responsiveHeight(3),

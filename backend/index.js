@@ -24,6 +24,6 @@ app.use("/api/motors", require("./routes/motors"));
 app.use("/api/language", require("./routes/language"));
 app.use("/api/theme", require("./routes/theme"));
 
-app.listen(port, "192.168.8.100", () => {
+app.listen(port, "192.168.8.101", () => {
   console.log(`FYP backend listening on port ${port}`);
 });
