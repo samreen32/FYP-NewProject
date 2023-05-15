@@ -10,7 +10,7 @@ import { userLogin } from "../context/AuthContext";
 export default function Places({ navigation }) {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
-  const { addressText, setAddressText } = userLogin();
+  const { setAddressText } = userLogin();
 
   useEffect(() => {
     (async () => {

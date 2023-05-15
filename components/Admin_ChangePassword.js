@@ -128,7 +128,7 @@ export default function Admin_ChangePassword({ navigation }) {
             onChangeText={(value) => onChange(value, "oldPassword")}
             value={oldPassword}
             label="Enter your old password"
-            keyboardType="alphabet"
+            keyboardType="default"
             mode="outlined"
             activeOutlineColor="rgba(10,76,118,1)"
             outlineColor="rgba(24,154,180,1)"
@@ -153,7 +153,7 @@ export default function Admin_ChangePassword({ navigation }) {
             onChangeText={(value) => onChange(value, "newPassword")}
             value={newPassword}
             label="Enter your new password"
-            keyboardType="alphabet"
+            keyboardType="default"
             mode="outlined"
             activeOutlineColor="rgba(10,76,118,1)"
             outlineColor="rgba(24,154,180,1)"
@@ -178,7 +178,7 @@ export default function Admin_ChangePassword({ navigation }) {
             onChangeText={(value) => onChange(value, "confirmPassword")}
             value={confirmPassword}
             label="Confirm password"
-            keyboardType="alphabet"
+            keyboardType="default"
             mode="outlined"
             activeOutlineColor="rgba(10,76,118,1)"
             outlineColor="rgba(24,154,180,1)"

@@ -30,8 +30,6 @@ export default function PayChallan({ navigation }) {
     const token = await AsyncStorage.getItem("token");
     try {
       if (token != null) {
-        console.log(token);
-
         // Fetch the vehicle number of the current citizen
         const vehicleNoResponse = await fetch(
           `${AUTH_API_URL}/citizen_vehicleNo`,

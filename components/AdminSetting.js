@@ -64,7 +64,7 @@ export default function AdminSetting({ navigation }) {
           </View>
         </View>
 
-        {/* Security */}
+        {/* Statistics */}
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <MaterialCommunityIcons
@@ -77,10 +77,10 @@ export default function AdminSetting({ navigation }) {
           <View style={styles.sectionBody}>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("");
+                navigation.navigate("Admin_AppStatistics");
               }}
             >
-              <Text style={styles.sectionItem}>Analytics</Text>
+              <Text style={styles.sectionItem}>Statistics</Text>
             </TouchableOpacity>
           </View>
         </View>

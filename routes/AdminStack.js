@@ -13,6 +13,7 @@ import AdminSetting from "../components/AdminSetting";
 import AdminSearch from "../components/AdminSearch";
 import Admin_Notifications from "../components/Admin_Notifications";
 import Admin_ChangePassword from "../components/Admin_ChangePassword";
+import Admin_AppStatistics from "../components/Admin_AppStatistics";
 
 const Stack = createNativeStackNavigator();
 
@@ -99,6 +100,13 @@ export default function AdminStack() {
       <Stack.Screen
         name="AdminSetting"
         component={AdminSetting}
+        options={{
+          headerShown: false,
+        }}
+      />
+       <Stack.Screen
+        name="Admin_AppStatistics"
+        component={Admin_AppStatistics}
         options={{
           headerShown: false,
         }}

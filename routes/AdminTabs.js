@@ -88,6 +88,7 @@ const getRouteName = (route) => {
     routeName?.includes("Places") ||
     routeName?.includes("AdminSetting") ||
     routeName?.includes("AdminSearch") ||
+    routeName?.includes("Admin_AppStatistics") ||
     routeName?.includes("Guidelines") 
   ) {
     return "none";
