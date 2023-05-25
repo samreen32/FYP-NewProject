@@ -22,7 +22,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import { translation } from "./translation";
 import { LANG_API_URL, THEME_API_URL } from "../Custom_Api_Calls/api_calls";
 
-export default function Guidelines({ navigation }) {
+export default function Guidelines_Citizen({ navigation }) {
   const [selectedlang, setselectedlang] = useState(0);
   const [selectedApp, setselectedApp] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
@@ -75,11 +75,11 @@ export default function Guidelines({ navigation }) {
     showToast("Guideline has been Deleted.");
   };
 
-  /********** Method to fetch Admin Language **********/
+  /********** Method to fetch Citizen Language **********/
   const fetchLanguage = async () => {
     try {
       const authToken = await AsyncStorage.getItem("token");
-      const response = await fetch(`${LANG_API_URL}/admin_languageId`, {
+      const response = await fetch(`${LANG_API_URL}/citizen_languageId`, {
         headers: {
           "auth-token": authToken,
         },
@@ -96,11 +96,11 @@ export default function Guidelines({ navigation }) {
     }
   };
 
-  /********** Method to fetch Admin Theme **********/
+  /********** Method to fetch Citizen Theme **********/
   const fetchTheme = async () => {
     try {
       const authToken = await AsyncStorage.getItem("token");
-      const response = await fetch(`${THEME_API_URL}/admin_themeId`, {
+      const response = await fetch(`${THEME_API_URL}/citizen_themeId`, {
         headers: {
           "auth-token": authToken,
         },

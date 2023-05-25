@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import Help from "./Help";
+import { responsiveHeight } from "react-native-responsive-dimensions";
 import AddChallan from "../components/AddChallan";
 import { Ionicons } from "@expo/vector-icons";
 import Places from "./Places";
@@ -15,6 +16,10 @@ import NoSearch from "../Loader/NoSearch";
 import Warden_Logout from "./Warden_Logout";
 import Warden_Notifications from "./Warden_Notifications";
 import Guidelines from "./Guidelines";
+import { LANG_API_URL, THEME_API_URL } from "../Custom_Api_Calls/api_calls";
+import { useFocusEffect } from "@react-navigation/native";
+import { translation } from "./translation";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const data = [
   { id: 1, name: "Add Challan", component: AddChallan },
@@ -30,15 +35,33 @@ const data = [
   { id: 11, name: "Logout", component: Warden_Logout },
 ];
 
-const SearchResult = ({ item, onPress }) => (
-  <TouchableOpacity onPress={onPress} style={globalStyles.NotificationItem}>
-    <Text style={{ fontFamily: "poppins-regular" }}>{item.name}</Text>
-  </TouchableOpacity>
-);
-
 const WardenSearch = ({ navigation }) => {
+  const [selectedlang, setselectedlang] = useState(0);
+  const [selectedApp, setselectedApp] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredData, setFilteredData] = useState(data);
+
+  const SearchResult = ({ item, onPress }) => (
+    <TouchableOpacity
+      onPress={onPress}
+      style={
+        selectedApp == 1
+          ? [
+              { backgroundColor: "grey", height: responsiveHeight(11) },
+              globalStyles.NotificationItem,
+            ]
+          : [
+              {
+                backgroundColor: "rgba(217,217,217,1)",
+                height: responsiveHeight(11),
+              },
+              globalStyles.NotificationItem,
+            ]
+      }
+    >
+      <Text style={{ fontFamily: "poppins-regular" }}>{item.name}</Text>
+    </TouchableOpacity>
+  );
 
   const handleSearch = (text) => {
     const newData = data.filter((item) => {
@@ -54,9 +77,69 @@ const WardenSearch = ({ navigation }) => {
     navigation.navigate(item.component);
   };
 
+  /********** Method to fetch Warden Language **********/
+  const fetchLanguage = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${LANG_API_URL}/warden_languageId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const langs = data.language;
+
+      setselectedlang(langs);
+      console.log("chk" + selectedlang);
+      console.log("lang is" + langs);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  /********** Method to fetch Warden Theme **********/
+  const fetchTheme = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${THEME_API_URL}/warden_themeId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const themes = data.theme;
+      setselectedApp(themes);
+
+      console.log("theme is" + themes);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchLanguage();
+      fetchTheme();
+    }, [])
+  );
+
   return (
-    <>
-      <View style={[globalStyles.header]}>
+    <View
+      style={
+        selectedApp == 1
+          ? { backgroundColor: "#333333", flex: 1 }
+          : { backgroundColor: "white", flex: 1 }
+      }
+    >
+      <View
+        style={
+          selectedApp == 1
+            ? [{ backgroundColor: "black" }, globalStyles.header]
+            : [{ backgroundColor: "rgba(10,76,118,1)" }, globalStyles.header]
+        }
+      >
         <Ionicons
           name="arrow-back"
           size={24}
@@ -65,7 +148,9 @@ const WardenSearch = ({ navigation }) => {
             navigation.goBack();
           }}
         />
-        <Text style={[globalStyles.headerText, { right: 5 }]}>SEARCH</Text>
+        <Text style={[globalStyles.headerText, { textTransform: "uppercase" }]}>
+          {selectedlang == 0 ? translation[116].English : translation[116].Urdu}{" "}
+        </Text>
         <View style={{ width: 24 }}></View>
       </View>
 
@@ -84,9 +169,9 @@ const WardenSearch = ({ navigation }) => {
           />
         ))}
       </ScrollView>
-      
+
       {filteredData.length === 0 && <NoSearch />}
-    </>
+    </View>
   );
 };
 

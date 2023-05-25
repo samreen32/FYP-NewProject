@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useCallback } from "react";
 import {
   Text,
   View,
@@ -16,10 +16,18 @@ import { TextInput } from "react-native-paper";
 import { globalStyles } from "../styles/globalStyles";
 import { userLogin } from "../context/AuthContext";
 import AppLoader from "../Loader/AppLoader";
-import { AUTH_API_URL } from "../Custom_Api_Calls/api_calls";
+import {
+  AUTH_API_URL,
+  LANG_API_URL,
+  THEME_API_URL,
+} from "../Custom_Api_Calls/api_calls";
+import { useFocusEffect } from "@react-navigation/native";
+import { translation } from "./translation";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Warden_ChangePassword({ navigation }) {
+  const [selectedlang, setselectedlang] = useState(0);
+  const [selectedApp, setselectedApp] = useState(0);
   const [credentials, setCredentials] = useState({
     oldPassword: "",
     newPassword: "",
@@ -37,6 +45,54 @@ export default function Warden_ChangePassword({ navigation }) {
     setError,
     showToast,
   } = userLogin();
+
+  /********** Method to fetch Warden Language **********/
+  const fetchLanguage = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${LANG_API_URL}/warden_languageId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const langs = data.language;
+
+      setselectedlang(langs);
+      console.log("chk" + selectedlang);
+      console.log("lang is" + langs);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  /********** Method to fetch Warden Theme **********/
+  const fetchTheme = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${THEME_API_URL}/warden_themeId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const themes = data.theme;
+      setselectedApp(themes);
+
+      console.log("theme is" + themes);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchLanguage();
+      fetchTheme();
+    }, [])
+  );
 
   /*************** Function to change password ********************/
   const handleChangePassword = async () => {
@@ -89,8 +145,20 @@ export default function Warden_ChangePassword({ navigation }) {
   };
 
   return (
-    <>
-      <View style={globalStyles.header}>
+    <View
+      style={
+        selectedApp == 1
+          ? { backgroundColor: "#333333", flex: 1 }
+          : { backgroundColor: "white", flex: 1 }
+      }
+    >
+      <View
+        style={
+          selectedApp == 1
+            ? [{ backgroundColor: "black" }, globalStyles.header]
+            : [{ backgroundColor: "rgba(10,76,118,1)" }, globalStyles.header]
+        }
+      >
         <Ionicons
           name="arrow-back"
           size={24}
@@ -99,7 +167,9 @@ export default function Warden_ChangePassword({ navigation }) {
             navigation.goBack();
           }}
         />
-        <Text style={globalStyles.headerText}>CHANGE PASSWORD</Text>
+        <Text style={[globalStyles.headerText, { textTransform: "uppercase" }]}>
+          {selectedlang == 0 ? translation[122].English : translation[122].Urdu}{" "}
+        </Text>
         <View style={{ width: 24 }}></View>
       </View>
 
@@ -127,8 +197,12 @@ export default function Warden_ChangePassword({ navigation }) {
             style={[globalStyles.textInput, { marginTop: responsiveHeight(5) }]}
             onChangeText={(value) => onChange(value, "oldPassword")}
             value={oldPassword}
-            label="Enter your old password"
-            keyboardType="alphabet"
+            label={
+              selectedlang == 0
+                ? translation[123].English
+                : translation[123].Urdu
+            }
+            keyboardType="default"
             mode="outlined"
             activeOutlineColor="rgba(10,76,118,1)"
             outlineColor="rgba(24,154,180,1)"
@@ -152,8 +226,12 @@ export default function Warden_ChangePassword({ navigation }) {
             ]}
             onChangeText={(value) => onChange(value, "newPassword")}
             value={newPassword}
-            label="Enter your new password"
-            keyboardType="alphabet"
+            label={
+              selectedlang == 0
+                ? translation[124].English
+                : translation[124].Urdu
+            }
+            keyboardType="default"
             mode="outlined"
             activeOutlineColor="rgba(10,76,118,1)"
             outlineColor="rgba(24,154,180,1)"
@@ -177,8 +255,12 @@ export default function Warden_ChangePassword({ navigation }) {
             ]}
             onChangeText={(value) => onChange(value, "confirmPassword")}
             value={confirmPassword}
-            label="Confirm password"
-            keyboardType="alphabet"
+            label={
+              selectedlang == 0
+                ? translation[125].English
+                : translation[125].Urdu
+            }
+            keyboardType="default"
             mode="outlined"
             activeOutlineColor="rgba(10,76,118,1)"
             outlineColor="rgba(24,154,180,1)"
@@ -196,7 +278,23 @@ export default function Warden_ChangePassword({ navigation }) {
           />
 
           <TouchableOpacity
-            style={[styles.submit_btn, { marginTop: responsiveHeight(50) }]}
+            style={
+              selectedApp == 1
+                ? [
+                    {
+                      backgroundColor: "black",
+                      marginTop: responsiveHeight(50),
+                    },
+                    styles.submit_btn,
+                  ]
+                : [
+                    {
+                      backgroundColor: "#D9D9D9",
+                      marginTop: responsiveHeight(50),
+                    },
+                    styles.submit_btn,
+                  ]
+            }
             onPress={() => {
               handleChangePassword();
             }}
@@ -206,9 +304,9 @@ export default function Warden_ChangePassword({ navigation }) {
 
         </View>
       </ScrollView>
-      
+
       {isLoading ? <AppLoader /> : null}
-    </>
+    </View>
   );
 }
 
@@ -224,11 +322,11 @@ const styles = StyleSheet.create({
   },
 
   submit_btn: {
-    backgroundColor: "rgba(10,76,118,1)",
+   // backgroundColor: "rgba(10,76,118,1)",
     width: responsiveWidth(30),
     height: responsiveHeight(7),
     borderRadius: responsiveWidth(7),
-    marginTop: responsiveHeight(30),
+   // marginTop: responsiveHeight(30),
   },
   submit_text: {
     fontSize: responsiveFontSize(2.5),

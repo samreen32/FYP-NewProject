@@ -7,9 +7,7 @@ import {
   responsiveFontSize,
 } from "react-native-responsive-dimensions";
 
-
 export default function WelcomeScreen({ navigation }) {
-
   return (
     <>
       <Image
@@ -53,6 +51,7 @@ export default function WelcomeScreen({ navigation }) {
             Get Started
           </Text>
         </TouchableOpacity>
+        <TouchableOpacity onPress={Statistics}><Text>Test</Text></TouchableOpacity>
         <View
           style={[
             StyleSheet.absoluteFillObject,

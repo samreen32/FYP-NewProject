@@ -353,7 +353,7 @@ export default function CitizenEditProfile({ navigation }) {
         style={
           selectedApp == 1
             ? [{ backgroundColor: "black" }, styles.save_btn]
-            : [{ backgroundColor: "#D9D9D9" }, styles.save_btn]
+            : [{ backgroundColor: "rgba(24,154,180,1)" }, styles.save_btn]
         }
         onPress={() => {
           updateProfileDetails(name, email, phoneNo);

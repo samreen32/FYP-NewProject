@@ -121,7 +121,6 @@ export default function PayChaSecond({ navigation, route }) {
           placeholder={
             challan && challan.challanNum ? challan.challanNum.toString() : ""
           }
-          keyboardType="alphabet"
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
           outlineColor="rgba(24,154,180,1)"
@@ -139,7 +138,6 @@ export default function PayChaSecond({ navigation, route }) {
         <TextInput
           style={globalStyles.vehicleDetail_TextInput}
           placeholder={challan.vehicleNo}
-          keyboardType="alphabet"
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
           outlineColor="rgba(24,154,180,1)"
@@ -157,7 +155,6 @@ export default function PayChaSecond({ navigation, route }) {
         <TextInput
           style={globalStyles.regNum_TextInput}
           placeholder={challan.regNumber}
-          keyboardType="alphabet"
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
           outlineColor="rgba(24,154,180,1)"
@@ -173,7 +170,6 @@ export default function PayChaSecond({ navigation, route }) {
           placeholder={
             challan && challan.amount ? challan.amount.toString() : ""
           }
-          keyboardType="alphabet"
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
           outlineColor="rgba(24,154,180,1)"
@@ -193,7 +189,6 @@ export default function PayChaSecond({ navigation, route }) {
         <TextInput
           style={globalStyles.dateTime_TextInput}
           placeholder={curDateTime.toLocaleString()}
-          keyboardType="alphabet"
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
           outlineColor="rgba(24,154,180,1)"

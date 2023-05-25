@@ -11,7 +11,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import { LANG_API_URL, THEME_API_URL } from "../Custom_Api_Calls/api_calls";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function Places({ navigation }) {
+export default function Places_Admin({ navigation }) {
   const [selectedlang, setselectedlang] = useState(0);
   const [selectedApp, setselectedApp] = useState(0);
   const [location, setLocation] = useState(null); 
@@ -41,11 +41,11 @@ export default function Places({ navigation }) {
     })();
   }, []);
 
-  /********** Method to fetch Citizen Language **********/
+  /********** Method to fetch Admin Language **********/
   const fetchLanguage = async () => {
     try {
       const authToken = await AsyncStorage.getItem("token");
-      const response = await fetch(`${LANG_API_URL}/citizen_languageId`, {
+      const response = await fetch(`${LANG_API_URL}/admin_languageId`, {
         headers: {
           "auth-token": authToken,
         },
@@ -62,11 +62,11 @@ export default function Places({ navigation }) {
     }
   };
 
-  /********** Method to fetch Citizen Theme **********/
+  /********** Method to fetch Admin Theme **********/
   const fetchTheme = async () => {
     try {
       const authToken = await AsyncStorage.getItem("token");
-      const response = await fetch(`${THEME_API_URL}/citizen_themeId`, {
+      const response = await fetch(`${THEME_API_URL}/admin_themeId`, {
         headers: {
           "auth-token": authToken,
         },

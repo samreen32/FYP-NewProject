@@ -208,7 +208,7 @@ const getRouteName = (route) => {
     routeName?.includes("CitizenSearch") ||
     routeName?.includes("FileComplaint") ||
     routeName?.includes("CitizenSetting") ||
-    routeName?.includes("Guidelines") ||
+    routeName?.includes("Guidelines_Citizen") ||
     routeName?.includes("Help") ||
     routeName?.includes("CitizenForgotPassword") ||
     routeName?.includes("CitizenResetPassword") ||

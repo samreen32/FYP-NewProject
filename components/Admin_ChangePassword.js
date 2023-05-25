@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useCallback } from "react";
 import {
   Text,
   View,
@@ -16,10 +16,18 @@ import { TextInput } from "react-native-paper";
 import { globalStyles } from "../styles/globalStyles";
 import { userLogin } from "../context/AuthContext";
 import AppLoader from "../Loader/AppLoader";
-import { AUTH_API_URL } from "../Custom_Api_Calls/api_calls";
+import { translation } from "./translation";
+import { useFocusEffect } from "@react-navigation/native";
+import {
+  LANG_API_URL,
+  THEME_API_URL,
+  AUTH_API_URL,
+} from "../Custom_Api_Calls/api_calls";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Admin_ChangePassword({ navigation }) {
+  const [selectedlang, setselectedlang] = useState(0);
+  const [selectedApp, setselectedApp] = useState(0);
   const [credentials, setCredentials] = useState({
     oldPassword: "",
     newPassword: "",
@@ -88,9 +96,69 @@ export default function Admin_ChangePassword({ navigation }) {
     setCredentials({ ...credentials, [fieldName]: value });
   };
 
+  /********** Method to fetch admin Language **********/
+  const fetchLanguage = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${LANG_API_URL}/admin_languageId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const langs = data.language;
+
+      setselectedlang(langs);
+      console.log("chk" + selectedlang);
+      console.log("lang is" + langs);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  /********** Method to fetch Admin Theme **********/
+  const fetchTheme = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${THEME_API_URL}/admin_themeId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const themes = data.theme;
+      setselectedApp(themes);
+
+      console.log("theme is" + themes);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchLanguage();
+      fetchTheme();
+    }, [])
+  );
+
   return (
-    <>
-      <View style={globalStyles.header}>
+    <View
+      style={
+        selectedApp == 1
+          ? { backgroundColor: "#333333", flex: 1 }
+          : { backgroundColor: "white", flex: 1 }
+      }
+    >
+      <View
+        style={
+          selectedApp == 1
+            ? [{ backgroundColor: "black" }, globalStyles.header]
+            : [{ backgroundColor: "rgba(10,76,118,1)" }, globalStyles.header]
+        }
+      >
         <Ionicons
           name="arrow-back"
           size={24}
@@ -99,7 +167,9 @@ export default function Admin_ChangePassword({ navigation }) {
             navigation.goBack();
           }}
         />
-        <Text style={globalStyles.headerText}>CHANGE PASSWORD</Text>
+        <Text style={[globalStyles.headerText, { textTransform: "uppercase" }]}>
+          {selectedlang == 0 ? translation[122].English : translation[122].Urdu}{" "}
+        </Text>
         <View style={{ width: 24 }}></View>
       </View>
 
@@ -127,7 +197,11 @@ export default function Admin_ChangePassword({ navigation }) {
             style={[globalStyles.textInput, { marginTop: responsiveHeight(5) }]}
             onChangeText={(value) => onChange(value, "oldPassword")}
             value={oldPassword}
-            label="Enter your old password"
+            label={
+              selectedlang == 0
+                ? translation[123].English
+                : translation[123].Urdu
+            }
             keyboardType="default"
             mode="outlined"
             activeOutlineColor="rgba(10,76,118,1)"
@@ -152,7 +226,11 @@ export default function Admin_ChangePassword({ navigation }) {
             ]}
             onChangeText={(value) => onChange(value, "newPassword")}
             value={newPassword}
-            label="Enter your new password"
+            label={
+              selectedlang == 0
+                ? translation[124].English
+                : translation[124].Urdu
+            }
             keyboardType="default"
             mode="outlined"
             activeOutlineColor="rgba(10,76,118,1)"
@@ -177,7 +255,11 @@ export default function Admin_ChangePassword({ navigation }) {
             ]}
             onChangeText={(value) => onChange(value, "confirmPassword")}
             value={confirmPassword}
-            label="Confirm password"
+            label={
+              selectedlang == 0
+                ? translation[125].English
+                : translation[125].Urdu
+            }
             keyboardType="default"
             mode="outlined"
             activeOutlineColor="rgba(10,76,118,1)"
@@ -194,8 +276,25 @@ export default function Admin_ChangePassword({ navigation }) {
               />
             }
           />
+
           <TouchableOpacity
-            style={[styles.submit_btn, { marginTop: responsiveHeight(50) }]}
+            style={
+              selectedApp == 1
+                ? [
+                    {
+                      backgroundColor: "black",
+                      marginTop: responsiveHeight(50),
+                    },
+                    styles.submit_btn,
+                  ]
+                : [
+                    {
+                      backgroundColor: "rgba(10,76,118,1)",
+                      marginTop: responsiveHeight(50),
+                    },
+                    styles.submit_btn,
+                  ]
+            }
             onPress={() => {
               handleChangePassword();
             }}
@@ -205,7 +304,7 @@ export default function Admin_ChangePassword({ navigation }) {
         </View>
       </ScrollView>
       {isLoading ? <AppLoader /> : null}
-    </>
+    </View>
   );
 }
 
@@ -221,11 +320,11 @@ const styles = StyleSheet.create({
   },
 
   submit_btn: {
-    backgroundColor: "rgba(10,76,118,1)",
+    // backgroundColor: "rgba(10,76,118,1)",
     width: responsiveWidth(30),
     height: responsiveHeight(7),
     borderRadius: responsiveWidth(7),
-    marginTop: responsiveHeight(30),
+    //marginTop: responsiveHeight(30),
   },
   submit_text: {
     fontSize: responsiveFontSize(2.5),

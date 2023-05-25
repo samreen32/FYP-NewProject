@@ -548,7 +548,7 @@ export default function CitizenScreen({ navigation }) {
           <View style={globalStyles.rulesIcon}>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("Guidelines");
+                navigation.navigate("Guidelines_Citizen");
               }}
             >
               <Ionicons name="newspaper" size={30} color="black" />

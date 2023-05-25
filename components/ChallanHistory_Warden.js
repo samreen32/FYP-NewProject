@@ -1,4 +1,4 @@
-import { React, useEffect, useState, useCallback } from "react";
+import { React, useState, useEffect, useCallback } from "react";
 import { Text, View, StyleSheet, FlatList } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {
@@ -8,18 +8,18 @@ import {
 } from "react-native-responsive-dimensions";
 import {
   CHALLAN_API_URL,
-  THEME_API_URL,
   LANG_API_URL,
+  THEME_API_URL,
 } from "../Custom_Api_Calls/api_calls";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { globalStyles } from "../styles/globalStyles";
 import { useFocusEffect } from "@react-navigation/native";
 import { translation } from "./translation";
-import { globalStyles } from "../styles/globalStyles";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function ManageChallan({ navigation }) {
+export default function ChallanHistory_Warden({ navigation }) {
+  const [challans, setChallans] = useState([]);
   const [selectedlang, setselectedlang] = useState(0);
   const [selectedApp, setselectedApp] = useState(0);
-  const [challans, setChallans] = useState([]);
 
   /************** Function to fecth all the challans ****************/
   const fetchPaidChallans = async () => {
@@ -38,11 +38,11 @@ export default function ManageChallan({ navigation }) {
     fetchPaidChallans();
   }, []);
 
-  /********** Method to fetch Admin Language **********/
+  /********** Method to fetch warden Language **********/
   const fetchLanguage = async () => {
     try {
       const authToken = await AsyncStorage.getItem("token");
-      const response = await fetch(`${LANG_API_URL}/admin_languageId`, {
+      const response = await fetch(`${LANG_API_URL}/warden_languageId`, {
         headers: {
           "auth-token": authToken,
         },
@@ -59,11 +59,11 @@ export default function ManageChallan({ navigation }) {
     }
   };
 
-  /********** Method to fetch Admin Theme **********/
+  /********** Method to fetch warden Theme **********/
   const fetchTheme = async () => {
     try {
       const authToken = await AsyncStorage.getItem("token");
-      const response = await fetch(`${THEME_API_URL}/admin_themeId`, {
+      const response = await fetch(`${THEME_API_URL}/warden_themeId`, {
         headers: {
           "auth-token": authToken,
         },
@@ -90,8 +90,8 @@ export default function ManageChallan({ navigation }) {
     <View
       style={
         selectedApp == 1
-          ? { backgroundColor: "#333333", flex: 1 }
-          : { backgroundColor: "white", flex: 1 }
+          ? { backgroundColor: "#333333" }
+          : { backgroundColor: "none" }
       }
     >
       <View
@@ -110,7 +110,7 @@ export default function ManageChallan({ navigation }) {
           }}
         />
         <Text style={[globalStyles.headerText, { textTransform: "uppercase" }]}>
-          {selectedlang == 0 ? translation[91].English : translation[91].Urdu}{" "}
+          {selectedlang == 0 ? translation[30].English : translation[30].Urdu}
         </Text>
         <View style={{ width: 24 }}></View>
       </View>
@@ -119,12 +119,14 @@ export default function ManageChallan({ navigation }) {
         data={challans}
         renderItem={({ item, description }) => (
           <View
-            style={[
+            style={
               selectedApp == 1
-                ? { backgroundColor: "grey" }
-                : { backgroundColor: "rgba(24,154,180,1)" },
-              styles.Challan_Container,
-            ]}
+                ? [{ backgroundColor: "grey" }, styles.Challan_Container]
+                : [
+                    { backgroundColor: "rgba(24,154,180,1)" },
+                    styles.Challan_Container,
+                  ]
+            }
           >
             <View>
               <Text style={styles.Status_Text}>
@@ -146,8 +148,7 @@ export default function ManageChallan({ navigation }) {
 
 const styles = StyleSheet.create({
   Challan_Container: {
-    // backgroundColor: "rgba(24,154,180,1)",
-    height: responsiveHeight(12),
+    height: responsiveHeight(13),
     marginLeft: responsiveWidth(6),
     marginTop: responsiveHeight(3.5),
     marginRight: responsiveWidth(6),
@@ -173,5 +174,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginLeft: responsiveWidth(62),
     marginTop: responsiveHeight(-5.5),
+  },
+  backArrow: {
+    marginLeft: responsiveWidth(5),
+    marginTop: responsiveHeight(4),
   },
 });

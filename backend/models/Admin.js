@@ -20,6 +20,14 @@ const adminSchema = new Schema({
     required: true,
   },
   avatar: String,
+  language: {
+    type: Number,
+    default: "0",
+  },
+  theme: {
+    type: Number,
+    default: "0",
+  },
   notificationsData: [
     {
       title: String,

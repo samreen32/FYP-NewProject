@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { globalStyles } from "../styles/globalStyles";
 import {
   Text,
@@ -16,10 +16,18 @@ import {
 import EmptyNotifications from "../Loader/EmptyNotifications";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { userLogin } from "../context/AuthContext";
-import { NOTIFI_API_URL } from "../Custom_Api_Calls/api_calls";
+import {
+  LANG_API_URL,
+  NOTIFI_API_URL,
+  THEME_API_URL,
+} from "../Custom_Api_Calls/api_calls";
+import { useFocusEffect } from "@react-navigation/native";
+import { translation } from "./translation";
 
-export default function Admin_Notifications() {
+export default function Admin_Notifications({navigation}) {
   const { notifications, setNotifications, showToast } = userLogin();
+  const [selectedlang, setselectedlang] = useState(0);
+  const [selectedApp, setselectedApp] = useState(0);
 
   /************* View Notifications Method *************/
   const viewNotifications = async () => {
@@ -74,9 +82,69 @@ export default function Admin_Notifications() {
     }
   }, [notifications]);
 
+  /********** Method to fetch Admin Language **********/
+  const fetchLanguage = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${LANG_API_URL}/admin_languageId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const langs = data.language;
+
+      setselectedlang(langs);
+      console.log("chk" + selectedlang);
+      console.log("lang is" + langs);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  /********** Method to fetch Admin Theme **********/
+  const fetchTheme = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${THEME_API_URL}/admin_themeId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const themes = data.theme;
+      setselectedApp(themes);
+
+      console.log("theme is" + themes);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchLanguage();
+      fetchTheme();
+    }, [])
+  );
+
   return (
-    <>
-      <View style={[globalStyles.header]}>
+    <View
+      style={
+        selectedApp == 1
+          ? { backgroundColor: "#333333", flex: 1 }
+          : { backgroundColor: "white", flex: 1 }
+      }
+    >
+      <View
+        style={
+          selectedApp == 1
+            ? [{ backgroundColor: "black" }, globalStyles.header]
+            : [{ backgroundColor: "rgba(10,76,118,1)" }, globalStyles.header]
+        }
+      >
         <Ionicons
           name="arrow-back"
           size={24}
@@ -85,7 +153,9 @@ export default function Admin_Notifications() {
             navigation.goBack();
           }}
         />
-        <Text style={globalStyles.headerText}>NOTIFICATIONS</Text>
+        <Text style={[globalStyles.headerText, { textTransform: "uppercase" }]}>
+          {selectedlang == 0 ? translation[115].English : translation[115].Urdu}{" "}
+        </Text>
         <View style={{ width: 24 }}></View>
       </View>
 
@@ -93,10 +163,20 @@ export default function Admin_Notifications() {
         data={notifications}
         renderItem={({ item }) => (
           <View
-            style={[
-              globalStyles.NotificationItem,
-              { height: responsiveHeight(17) },
-            ]}
+            style={
+              selectedApp == 1
+                ? [
+                    { backgroundColor: "grey", height: responsiveHeight(17) },
+                    globalStyles.NotificationItem,
+                  ]
+                : [
+                    {
+                      backgroundColor: "rgba(217,217,217,1)",
+                      height: responsiveHeight(17),
+                    },
+                    globalStyles.NotificationItem,
+                  ]
+            }
           >
             <Text style={styles.Name_Text}>{item.title}</Text>
             <Text
@@ -107,7 +187,15 @@ export default function Admin_Notifications() {
             >
               {item.body}
             </Text>
-            <Text style={styles.notifi_time}>{item.date}</Text>
+            <Text
+              style={[
+                selectedApp == 1
+                  ? [{ color: "white" }, styles.notifi_time]
+                  : [{ color: "gray" }, styles.notifi_time],
+              ]}
+            >
+              {item.date}
+            </Text>
             <TouchableOpacity
               onPress={() => {
                 removeNotification(item._id);
@@ -127,7 +215,7 @@ export default function Admin_Notifications() {
         keyExtractor={(item) => item._id}
       />
       {notifications.length === 0 && <EmptyNotifications />}
-    </>
+    </View>
   );
 }
 

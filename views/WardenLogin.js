@@ -73,7 +73,7 @@ export default function WardenLogin({ navigation }) {
         navigation.dispatch(
           StackActions.replace("WardenDrawer", {
             response: response.data.authToken,
-          })
+          }) 
         );
         setIsLoading(false);
       }

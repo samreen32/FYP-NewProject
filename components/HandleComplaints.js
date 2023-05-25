@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useCallback } from "react";
 import {
   Text,
   View,
@@ -19,7 +19,13 @@ import { useNavigation } from "@react-navigation/native";
 import NoComplaint_Box from "../Loader/NoComplaint_Box";
 import { Card } from "react-native-paper";
 import { globalStyles } from "../styles/globalStyles";
-import { COMPLAINT_API_URL } from "../Custom_Api_Calls/api_calls";
+import {
+  COMPLAINT_API_URL,
+  THEME_API_URL,
+  LANG_API_URL,
+} from "../Custom_Api_Calls/api_calls";
+import { useFocusEffect } from "@react-navigation/native";
+import { translation } from "./translation";
 
 export default function HandleComplaints({ navigation }) {
   const [complaints, setComplaints] = useState([]);
@@ -31,6 +37,8 @@ export default function HandleComplaints({ navigation }) {
   const [showButton, setShowButton] = useState(false);
   const [measured, setMeasured] = useState(false);
   const [textHeight, setTextHeight] = useState(0);
+  const [selectedlang, setselectedlang] = useState(0);
+  const [selectedApp, setselectedApp] = useState(0);
 
   /************** View all the Complaint Function ****************/
   const handleComplaints = async () => {
@@ -77,9 +85,69 @@ export default function HandleComplaints({ navigation }) {
     setShowMore(!showMore);
   };
 
+  /********** Method to fetch Admin Language **********/
+  const fetchLanguage = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${LANG_API_URL}/admin_languageId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const langs = data.language;
+
+      setselectedlang(langs);
+      console.log("chk" + selectedlang);
+      console.log("lang is" + langs);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  /********** Method to fetch Admin Theme **********/
+  const fetchTheme = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${THEME_API_URL}/admin_themeId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const themes = data.theme;
+      setselectedApp(themes);
+
+      console.log("theme is" + themes);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchLanguage();
+      fetchTheme();
+    }, [])
+  );
+
   return (
-    <>
-      <View style={globalStyles.header}>
+    <View
+      style={
+        selectedApp == 1
+          ? { backgroundColor: "#333333", flex: 1 }
+          : { backgroundColor: "white", flex: 1 }
+      }
+    >
+      <View
+        style={
+          selectedApp == 1
+            ? [{ backgroundColor: "black" }, globalStyles.header]
+            : [{ backgroundColor: "rgba(10,76,118,1)" }, globalStyles.header]
+        }
+      >
         <Ionicons
           name="arrow-back"
           size={24}
@@ -88,14 +156,24 @@ export default function HandleComplaints({ navigation }) {
             navigation.goBack();
           }}
         />
-        <Text style={globalStyles.headerText}>HANDLE COMPLAINTS</Text>
+        <Text style={[globalStyles.headerText, { textTransform: "uppercase" }]}>
+          {selectedlang == 0 ? translation[90].English : translation[90].Urdu}{" "}
+        </Text>
         <View style={{ width: 24 }}></View>
       </View>
 
       <FlatList
         data={complaints}
         renderItem={({ item }) => (
-          <View style={styles.Complain_Container} key={item._id}>
+          <View
+            style={[
+              selectedApp == 1
+                ? { backgroundColor: "grey" }
+                : { backgroundColor: "rgba(24,154,180,1)" },
+              styles.Complain_Container,
+            ]}
+            key={item._id}
+          >
             <View style={styles.complaint_details}>
               <Text style={styles.Name_Text}>{item.name}</Text>
               <Text
@@ -132,7 +210,13 @@ export default function HandleComplaints({ navigation }) {
         visible={modalVisible}
         onRequestClose={() => setModalVisible(false)}
       >
-        <View style={styles.modalView}>
+        <View
+          style={
+            selectedApp == 1
+              ? [{ backgroundColor: "#333333" }, styles.modalView]
+              : [{ backgroundColor: "rgba(10,76,118,1)" }, styles.modalView]
+          }
+        >
           <Entypo
             name="cross"
             size={30}
@@ -140,7 +224,7 @@ export default function HandleComplaints({ navigation }) {
             onPress={() => setModalVisible(!modalVisible)}
             style={{ left: 120, bottom: 15 }}
           />
-          
+
           <Card
             mode="outlined"
             style={{
@@ -160,7 +244,10 @@ export default function HandleComplaints({ navigation }) {
                   textAlign: "center",
                 }}
               >
-                There is no such relevent image!
+                {/* There is no such relevent image! */}
+                {selectedlang == 0
+                  ? translation[136].English
+                  : translation[136].Urdu}
               </Text>
             )}
             <FlatList
@@ -186,7 +273,10 @@ export default function HandleComplaints({ navigation }) {
                   textAlign: "center",
                 }}
               >
-                Citizen Details
+                {/* Citizen Details */}
+                {selectedlang == 0
+                  ? translation[133].English
+                  : translation[133].Urdu}
               </Text>
               <Text
                 variant="titleLarge"
@@ -195,7 +285,11 @@ export default function HandleComplaints({ navigation }) {
                   textAlign: "center",
                 }}
               >
-                Name: {modalDetails.name}
+                {/* Name */}
+                {selectedlang == 0
+                  ? translation[132].English
+                  : translation[132].Urdu}
+                : {modalDetails.name}
               </Text>
               <Text
                 variant="titleLarge"
@@ -204,7 +298,11 @@ export default function HandleComplaints({ navigation }) {
                   textAlign: "center",
                 }}
               >
-                Email: {modalDetails.email}
+                {/* Email */}
+                {selectedlang == 0
+                  ? translation[6].English
+                  : translation[6].Urdu}
+                : {modalDetails.email}
               </Text>
               <Text
                 variant="titleLarge"
@@ -213,7 +311,11 @@ export default function HandleComplaints({ navigation }) {
                   textAlign: "center",
                 }}
               >
-                Officer Name: {modalDetails.officer_Name}
+                {/* Officer Name */}
+                {selectedlang == 0
+                  ? translation[134].English
+                  : translation[134].Urdu}
+                : {modalDetails.officer_Name}
               </Text>
               <Text
                 variant="bodyMedium"
@@ -224,7 +326,11 @@ export default function HandleComplaints({ navigation }) {
                   textAlign: "center",
                 }}
               >
-                Details: {modalDetails.description}
+                {/* Details */}
+                {selectedlang == 0
+                  ? translation[135].English
+                  : translation[135].Urdu}
+                : {modalDetails.description}
               </Text>
               {showButton && (
                 <TouchableOpacity onPress={toggleShowMore}>
@@ -240,14 +346,14 @@ export default function HandleComplaints({ navigation }) {
         </View>
       </Modal>
       {complaints.length === 0 && <NoComplaint_Box />}
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   modalView: {
     margin: responsiveHeight(2.5),
-    backgroundColor: "white",
+    // backgroundColor: "white",
     top: 90,
     borderRadius: responsiveHeight(5),
     padding: 35,
@@ -273,7 +379,7 @@ const styles = StyleSheet.create({
   },
   Complain_Container: {
     flexDirection: "row",
-    backgroundColor: "rgba(24,154,180,1)",
+    // backgroundColor: "rgba(24,154,180,1)",
     height: responsiveHeight(15),
     marginLeft: responsiveWidth(5),
     marginTop: responsiveHeight(3.5),

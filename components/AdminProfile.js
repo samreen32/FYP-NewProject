@@ -1,4 +1,4 @@
-import { React } from "react";
+import { React, useState, useCallback } from "react";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import {
@@ -7,13 +7,82 @@ import {
   responsiveFontSize,
 } from "react-native-responsive-dimensions";
 import { userLogin } from "../context/AuthContext";
+import { LANG_API_URL, THEME_API_URL } from "../Custom_Api_Calls/api_calls";
+import { useFocusEffect } from "@react-navigation/native";
+import { translation } from "./translation";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function AdminProfile({ navigation }) {
+  const [selectedlang, setselectedlang] = useState(0);
+  const [selectedApp, setselectedApp] = useState(0);
   const { profile } = userLogin();
 
+  /********** Method to fetch Admin Language **********/
+  const fetchLanguage = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${LANG_API_URL}/admin_languageId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const langs = data.language;
+
+      setselectedlang(langs);
+      console.log("chk" + selectedlang);
+      console.log("lang is" + langs);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  /********** Method to fetch Admin Theme **********/
+  const fetchTheme = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${THEME_API_URL}/admin_themeId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const themes = data.theme;
+      setselectedApp(themes);
+
+      console.log("theme is" + themes);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchLanguage();
+      fetchTheme();
+    }, [])
+  );
+
   return (
-    <>
-      <View style={styles.purple_background}>
+    <View
+      style={
+        selectedApp == 1
+          ? { backgroundColor: "#333333", flex: 1 }
+          : { backgroundColor: "white", flex: 1 }
+      }
+    >
+      <View
+        style={
+          selectedApp == 1
+            ? [{ backgroundColor: "black" }, styles.purple_background]
+            : [
+                { backgroundColor: "rgba(10,76,118,1)" },
+                styles.purple_background,
+              ]
+        }
+      >
         <TouchableOpacity
           onPress={() => {
             navigation.goBack();
@@ -25,7 +94,9 @@ export default function AdminProfile({ navigation }) {
             size={45}
             color={"white"}
           />
-          <Text style={styles.Profile_Text}>Profile</Text>
+          <Text style={styles.Profile_Text}>
+            {selectedlang == 0 ? translation[23].English : translation[23].Urdu}
+          </Text>
         </TouchableOpacity>
       </View>
 
@@ -39,7 +110,18 @@ export default function AdminProfile({ navigation }) {
             navigation.navigate("AdminEditProfile");
           }}
         >
-          <Text style={styles.Edit_Profile_Btn}>Edit Profile</Text>
+          <Text
+            style={
+              selectedApp == 1
+                ? [{ backgroundColor: "#333333" }, styles.Edit_Profile_Btn]
+                : [
+                    { backgroundColor: "rgba(24,154,180,1)" },
+                    styles.Edit_Profile_Btn,
+                  ]
+            }
+          >
+            {selectedlang == 0 ? translation[34].English : translation[34].Urdu}
+          </Text>
         </TouchableOpacity>
       </View>
 
@@ -52,8 +134,24 @@ export default function AdminProfile({ navigation }) {
             navigation.goBack();
           }}
         >
-          <Ionicons name={"keypad"} size={25} color={"rgba(10,76,118,1)"} />
-          <Text style={styles.dashboard_text}>Dashboard</Text>
+          <Ionicons
+            name={"keypad"}
+            size={25}
+            style={
+              selectedApp == 1
+                ? { color: "white" }
+                : { color: "rgba(10,76,118,1)" }
+            }
+          />
+          <Text
+            style={[
+              selectedApp == 1
+                ? [{ color: "white" }, styles.style_text]
+                : [{ color: "rgb(1,1,1)" }, styles.style_text],
+            ]}
+          >
+            {selectedlang == 0 ? translation[33].English : translation[33].Urdu}
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -62,8 +160,24 @@ export default function AdminProfile({ navigation }) {
             navigation.navigate("ManageChallan");
           }}
         >
-          <Ionicons name={"clipboard"} size={25} color={"rgba(10,76,118,1)"} />
-          <Text style={styles.challan_History_text}>Manage Challan</Text>
+          <Ionicons
+            name={"clipboard"}
+            size={25}
+            style={
+              selectedApp == 1
+                ? { color: "white" }
+                : { color: "rgba(10,76,118,1)" }
+            }
+          />
+          <Text
+            style={[
+              selectedApp == 1
+                ? [{ color: "white" }, styles.style_text]
+                : [{ color: "rgb(1,1,1)" }, styles.style_text],
+            ]}
+          >
+            {selectedlang == 0 ? translation[91].English : translation[91].Urdu}
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -75,9 +189,21 @@ export default function AdminProfile({ navigation }) {
           <MaterialIcons
             name="headset-mic"
             size={25}
-            color={"rgba(10,76,118,1)"}
+            style={
+              selectedApp == 1
+                ? { color: "white" }
+                : { color: "rgba(10,76,118,1)" }
+            }
           />
-          <Text style={styles.Pay_text}>Handle Complaints</Text>
+          <Text
+            style={[
+              selectedApp == 1
+                ? [{ color: "white" }, styles.style_text]
+                : [{ color: "rgb(1,1,1)" }, styles.style_text],
+            ]}
+          >
+            {selectedlang == 0 ? translation[90].English : translation[90].Urdu}{" "}
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -86,15 +212,37 @@ export default function AdminProfile({ navigation }) {
             navigation.navigate("Admin_Logout");
           }}
         >
-          <Ionicons name={"log-out"} size={25} color={"rgba(10,76,118,1)"} />
-          <Text style={styles.Logout_text}>Logout</Text>
+          <Ionicons
+            name={"log-out"}
+            size={25}
+            style={
+              selectedApp == 1
+                ? { color: "white" }
+                : { color: "rgba(10,76,118,1)" }
+            }
+          />
+          <Text
+            style={[
+              selectedApp == 1
+                ? [{ color: "white" }, styles.style_text]
+                : [{ color: "rgb(1,1,1)" }, styles.style_text],
+            ]}
+          >
+            {selectedlang == 0 ? translation[28].English : translation[28].Urdu}
+          </Text>
         </TouchableOpacity>
       </View>
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  style_text: {
+    fontSize: responsiveFontSize(2.5),
+    marginLeft: responsiveWidth(3),
+    letterSpacing: 1.0,
+    fontFamily: "poppins-regular",
+  },
   style_dashboard: {
     flex: 1,
     flexDirection: "row",
@@ -114,7 +262,7 @@ const styles = StyleSheet.create({
     color: "rgb(1,1,1)",
   },
   purple_background: {
-    backgroundColor: "rgba(10,76,118,1)",
+   // backgroundColor: "rgba(10,76,118,1)",
     width: responsiveWidth(100),
     height: responsiveHeight(30),
   },
@@ -147,7 +295,7 @@ const styles = StyleSheet.create({
     marginBottom: responsiveHeight(2),
   },
   Edit_Profile_Btn: {
-    backgroundColor: "rgba(24,154,180,1)",
+    //backgroundColor: "rgba(24,154,180,1)",
     width: responsiveWidth(39),
     height: responsiveHeight(6.5),
     textAlign: "center",

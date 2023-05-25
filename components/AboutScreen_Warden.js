@@ -6,15 +6,15 @@ import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LANG_API_URL, THEME_API_URL } from "../Custom_Api_Calls/api_calls";
 
-const AboutScreen = ({ navigation }) => {
+const AboutScreen_Warden = ({ navigation }) => {
   const [selectedlang, setselectedlang] = useState(0);
   const [selectedApp, setselectedApp] = useState(0);
 
-  /********** Method to fetch Citizen Language **********/
+  /********** Method to fetch warden Language **********/
   const fetchLanguage = async () => {
     try {
       const authToken = await AsyncStorage.getItem("token");
-      const response = await fetch(`${LANG_API_URL}/citizen_languageId`, {
+      const response = await fetch(`${LANG_API_URL}/warden_languageId`, {
         headers: {
           "auth-token": authToken,
         },
@@ -31,11 +31,11 @@ const AboutScreen = ({ navigation }) => {
     }
   };
 
-  /********** Method to fetch Citizen Theme **********/
+  /********** Method to fetch warden Theme **********/
   const fetchTheme = async () => {
     try {
       const authToken = await AsyncStorage.getItem("token");
-      const response = await fetch(`${THEME_API_URL}/citizen_themeId`, {
+      const response = await fetch(`${THEME_API_URL}/warden_themeId`, {
         headers: {
           "auth-token": authToken,
         },
@@ -172,4 +172,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AboutScreen;
+export default AboutScreen_Warden;

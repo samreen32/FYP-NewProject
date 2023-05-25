@@ -355,7 +355,7 @@ export const globalStyles = StyleSheet.create({
   },
   tw_Profile_Name: {
     position: "absolute",
-    width: responsiveWidth(30),
+    width: responsiveWidth(40),
     height: responsiveHeight(10),
     marginTop: responsiveHeight(1),
     marginLeft: responsiveWidth(9),
@@ -440,7 +440,7 @@ export const globalStyles = StyleSheet.create({
     marginRight: responsiveWidth(6),
     borderRadius: responsiveWidth(10),
     opacity: 1,
-    backgroundColor: "rgba(24,154,180,1)",
+    //backgroundColor: "rgba(24,154,180,1)",
   },
 
   addView_Challan_Text: {
@@ -642,7 +642,7 @@ export const globalStyles = StyleSheet.create({
     width: responsiveWidth(30),
     height: responsiveHeight(8),
     opacity: 1,
-    backgroundColor: "rgba(24,154,180,1)",
+    //backgroundColor: "rgba(24,154,180,1)",
     borderRadius: responsiveWidth(6),
   },
   submitChallan_Text: {
@@ -956,7 +956,7 @@ export const globalStyles = StyleSheet.create({
     position: "relative",
     width: responsiveWidth(95),
     height: responsiveHeight(8),
-   // backgroundColor: "rgba(24,154,180,1)",
+   //backgroundColor: "rgba(24,154,180,1)",
     justifyContent: "center",
     alignItems: "center",
     borderRadius: responsiveWidth(6),

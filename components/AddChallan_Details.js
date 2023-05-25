@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { Text, View, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { TextInput } from "react-native-paper";
 import {
@@ -9,10 +9,16 @@ import {
 import { globalStyles } from "../styles/globalStyles";
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { CHALLAN_API_URL } from "../Custom_Api_Calls/api_calls";
+import {
+  CHALLAN_API_URL,
+  LANG_API_URL,
+  THEME_API_URL,
+} from "../Custom_Api_Calls/api_calls";
 import axios from "axios";
 import { userLogin } from "../context/AuthContext";
 import Progress from "../Loader/Progress";
+import { useFocusEffect } from "@react-navigation/native";
+import { translation } from "./translation";
 
 export default function AddChallan({ navigation, route }) {
   const { challanId, challanNum, cameraImage } = route.params;
@@ -25,8 +31,57 @@ export default function AddChallan({ navigation, route }) {
   const { vehicleNo, carType, amount, anyComment } = challanDetails;
   const [uploadProgress, setUploadProgress] = useState(0);
   const { updateError, error, setError, showToast } = userLogin();
+  const [selectedlang, setselectedlang] = useState(0);
+  const [selectedApp, setselectedApp] = useState(0);
 
-  
+  /********** Method to fetch Warden Language **********/
+  const fetchLanguage = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${LANG_API_URL}/warden_languageId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const langs = data.language;
+
+      setselectedlang(langs);
+      console.log("chk" + selectedlang);
+      console.log("lang is" + langs);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  /********** Method to fetch Warden Theme **********/
+  const fetchTheme = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${THEME_API_URL}/warden_themeId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const themes = data.theme;
+      setselectedApp(themes);
+
+      console.log("theme is" + themes);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchLanguage();
+      fetchTheme();
+    }, [])
+  );
+
   /***************** Function to save challan details ***************/
   const handleChallanDetails = async () => {
     if (vehicleNo == "") {
@@ -92,8 +147,21 @@ export default function AddChallan({ navigation, route }) {
   };
 
   return (
-    <>
-     <View style={globalStyles.header}>
+    <View
+      style={[
+        selectedApp == 1
+          ? { backgroundColor: "#33363D", flex: 1 }
+          : { backgroundColor: "white" },
+      ]}
+    >
+      <View
+        style={[
+          selectedApp == 1
+            ? { backgroundColor: "black" }
+            : { backgroundColor: "rgba(10,76,118,1)" },
+          globalStyles.header,
+        ]}
+      >
         <Ionicons
           name="arrow-back"
           size={24}
@@ -102,7 +170,9 @@ export default function AddChallan({ navigation, route }) {
             navigation.goBack();
           }}
         />
-        <Text style={globalStyles.headerText}>CHALLAN DETAILS</Text>
+        <Text style={[globalStyles.headerText, { textTransform: "uppercase" }]}>
+          {selectedlang == 0 ? translation[96].English : translation[96].Urdu}{" "}
+        </Text>
         <View style={{ width: 24 }}></View>
       </View>
 
@@ -121,8 +191,12 @@ export default function AddChallan({ navigation, route }) {
 
       <View
         style={[
+          {
+            backgroundColor:
+              selectedApp === 1 ? "#271F1F" : "rgba(10,76,118,1)",
+          },
           globalStyles.easeTraffic_Rect,
-          { marginTop: responsiveHeight(16) },
+          { marginTop: responsiveHeight(16), borderRadius: responsiveWidth(6) },
         ]}
       >
         {cameraImage ? (
@@ -146,7 +220,9 @@ export default function AddChallan({ navigation, route }) {
           style={globalStyles.textInput}
           onChangeText={(value) => onChange(value, "vehicleNo")}
           value={vehicleNo}
-          label="Enter Vehicle Number"
+          label={
+            selectedlang == 0 ? translation[82].English : translation[82].Urdu
+          }
           keyboardType="default"
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
@@ -158,7 +234,9 @@ export default function AddChallan({ navigation, route }) {
           style={[globalStyles.textInput, { marginTop: responsiveHeight(44) }]}
           onChangeText={(value) => onChange(value, "carType")}
           value={carType}
-          label="Enter Car Type"
+          label={
+            selectedlang == 0 ? translation[83].English : translation[83].Urdu
+          }
           keyboardType="default"
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
@@ -170,7 +248,9 @@ export default function AddChallan({ navigation, route }) {
           style={[globalStyles.textInput, { marginTop: responsiveHeight(56) }]}
           onChangeText={(value) => onChange(value, "amount")}
           value={amount}
-          label="Enter Amount"
+          label={
+            selectedlang == 0 ? translation[84].English : translation[84].Urdu
+          }
           keyboardType="numeric"
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
@@ -182,7 +262,9 @@ export default function AddChallan({ navigation, route }) {
           style={[globalStyles.textInput, { marginTop: responsiveHeight(68) }]}
           onChangeText={(value) => onChange(value, "anyComment")}
           value={anyComment}
-          label="Any Comment"
+          label={
+            selectedlang == 0 ? translation[85].English : translation[85].Urdu
+          }
           keyboardType="default"
           mode="outlined"
           activeOutlineColor="rgba(10,76,118,1)"
@@ -194,6 +276,9 @@ export default function AddChallan({ navigation, route }) {
 
       <TouchableOpacity
         style={[
+          selectedApp == 1
+            ? { backgroundColor: "grey" }
+            : { backgroundColor: "rgba(10,76,118,1)" },
           globalStyles.submitChallan_btn,
           { marginTop: responsiveHeight(87.5) },
         ]}
@@ -201,11 +286,13 @@ export default function AddChallan({ navigation, route }) {
           handleChallanDetails();
         }}
       >
-        <Text style={globalStyles.submitChallan_Text}>Next</Text>
+        <Text style={globalStyles.submitChallan_Text}>
+          {selectedlang == 0 ? translation[86].English : translation[86].Urdu}
+        </Text>
       </TouchableOpacity>
 
       {uploadProgress ? <Progress /> : null}
-    </>
+    </View>
   );
 }
 

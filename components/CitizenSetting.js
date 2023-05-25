@@ -16,7 +16,6 @@ export default function CitizenSetting({ navigation }) {
   const [selectedApp, setselectedApp] = useState(0);
   const [Appmodalvisible, setAppmodalvisible] = useState(false);
 
-
   /********** Method to fetch Citizen Language **********/
   const fetchLanguage = async () => {
     try {
@@ -251,6 +250,7 @@ export default function CitizenSetting({ navigation }) {
                     : translation[15].Urdu}
                 </Text>
               </TouchableOpacity>
+              
               <TouchableOpacity
                 onPress={() => {
                   setlangmodalvisible(!langmodalvisible);

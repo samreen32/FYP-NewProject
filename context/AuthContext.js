@@ -13,7 +13,7 @@ const AuthProvider = ({ children }) => {
   const [profile, setProfile] = useState({});
   const [notifications, setNotifications] = useState([]);
   const [badgeValue, setBadgeValue] = useState(0);
-  const [addressText, setAddressText] = useState("Waiting..");
+  const [addressText, setAddressText] = useState("Your Location..");
 
   /********** Function to fetch greetings according to timezone and date ***********/
   useEffect(() => {

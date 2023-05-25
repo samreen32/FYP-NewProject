@@ -1,7 +1,7 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AdminScreen from "../screens/AdminScreen";
-import Places from "../components/Places";
+import Places_Admin from "../components/Places_Admin";
 import HandleComplaints from "../components/HandleComplaints";
 import ManageChallan from "../components/ManageChallan";
 import RemoveWarden from "../components/RemoveWarden";
@@ -27,8 +27,8 @@ export default function AdminStack() {
     >
       <Stack.Screen name="AdminScreen" component={AdminScreen} />
       <Stack.Screen
-        name="Places"
-        component={Places}
+        name="Places_Admin"
+        component={Places_Admin}
         options={{
           headerShown: false,
         }}

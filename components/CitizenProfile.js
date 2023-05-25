@@ -1,4 +1,4 @@
-import { Reacteact, useState, useEffect, useRef, useCallback } from "react";
+import { React, useState, useCallback } from "react";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import {

@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useCallback } from "react";
 import {
   Text,
   View,
@@ -19,7 +19,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import Progress from "../Loader/Progress";
 import { userLogin } from "../context/AuthContext";
-import { PROFILES_API_URL } from "../Custom_Api_Calls/api_calls";
+import {
+  PROFILES_API_URL,
+  THEME_API_URL,
+  LANG_API_URL,
+} from "../Custom_Api_Calls/api_calls";
+import { translation } from "./translation";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function WardenEditProfile({ navigation }) {
   const [credentials, setCredentials] = useState({
@@ -42,6 +48,9 @@ export default function WardenEditProfile({ navigation }) {
     error,
     setError,
   } = userLogin();
+
+  const [selectedlang, setselectedlang] = useState(0);
+  const [selectedApp, setselectedApp] = useState(0);
 
   /******************Function to open image browser for selction*************/
   const openImageSelection = async () => {
@@ -155,9 +164,72 @@ export default function WardenEditProfile({ navigation }) {
     setCredentials({ ...credentials, [fieldName]: value });
   };
 
+  /********** Method to fetch Warden Language **********/
+  const fetchLanguage = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${LANG_API_URL}/warden_languageId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const langs = data.language;
+
+      setselectedlang(langs);
+      console.log("chk" + selectedlang);
+      console.log("lang is" + langs);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  /********** Method to fetch Warden Theme **********/
+  const fetchTheme = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${THEME_API_URL}/warden_themeId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const themes = data.theme;
+      setselectedApp(themes);
+
+      console.log("theme is" + themes);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchLanguage();
+      fetchTheme();
+    }, [])
+  );
+
   return (
-    <>
-      <View style={styles.purple_background}>
+    <View
+      style={
+        selectedApp == 1
+          ? { backgroundColor: "#333333", flex: 1 }
+          : { backgroundColor: "white", flex: 1 }
+      }
+    >
+      <View
+        style={
+          selectedApp == 1
+            ? [{ backgroundColor: "black" }, styles.purple_background]
+            : [
+                { backgroundColor: "rgba(10,76,118,1)" },
+                styles.purple_background,
+              ]
+        }
+      >
         <TouchableOpacity
           onPress={() => {
             navigation.goBack();
@@ -169,7 +241,9 @@ export default function WardenEditProfile({ navigation }) {
             size={45}
             color={"white"}
           />
-          <Text style={styles.Edit_Profile_Text}>Edit Profile</Text>
+          <Text style={styles.Edit_Profile_Text}>
+            {selectedlang == 0 ? translation[34].English : translation[34].Urdu}{" "}
+          </Text>
         </TouchableOpacity>
       </View>
 
@@ -196,8 +270,20 @@ export default function WardenEditProfile({ navigation }) {
 
         <TouchableOpacity>
           {profileImage ? (
-            <Text style={styles.Change_Image_Btn} onPress={UploadImage}>
-              Change Image
+            <Text
+              style={
+                selectedApp == 1
+                  ? [{ backgroundColor: "#333333" }, styles.Change_Image_Btn]
+                  : [
+                      { backgroundColor: "rgba(24,154,180,1)" },
+                      styles.Change_Image_Btn,
+                    ]
+              }
+              onPress={UploadImage}
+            >
+              {selectedlang == 0
+                ? translation[62].English
+                : translation[62].Urdu}{" "}
             </Text>
           ) : null}
         </TouchableOpacity>
@@ -224,7 +310,9 @@ export default function WardenEditProfile({ navigation }) {
             style={styles.style_Rectangle4}
             onChangeText={(value) => onChange(value, "name")}
             value={name}
-            label="Name"
+            label={
+              selectedlang == 0 ? translation[5].English : translation[5].Urdu
+            }
             keyboardType="default"
             mode="outlined"
             activeOutlineColor="rgba(10,76,118,1)"
@@ -236,7 +324,9 @@ export default function WardenEditProfile({ navigation }) {
             style={styles.style_Rectangle5}
             onChangeText={(value) => onChange(value, "email")}
             value={email}
-            label="Email"
+            label={
+              selectedlang == 0 ? translation[6].English : translation[6].Urdu
+            }
             keyboardType="default"
             mode="outlined"
             activeOutlineColor="rgba(10,76,118,1)"
@@ -248,7 +338,9 @@ export default function WardenEditProfile({ navigation }) {
             style={styles.style_Rectangle6}
             onChangeText={(value) => onChange(value, "liscenceID")}
             value={liscenceID}
-            label="liscence Number"
+            label={
+              selectedlang == 0 ? translation[128].English : translation[128].Urdu
+            }
             keyboardType="default"
             mode="outlined"
             activeOutlineColor="rgba(10,76,118,1)"
@@ -260,7 +352,9 @@ export default function WardenEditProfile({ navigation }) {
             style={styles.style_Rectangle7}
             onChangeText={(value) => onChange(value, "phone")}
             value={phone}
-            label="Phone Number"
+            label={
+              selectedlang == 0 ? translation[64].English : translation[64].Urdu
+            }
             keyboardType="numeric"
             mode="outlined"
             activeOutlineColor="rgba(10,76,118,1)"
@@ -272,15 +366,21 @@ export default function WardenEditProfile({ navigation }) {
       </View>
 
       <TouchableOpacity
-        style={styles.save_btn}
+        style={
+          selectedApp == 1
+            ? [{ backgroundColor: "black" }, styles.save_btn]
+            : [{ backgroundColor: "rgba(24,154,180,1)" }, styles.save_btn]
+        }
         onPress={() => {
           updateProfileDetails(name, email, phone, liscenceID);
         }}
       >
-        <Text style={styles.save_text}>Save</Text>
+        <Text style={styles.save_text}>
+          {selectedlang == 0 ? translation[65].English : translation[65].Urdu}{" "}
+        </Text>
       </TouchableOpacity>
       {uploadProgress ? <Progress /> : null}
-    </>
+    </View>
   );
 }
 
@@ -328,7 +428,7 @@ const styles = StyleSheet.create({
   },
 
   purple_background: {
-    backgroundColor: "rgba(10,76,118,1)",
+    //backgroundColor: "rgba(10,76,118,1)",
     width: responsiveWidth(100),
     height: responsiveHeight(30),
   },
@@ -353,7 +453,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   Change_Image_Btn: {
-    backgroundColor: "rgba(24,154,180,1)",
+    //backgroundColor: "rgba(24,154,180,1)",
     marginTop: responsiveHeight(2),
     width: responsiveWidth(44),
     height: responsiveHeight(5.7),
@@ -368,7 +468,7 @@ const styles = StyleSheet.create({
     paddingTop: responsiveHeight(1),
   },
   save_btn: {
-    backgroundColor: "rgba(24,154,180,1)",
+    //backgroundColor: "rgba(24,154,180,1)",
     width: responsiveWidth(30),
     height: responsiveHeight(7.5),
     marginTop: responsiveHeight(-16),

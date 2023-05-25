@@ -12,7 +12,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LANG_API_URL, THEME_API_URL } from "../Custom_Api_Calls/api_calls";
 
-const FAQScreen = () => {
+const FAQScreen_Warden = () => {
   const windowWidth = Dimensions.get("window").width;
   const [expandedQuestion, setExpandedQuestion] = useState(null);
   const [selectedlang, setselectedlang] = useState(0);
@@ -26,11 +26,11 @@ const FAQScreen = () => {
     }
   };
 
-   /********** Method to fetch Citizen Language **********/
+   /********** Method to fetch warden Language **********/
    const fetchLanguage = async () => {
     try {
       const authToken = await AsyncStorage.getItem("token");
-      const response = await fetch(`${LANG_API_URL}/citizen_languageId`, {
+      const response = await fetch(`${LANG_API_URL}/warden_languageId`, {
         headers: {
           "auth-token": authToken,
         },
@@ -47,11 +47,11 @@ const FAQScreen = () => {
     }
   };
 
-  /********** Method to fetch Citizen Theme **********/
+  /********** Method to fetch warden Theme **********/
   const fetchTheme = async () => {
     try {
       const authToken = await AsyncStorage.getItem("token");
-      const response = await fetch(`${THEME_API_URL}/citizen_themeId`, {
+      const response = await fetch(`${THEME_API_URL}/warden_themeId`, {
         headers: {
           "auth-token": authToken,
         },
@@ -212,4 +212,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FAQScreen;
+export default FAQScreen_Warden;

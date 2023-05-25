@@ -5,18 +5,18 @@ import AddChallan from "../components/AddChallan";
 import AddChallan_Camera from "../components/AddChallan_Camera";
 import AddChallan_Details from "../components/AddChallan_Details";
 import AddChallan_PrintDetails from "../components/AddChallan_PrintDetails";
-import Places from "../components/Places";
+import Places_Warden from "../components/Places_Warden";
 import ViewComplaints from "../components/ViewComplaints";
-import ChallanHistory from "../components/ChallanHistory";
+import ChallanHistory_Warden from "../components/ChallanHistory_Warden";
 import Statistics from "../components/Statistics";
 import WardenProfile from "../components/WardenProfile";
 import WardenEditProfile from "../components/WardenEditProfile";
 import WardenSetting from "../components/WardenSetting";
-import Help from "../components/Help";
-import Guidelines from "../components/Guidelines";
-import FAQScreen from "../components/FAQScreen";
-import AboutScreen from "../components/AboutScreen";
-import ContactScreen from "../components/ContactScreen";
+import Help_Warden from "../components/Help_warden";
+import Guidelines_Warden from "../components/Guidelines_Warden";
+import FAQScreen_Warden from "../components/FAQScreen_Warden";
+import AboutScreen_Warden from "../components/AboutScreen_Warden";
+import ContactScreen_Warden from "../components/ContactScreen_Warden";
 import Warden_Notifications from "../components/Warden_Notifications";
 import Warden_Logout from "../components/Warden_Logout";
 import WardenSearch from "../components/WardenSearch";
@@ -35,8 +35,8 @@ export default function StackWarden() {
     >
       <Stack.Screen name="WardenScreen" component={WardenScreen} />
       <Stack.Screen
-        name="Places"
-        component={Places}
+        name="Places_Warden"
+        component={Places_Warden}
         options={{
           headerShown: false,
         }}
@@ -71,15 +71,15 @@ export default function StackWarden() {
         }}
       />
       <Stack.Screen
-        name="Guidelines"
-        component={Guidelines}
+        name="Guidelines_Warden"
+        component={Guidelines_Warden}
         options={{
           headerShown: false,
         }}
       />
       <Stack.Screen
-        name="Help"
-        component={Help}
+        name="Help_Warden"
+        component={Help_Warden}
         options={{
           headerShown: false,
         }}
@@ -103,8 +103,8 @@ export default function StackWarden() {
         }}
       />
       <Stack.Screen
-        name="ChallanHistory"
-        component={ChallanHistory}
+        name="ChallanHistory_Warden"
+        component={ChallanHistory_Warden}
         options={{
           headerShown: false,
         }}
@@ -145,22 +145,22 @@ export default function StackWarden() {
         }}
       />
       <Stack.Screen
-        name="FAQScreen"
-        component={FAQScreen}
+        name="FAQScreen_Warden"
+        component={FAQScreen_Warden}
         options={{
           headerShown: false,
         }}
       />
       <Stack.Screen
-        name="AboutScreen"
-        component={AboutScreen}
+        name="AboutScreen_Warden"
+        component={AboutScreen_Warden}
         options={{
           headerShown: false,
         }}
       />
       <Stack.Screen
-        name="ContactScreen"
-        component={ContactScreen}
+        name="ContactScreen_Warden"
+        component={ContactScreen_Warden}
         options={{
           headerShown: false,
         }}

@@ -296,7 +296,7 @@ export const translation = [
     Urdu: " تصویر کھینچیں", //73
   },
   {
-    English: "Pick Image",
+    English: `Pick${"\n"}Image`,
     Urdu: " تصویر منتخب کریں", //74
   },
   {
@@ -312,7 +312,7 @@ export const translation = [
     Urdu: " تصویر کو خارج کریں", //77
   },
   {
-    English: "Pick Another",
+    English: `Pick${"\n"}Another`,
     Urdu: " دوسرا منتخب کریں", //78
   },
   {
@@ -502,5 +502,111 @@ export const translation = [
   {
     English: "Confirm password",
     Urdu: "پاس ورڈ کی تصدیق کریں", //125
+  },
+  {
+    English: "PAY WITH JAZZCASH",
+    Urdu: "کے ساتھ ادائیگی کریں JazzCash", //126
+  },
+  {
+    English: "Enter Phone Number",
+    Urdu: "فون نمبر درج کریں", //127
+  },
+  {
+    English: "Liscence Number",
+    Urdu: "لائسنس نمبر", //128
+  },
+  {
+    English: "Security",
+    Urdu: "سیکورٹی", //129
+  },
+  {
+    English: "Remove Warden",
+    Urdu: " وارڈن کو ہٹا دیں", //130
+  },
+  {
+    English: "Warden Details",
+    Urdu: "وارڈن کی تفصیلات", //131
+  },
+  {
+    English: "Name",
+    Urdu: "نام", //132
+  },
+  {
+    English: "Citizen Details",
+    Urdu: "شہریوں کی تفصیلات", //133
+  },
+  {
+    English: "Officer Name",
+    Urdu: "افسر کا نام", //134
+  },
+  {
+    English: "Details",
+    Urdu: "تفصیلات", //135
+  },
+
+  {
+    English: "There is no such relevent image!",
+    Urdu: "ایسی کوئی متعلقہ تصویر نہیں ہے!", //136
+  },
+  {
+    English: "Question: How to pay the challan?",
+    Urdu: " سوال: چالان کیسے ادا کیا جائے؟", //137
+  },
+  {
+    English: "Question: How to add vehicles in app?",
+    Urdu: "سوال: ایپ میں گاڑیاں کیسے شامل کی جائیں؟ ", //138
+  },
+  {
+    English: "Question: How to add challan?",
+    Urdu: " سوال: چالان کیسے شامل کیا جائے؟", //139
+  },
+  {
+    English: "Question: How to file a complain?",
+    Urdu: " سوال: شکایت کیسے درج کرائی جائے؟", //140
+  },
+  {
+    English:
+      "Answer: To pay the challan, you can simply select the paychallan option from the dashboard and enter your detail in the textinput.",
+    Urdu: "جواب: چالان کی ادائیگی کے لئے ، آپ آسانی سے ڈیش بورڈ سے پے چالان آپشن منتخب کرسکتے ہیں اور ٹیکسٹ ان پٹ میں اپنی تفصیل درج کرسکتے ہیں۔ ", //141
+  },
+  {
+    English:
+      "Answer: To add the vehicles, you can select add motor option from the drawer,here you will find form where you can add it",
+    Urdu: "جواب: گاڑیوں کو شامل کرنے کے لئے ، آپ دراز سے موٹر شامل کرنے کا آپشن منتخب کرسکتے ہیں ، یہاں آپ کو فارم ملے گا جہاں آپ اسے شامل کرسکتے ہیں۔ ", //142
+  },
+  {
+    English:
+      "Answer: To add the challan, you can select add challan option from the tab bar and can add challan to wrongly parked vehicle",
+    Urdu: "جواب: چالان شامل کرنے کے لیے آپ ٹیب بار سے چالان شامل کرنے کا آپشن منتخب کرسکتے ہیں اور غلط طریقے سے پارک کی گئی گاڑی میں چالان شامل کرسکتے ہیں۔ ", //143
+  },
+  {
+    English:
+      "Answer: To file the complaint, you can select file complaint option from the dashboard and can file complaint against any warden.",
+    Urdu: "جواب: شکایت درج کرنے کے لئے ، آپ ڈیش بورڈ سے شکایت درج کرنے کا آپشن منتخب کرسکتے ہیں اور کسی بھی وارڈن کے خلاف شکایت درج کرسکتے ہیں۔", //144
+  },
+  {
+    English: "Reach out to us at:",
+    Urdu: " ہم سے رابطہ کریں:", //145
+  },
+  {
+    English: "E-parking Challan App",
+    Urdu: "ای پارکنگ چالان ایپ", //146
+  },
+  {
+    English: "About",
+    Urdu: "تعارف", //147
+  },
+  {
+    English: "E-parking Challan App",
+    Urdu: "ای پارکنگ چالان ایپ", //148
+  },
+  {
+    English: "Version 1.0.1",
+    Urdu: "ورژن 1.0.1", //149
+  },
+  {
+    English:
+      "E-parking is a light weight app that help the traffic warden to smoothly handle the challan process and can help the citizens to get and pay the challan without any hurdle",
+    Urdu: "ای پارکنگ ایک ہلکی وزن کی ایپ ہے جو ٹریفک وارڈن کو چالان کے عمل کو آسانی سے سنبھالنے میں مدد دیتی ہے اور شہریوں کو بغیر کسی رکاوٹ کے چالان حاصل کرنے اور ادا کرنے میں مدد دے سکتی ہے۔", //150
   },
 ];

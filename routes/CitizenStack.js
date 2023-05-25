@@ -11,7 +11,7 @@ import ChallanHistory from "../components/ChallanHistory";
 import CitizenProfile from "../components/CitizenProfile";
 import CitizenEditProfile from "../components/CitizenEditProfile";
 import CitizenSetting from "../components/CitizenSetting";
-import Guidelines from "../components/Guidelines";
+import Guidelines_Citizen from "../components/Guidelines_Citizen";
 import FAQScreen from "../components/FAQScreen";
 import AboutScreen from "../components/AboutScreen";
 import ContactScreen from "../components/ContactScreen";
@@ -50,8 +50,8 @@ export default function CitizenStack() {
         }}
       />
       <Stack.Screen
-        name="Guidelines"
-        component={Guidelines}
+        name="Guidelines_Citizen"
+        component={Guidelines_Citizen}
         options={{
           headerShown: false,
         }}

@@ -1,4 +1,4 @@
-import { React, useState, useEffect, useCallback } from "react";
+import { React, useState, useCallback } from "react";
 import {
   Text,
   View,
@@ -292,7 +292,7 @@ export default function Citizen_ChangePassword({ navigation }) {
                   ]
                 : [
                     {
-                      backgroundColor: "#D9D9D9",
+                      backgroundColor: "rgba(10,76,118,1)",
                       marginTop: responsiveHeight(50),
                     },
                     styles.submit_btn,

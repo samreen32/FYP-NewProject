@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { globalStyles } from "../styles/globalStyles";
 import { Text, View, TouchableOpacity, Platform } from "react-native";
 import { responsiveHeight } from "react-native-responsive-dimensions";
@@ -9,7 +9,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { userLogin } from "../context/AuthContext";
 import Progress from "../Loader/Progress";
-import { CHALLAN_API_URL, NOTIFI_API_URL } from "../Custom_Api_Calls/api_calls";
+import {
+  CHALLAN_API_URL,
+  NOTIFI_API_URL,
+  LANG_API_URL,
+  THEME_API_URL,
+} from "../Custom_Api_Calls/api_calls";
+import { useFocusEffect } from "@react-navigation/native";
+import { translation } from "./translation";
 import * as Notifications from "expo-notifications";
 import * as Print from "expo-print";
 import * as SMS from "expo-sms";
@@ -44,6 +51,9 @@ export default function AddChallan_PrintDetails({ route }) {
   const [uploadProgress, setUploadProgress] = useState(0);
   const { updateError, error, setError, showToast, setBadgeValue } =
     userLogin();
+
+  const [selectedlang, setselectedlang] = useState(0);
+  const [selectedApp, setselectedApp] = useState(0);
 
   /***************** Function to add challan details for print ***************/
   const handlePrintDetails = async () => {
@@ -225,8 +235,61 @@ export default function AddChallan_PrintDetails({ route }) {
     };
   }, []);
 
+  /********** Method to fetch Warden Language **********/
+  const fetchLanguage = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${LANG_API_URL}/warden_languageId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const langs = data.language;
+
+      setselectedlang(langs);
+      console.log("chk" + selectedlang);
+      console.log("lang is" + langs);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  /********** Method to fetch Warden Theme **********/
+  const fetchTheme = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${THEME_API_URL}/warden_themeId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const themes = data.theme;
+      setselectedApp(themes);
+
+      console.log("theme is" + themes);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchLanguage();
+      fetchTheme();
+    }, [])
+  );
   return (
-    <>
+    <View
+      style={[
+        selectedApp == 1
+          ? { backgroundColor: "#271F1F", flex: 1 }
+          : { backgroundColor: "rgba(10,76,118,1)", flex: 1 },
+      ]}
+    >
       <View style={globalStyles.challanSecond_Rect}></View>
 
       {error ? (
@@ -243,7 +306,13 @@ export default function AddChallan_PrintDetails({ route }) {
       ) : null}
 
       <View style={globalStyles.challanSecond_Group}>
-        <Text style={globalStyles.challanNum_Text}>Challan{"\n"}Number</Text>
+        <Text style={globalStyles.challanNum_Text}>
+          {selectedlang == 0 ? translation[52].English : translation[52].Urdu}{" "}
+          {"\n"}
+          {selectedlang == 0
+            ? translation[53].English
+            : translation[53].Urdu}{" "}
+        </Text>
         <TextInput
           style={globalStyles.challanNum_TextInput}
           placeholder={`E-Parking Challan #${challanNum}`}
@@ -255,7 +324,9 @@ export default function AddChallan_PrintDetails({ route }) {
         />
 
         <Text style={globalStyles.vehicleDetail_Text}>
-          Vehicle{"\n"}Details
+          {selectedlang == 0 ? translation[54].English : translation[54].Urdu}{" "}
+          {"\n"}
+          {selectedlang == 0 ? translation[55].English : translation[55].Urdu}
         </Text>
         <TextInput
           style={globalStyles.vehicleDetail_TextInput}
@@ -267,7 +338,11 @@ export default function AddChallan_PrintDetails({ route }) {
           editable={false}
         />
 
-        <Text style={globalStyles.regNum_Text}>Registratio{"\n"}n Number</Text>
+        <Text style={globalStyles.regNum_Text}>
+          {selectedlang == 0 ? translation[57].English : translation[57].Urdu}{" "}
+          {"\n"}{" "}
+          {selectedlang == 0 ? translation[53].English : translation[53].Urdu}{" "}
+        </Text>
         <TextInput
           style={globalStyles.regNum_TextInput}
           value={RegNo}
@@ -280,7 +355,9 @@ export default function AddChallan_PrintDetails({ route }) {
           editable
         />
 
-        <Text style={globalStyles.amount_Text}>Amount</Text>
+        <Text style={globalStyles.amount_Text}>
+          {selectedlang == 0 ? translation[56].English : translation[56].Urdu}
+        </Text>
         <TextInput
           style={globalStyles.amount_TextInput}
           placeholder={amount}
@@ -293,7 +370,16 @@ export default function AddChallan_PrintDetails({ route }) {
 
         <View style={globalStyles.lineStyle}></View>
 
-        <Text style={globalStyles.dateTime_Text}>Date &{"\n"}Time</Text>
+        <Text style={globalStyles.dateTime_Text}>
+          {" "}
+          {selectedlang == 0
+            ? translation[58].English
+            : translation[58].Urdu}{" "}
+          {"\n"}
+          {selectedlang == 0
+            ? translation[59].English
+            : translation[59].Urdu}{" "}
+        </Text>
         <TextInput
           style={globalStyles.dateTime_TextInput}
           placeholder={curDateTime.toLocaleString()}
@@ -304,7 +390,9 @@ export default function AddChallan_PrintDetails({ route }) {
           editable={false}
         />
 
-        <Text style={globalStyles.location_Text}>Location</Text>
+        <Text style={globalStyles.location_Text}>
+          {selectedlang == 0 ? translation[60].English : translation[60].Urdu}
+        </Text>
 
         {/* Dropdown */}
         <View
@@ -352,7 +440,9 @@ export default function AddChallan_PrintDetails({ route }) {
           }
         />
 
-        <Text style={globalStyles.dueDate_Text}>Due Date</Text>
+        <Text style={globalStyles.dueDate_Text}>
+          {selectedlang == 0 ? translation[61].English : translation[61].Urdu}{" "}
+        </Text>
         <TextInput
           style={globalStyles.dueDate_TextInput}
           value={due_date}
@@ -385,15 +475,22 @@ export default function AddChallan_PrintDetails({ route }) {
           />
         )}
       </View>
-
+      
       <TouchableOpacity
-        style={globalStyles.printChallan_btn}
+        style={[
+          selectedApp == 1
+            ? { backgroundColor: "rgba(217,217,217,1)" }
+            : { backgroundColor: " rgba(24,154,180,1) " },
+          globalStyles.printChallan_btn,
+        ]}
         onPress={handlePrintDetails}
       >
-        <Text style={globalStyles.submitChallan_Text}>Print</Text>
+        <Text style={globalStyles.submitChallan_Text}>
+          {selectedlang == 0 ? translation[87].English : translation[87].Urdu}
+        </Text>
       </TouchableOpacity>
 
       {uploadProgress ? <Progress /> : null}
-    </>
+    </View>
   );
 }

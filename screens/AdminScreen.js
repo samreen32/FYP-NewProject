@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Text, View, TouchableOpacity, Image } from "react-native";
 import { AntDesign, Ionicons, Entypo } from "@expo/vector-icons";
 import { globalStyles } from "../styles/globalStyles";
@@ -8,10 +8,18 @@ import {
   responsiveWidth,
 } from "react-native-responsive-dimensions";
 import { userLogin } from "../context/AuthContext";
-import { NOTIFI_API_URL } from "../Custom_Api_Calls/api_calls";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {
+  LANG_API_URL,
+  NOTIFI_API_URL,
+  THEME_API_URL,
+} from "../Custom_Api_Calls/api_calls";
+import { translation } from "../components/translation";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function AdminScreen({ navigation }) {
+  const [selectedlang, setselectedlang] = useState(0);
+  const [selectedApp, setselectedApp] = useState(0);
   const {
     profile,
     greeting,
@@ -69,8 +77,62 @@ export default function AdminScreen({ navigation }) {
     reset_notification_badge();
   };
 
+  /********** Method to fetch Admin Language **********/
+  const fetchLanguage = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${LANG_API_URL}/admin_languageId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const langs = data.language;
+
+      setselectedlang(langs);
+      console.log("chk" + selectedlang);
+      console.log("lang is" + langs);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  /********** Method to fetch Admin Theme **********/
+  const fetchTheme = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${THEME_API_URL}/admin_themeId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const themes = data.theme;
+      setselectedApp(themes);
+
+      console.log("theme is" + themes);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchLanguage();
+      fetchTheme();
+    }, [])
+  );
+
   return (
-    <View style={globalStyles.twMain}>
+    <View
+      style={
+        selectedApp == 1
+          ? [{ backgroundColor: "#242124", flex: 1 }, globalStyles.twMain]
+          : [{ backgroundColor: "white" }, globalStyles.twMain]
+      }
+    >
       {/* Drawer icon */}
       <View
         style={[
@@ -86,7 +148,11 @@ export default function AdminScreen({ navigation }) {
             navigation.openDrawer();
           }}
         >
-          <Ionicons name="menu" size={33} color="black" />
+          <Ionicons
+            name="menu"
+            size={33}
+            style={selectedApp == 1 ? { color: "white" } : { color: "black" }}
+          />
         </TouchableOpacity>
       </View>
 
@@ -101,7 +167,11 @@ export default function AdminScreen({ navigation }) {
           {badgeValue > 0 && (
             <Text style={globalStyles.NotificationBadge}>{badgeValue}</Text>
           )}
-          <Ionicons name="notifications" size={33} color="black" />
+          <Ionicons
+            name="notifications"
+            size={33}
+            style={selectedApp == 1 ? { color: "white" } : { color: "black" }}
+          />
         </TouchableOpacity>
       </View>
 
@@ -109,29 +179,56 @@ export default function AdminScreen({ navigation }) {
       <View style={globalStyles.locationTop}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("Places");
+            navigation.navigate("Places_Admin");
           }}
         >
-          <Text style={globalStyles.locationTop_Text}>{addressText}</Text>
+          <Text
+            style={
+              selectedApp == 1
+                ? [{ color: "white", flex: 1 }, globalStyles.locationTop_Text]
+                : [{ color: "black" }, globalStyles.locationTop_Text]
+            }
+          >
+            {addressText}
+          </Text>
         </TouchableOpacity>
       </View>
 
       {/* Profile */}
       <View style={globalStyles.tw_ProfileGroup2}>
         <View>
-          <Text style={globalStyles.tw_Profile_Name}>
+          <Text
+            style={
+              selectedApp == 1
+                ? [{ color: "white", flex: 1 }, globalStyles.tw_Profile_Name]
+                : [{ color: "black" }, globalStyles.tw_Profile_Name]
+            }
+          >
             Hi, {profile.name.charAt(0).toUpperCase() + profile.name.slice(1)}
           </Text>
-        </View>
-        <View>
-          <Text style={globalStyles.tw_Profile_goodMorning}>{greeting}</Text>
+          <Text
+            style={
+              selectedApp == 1
+                ? [
+                    { color: "white", flex: 1 },
+                    globalStyles.tw_Profile_goodMorning,
+                  ]
+                : [{ color: "black" }, globalStyles.tw_Profile_goodMorning]
+            }
+          >
+            {greeting}
+          </Text>
         </View>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("AdminProfile");
           }}
         >
-          <Ionicons name="md-person-circle-outline" size={50} />
+          <Ionicons
+            name="md-person-circle-outline"
+            size={50}
+            style={selectedApp == 1 ? { color: "white" } : { color: "black" }}
+          />
         </TouchableOpacity>
       </View>
 
@@ -142,20 +239,62 @@ export default function AdminScreen({ navigation }) {
             navigation.navigate("AdminSearch");
           }}
         >
-          <Ionicons name="search" size={30} color="black" />
+          <Ionicons
+            name="search"
+            size={30}
+            style={selectedApp == 1 ? { color: "white" } : { color: "black" }}
+          />
         </TouchableOpacity>
       </View>
 
       {/* Manage Challan rect */}
-      <View style={globalStyles.easeTraffic_Rect}></View>
-      <Text style={globalStyles.itsEasy_toPay}>It's easy to manage.</Text>
+      <View
+        style={
+          selectedApp == 1
+            ? [{ backgroundColor: "grey" }, globalStyles.easeTraffic_Rect]
+            : [
+                { backgroundColor: "rgba(10,76,118,1)" },
+                globalStyles.easeTraffic_Rect,
+              ]
+        }
+      ></View>
+      <View>
+        <Text style={globalStyles.letsEase_theTraffic}>
+          {selectedlang == 0 ? translation[92].English : translation[92].Urdu}
+        </Text>
+      </View>
 
       {/* Manage Challan */}
       <View
-        style={[
-          globalStyles.viewPlaces_btn,
-          { width: responsiveWidth(40), height: responsiveHeight(5.5) },
-        ]}
+        style={
+          selectedApp == 1
+            ? [
+                {
+                  backgroundColor: "black",
+                  width: responsiveWidth(38),
+                  height: responsiveHeight(5.5),
+                  position: "absolute",
+                  marginTop: responsiveHeight(36),
+                  marginLeft: responsiveWidth(8),
+                  marginRight: responsiveWidth(6),
+                  borderRadius: responsiveWidth(10),
+                  opacity: 1,
+                },
+              ]
+            : [
+                {
+                  backgroundColor: "rgba(24,154,180,1)",
+                  width: responsiveWidth(38),
+                  height: responsiveHeight(5.5),
+                  position: "absolute",
+                  marginTop: responsiveHeight(36),
+                  marginLeft: responsiveWidth(8),
+                  marginRight: responsiveWidth(6),
+                  borderRadius: responsiveWidth(10),
+                  opacity: 1,
+                },
+              ]
+        }
       >
         <View
           style={[
@@ -174,7 +313,9 @@ export default function AdminScreen({ navigation }) {
                 { fontSize: responsiveFontSize(1.8) },
               ]}
             >
-              Manage Challan
+              {selectedlang == 0
+                ? translation[91].English
+                : translation[91].Urdu}{" "}
             </Text>
           </TouchableOpacity>
         </View>
@@ -193,7 +334,37 @@ export default function AdminScreen({ navigation }) {
 
       {/* Remove Warden */}
       <View
-        style={[globalStyles.payChallan_Rect, { height: responsiveHeight(23) }]}
+        style={
+          selectedApp == 1
+            ? [
+                {
+                  backgroundColor: "grey",
+                  height: responsiveHeight(23),
+                  position: "absolute",
+                  width: responsiveWidth(45),
+                  marginTop: responsiveHeight(45),
+                  marginLeft: responsiveWidth(4),
+                  marginRight: responsiveWidth(6),
+                  borderRadius: responsiveWidth(10),
+                  opacity: 1,
+                },
+                // globalStyles.payChallan_Rect,
+              ]
+            : [
+                {
+                  backgroundColor: "rgba(24,154,180,1)",
+                  height: responsiveHeight(23),
+                  position: "absolute",
+                  width: responsiveWidth(45),
+                  marginTop: responsiveHeight(45),
+                  marginLeft: responsiveWidth(4),
+                  marginRight: responsiveWidth(6),
+                  borderRadius: responsiveWidth(10),
+                  opacity: 1,
+                },
+                // globalStyles.payChallan_Rect,
+              ]
+        }
       >
         <TouchableOpacity
           onPress={() => {
@@ -219,17 +390,44 @@ export default function AdminScreen({ navigation }) {
               },
             ]}
           >
-            Remove{"\n"}Warden
+            {selectedlang == 0 ? translation[89].English : translation[89].Urdu}
           </Text>
         </TouchableOpacity>
       </View>
 
       {/* Handle Complaints */}
       <View
-        style={[
-          globalStyles.payChallan_Rect,
-          { height: responsiveHeight(17), marginTop: responsiveHeight(69) },
-        ]}
+        style={
+          selectedApp == 1
+            ? [
+                {
+                  backgroundColor: "grey",
+                  height: responsiveHeight(17),
+                  marginTop: responsiveHeight(69),
+                  position: "absolute",
+                  width: responsiveWidth(45),
+                  marginLeft: responsiveWidth(4),
+                  marginRight: responsiveWidth(6),
+                  borderRadius: responsiveWidth(10),
+                  opacity: 1,
+                },
+                // globalStyles.payChallan_Rect,
+              ]
+            : [
+                {
+                  backgroundColor: "rgba(24,154,180,1)",
+                  marginTop: responsiveHeight(69),
+                  height: responsiveHeight(17),
+                  position: "absolute",
+                  width: responsiveWidth(45),
+                  marginLeft: responsiveWidth(4),
+                  marginRight: responsiveWidth(6),
+                  borderRadius: responsiveWidth(10),
+                  opacity: 1,
+                },
+                // globalStyles.payChallan_Rect,
+              ]
+        }
       >
         <TouchableOpacity
           onPress={() => {
@@ -256,22 +454,49 @@ export default function AdminScreen({ navigation }) {
             ]}
           >
             {" "}
-            Handle{"\n"}Complaints
+            {selectedlang == 0 ? translation[90].English : translation[90].Urdu}
           </Text>
         </TouchableOpacity>
       </View>
 
       {/* Places */}
       <View
-        style={[
-          globalStyles.fileHistory_Complaints_Rect,
-          { marginTop: responsiveHeight(45), height: responsiveHeight(17) },
-        ]}
+        style={
+          selectedApp == 1
+            ? [
+                {
+                  backgroundColor: "grey",
+                  marginTop: responsiveHeight(45),
+                  height: responsiveHeight(17),
+                  position: "absolute",
+                  width: responsiveWidth(45),
+                  marginLeft: responsiveWidth(51),
+                  marginRight: responsiveWidth(6),
+                  borderRadius: responsiveWidth(10),
+                  opacity: 1,
+                },
+                // globalStyles.fileHistory_Complaints_Rect,
+              ]
+            : [
+                {
+                  backgroundColor: "rgba(24,154,180,1)",
+                  marginTop: responsiveHeight(45),
+                  height: responsiveHeight(17),
+                  position: "absolute",
+                  width: responsiveWidth(45),
+                  marginLeft: responsiveWidth(51),
+                  marginRight: responsiveWidth(6),
+                  borderRadius: responsiveWidth(10),
+                  opacity: 1,
+                },
+                //globalStyles.fileHistory_Complaints_Rect,
+              ]
+        }
       >
         <View>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("Places");
+              navigation.navigate("Places_Admin");
             }}
           >
             <Entypo
@@ -294,17 +519,46 @@ export default function AdminScreen({ navigation }) {
               ]}
             >
               {" "}
-              View {"\n"}Places
+              {selectedlang == 0
+                ? translation[93].English
+                : translation[93].Urdu}
             </Text>
           </TouchableOpacity>
         </View>
       </View>
 
       <View
-        style={[
-          globalStyles.fileHistory_Complaints_Rect,
-          { marginTop: responsiveHeight(63), height: responsiveHeight(23) },
-        ]}
+        style={
+          selectedApp == 1
+            ? [
+                {
+                  backgroundColor: "grey",
+                  marginTop: responsiveHeight(63),
+                  height: responsiveHeight(23),
+                  position: "absolute",
+                  width: responsiveWidth(45),
+                  marginLeft: responsiveWidth(51),
+                  marginRight: responsiveWidth(6),
+                  borderRadius: responsiveWidth(10),
+                  opacity: 1,
+                },
+                //globalStyles.fileHistory_Complaints_Rect,
+              ]
+            : [
+                {
+                  backgroundColor: "rgba(24,154,180,1)",
+                  marginTop: responsiveHeight(63),
+                  height: responsiveHeight(23),
+                  position: "absolute",
+                  width: responsiveWidth(45),
+                  marginLeft: responsiveWidth(51),
+                  marginRight: responsiveWidth(6),
+                  borderRadius: responsiveWidth(10),
+                  opacity: 1,
+                },
+                //globalStyles.fileHistory_Complaints_Rect,
+              ]
+        }
       >
         {/* Manage Challan */}
         <TouchableOpacity
@@ -350,7 +604,7 @@ export default function AdminScreen({ navigation }) {
               },
             ]}
           >
-            Manage {"\n"}Challan
+            {selectedlang == 0 ? translation[91].English : translation[91].Urdu}
           </Text>
         </TouchableOpacity>
       </View>

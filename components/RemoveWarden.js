@@ -1,4 +1,4 @@
-import { React, useEffect, useRef, useState } from "react";
+import { React, useEffect, useRef, useState, useCallback } from "react";
 import {
   Text,
   View,
@@ -18,9 +18,16 @@ import { useNavigation } from "@react-navigation/native";
 import NoComplaint_Box from "../Loader/NoComplaint_Box";
 import { Card, Searchbar } from "react-native-paper";
 import { globalStyles } from "../styles/globalStyles";
-import { NOTIFI_API_URL, WARDEN_API_URL } from "../Custom_Api_Calls/api_calls";
+import {
+  NOTIFI_API_URL,
+  WARDEN_API_URL,
+  THEME_API_URL,
+  LANG_API_URL,
+} from "../Custom_Api_Calls/api_calls";
 import * as Notifications from "expo-notifications";
 import { userLogin } from "../context/AuthContext";
+import { useFocusEffect } from "@react-navigation/native";
+import { translation } from "./translation";
 
 //Default Notification settings
 Notifications.setNotificationHandler({
@@ -41,6 +48,8 @@ export default function RemoveWarden({ navigation }) {
   const notificationListener = useRef();
   const responseListener = useRef();
   const { setBadgeValue, showToast } = userLogin();
+  const [selectedlang, setselectedlang] = useState(0);
+  const [selectedApp, setselectedApp] = useState(0);
 
   /************** View all the Wardens Function ****************/
   const fetchWardens = async () => {
@@ -158,9 +167,69 @@ export default function RemoveWarden({ navigation }) {
     };
   }, []);
 
+  /********** Method to fetch Admin Language **********/
+  const fetchLanguage = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${LANG_API_URL}/admin_languageId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const langs = data.language;
+
+      setselectedlang(langs);
+      console.log("chk" + selectedlang);
+      console.log("lang is" + langs);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  /********** Method to fetch Admin Theme **********/
+  const fetchTheme = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${THEME_API_URL}/admin_themeId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const themes = data.theme;
+      setselectedApp(themes);
+
+      console.log("theme is" + themes);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchLanguage();
+      fetchTheme();
+    }, [])
+  );
+
   return (
-    <>
-      <View style={globalStyles.header}>
+    <View
+      style={
+        selectedApp == 1
+          ? { backgroundColor: "#333333", flex: 1 }
+          : { backgroundColor: "white", flex: 1 }
+      }
+    >
+      <View
+        style={
+          selectedApp == 1
+            ? [{ backgroundColor: "black" }, globalStyles.header]
+            : [{ backgroundColor: "rgba(10,76,118,1)" }, globalStyles.header]
+        }
+      >
         <Ionicons
           name="arrow-back"
           size={24}
@@ -169,7 +238,9 @@ export default function RemoveWarden({ navigation }) {
             navigation.goBack();
           }}
         />
-        <Text style={globalStyles.headerText}>REMOVE WARDEN</Text>
+        <Text style={[globalStyles.headerText, { textTransform: "uppercase" }]}>
+          {selectedlang == 0 ? translation[130].English : translation[130].Urdu}{" "}
+        </Text>
         <View style={{ width: 24 }}></View>
       </View>
 
@@ -186,7 +257,14 @@ export default function RemoveWarden({ navigation }) {
       <FlatList
         data={filteredData}
         renderItem={({ item }) => (
-          <View style={styles.Complain_Container}>
+          <View
+            style={[
+              selectedApp == 1
+                ? { backgroundColor: "grey" }
+                : { backgroundColor: "rgba(24,154,180,1)" },
+              styles.Complain_Container,
+            ]}
+          >
             <View key={item._id}>
               <Text style={styles.Name_Text}>{item.name}</Text>
               <Text style={styles.description_Text}>{item.liscenceID}</Text>
@@ -216,7 +294,13 @@ export default function RemoveWarden({ navigation }) {
         onRequestClose={() => setModalVisible(false)}
       >
         <View style={styles.modalContainer}>
-          <View style={styles.modalView}>
+          <View
+            style={
+              selectedApp == 1
+                ? [{ backgroundColor: "#333333" }, styles.modalView]
+                : [{ backgroundColor: "rgba(10,76,118,1)" }, styles.modalView]
+            }
+          >
             <Card
               mode="outlined"
               style={{
@@ -234,7 +318,10 @@ export default function RemoveWarden({ navigation }) {
                     marginTop: responsiveHeight(2),
                   }}
                 >
-                  Warden Details
+                  {/* Warden Details */}
+                  {selectedlang == 0
+                    ? translation[131].English
+                    : translation[131].Urdu}
                 </Text>
                 <View style={{ marginTop: responsiveHeight(4) }}>
                   <Text
@@ -244,7 +331,11 @@ export default function RemoveWarden({ navigation }) {
                       textAlign: "center",
                     }}
                   >
-                    Name: {modalDetails.name}
+                    {/* Name */}
+                    {selectedlang == 0
+                      ? translation[132].English
+                      : translation[132].Urdu}
+                    : {modalDetails.name}
                   </Text>
                   <Text
                     variant="titleLarge"
@@ -253,7 +344,11 @@ export default function RemoveWarden({ navigation }) {
                       textAlign: "center",
                     }}
                   >
-                    Email: {modalDetails.email}
+                    {/* Email */}
+                    {selectedlang == 0
+                      ? translation[6].English
+                      : translation[6].Urdu}
+                    : {modalDetails.name}: {modalDetails.email}
                   </Text>
                   <Text
                     variant="titleLarge"
@@ -262,7 +357,11 @@ export default function RemoveWarden({ navigation }) {
                       textAlign: "center",
                     }}
                   >
-                    Liscence ID: {modalDetails.liscenceID}
+                    {/* Liscence ID */}
+                    {selectedlang == 0
+                      ? translation[128].English
+                      : translation[128].Urdu}
+                    : {modalDetails.name}: {modalDetails.liscenceID}
                   </Text>
                   <Text
                     variant="bodyMedium"
@@ -271,14 +370,18 @@ export default function RemoveWarden({ navigation }) {
                       textAlign: "center",
                     }}
                   >
-                    Phone Number: {modalDetails.phone}
+                    {/* Phone Number */}
+                    {selectedlang == 0
+                      ? translation[64].English
+                      : translation[64].Urdu}
+                    : {modalDetails.phone}
                   </Text>
                 </View>
               </Card.Content>
 
               <Card.Actions
                 style={{
-                  marginTop: responsiveHeight(6),
+                  marginTop: responsiveHeight(3),
                 }}
               >
                 <TouchableOpacity
@@ -333,7 +436,7 @@ export default function RemoveWarden({ navigation }) {
         </View>
       </Modal>
       {wardens.length === 0 && <NoComplaint_Box />}
-    </>
+    </View>
   );
 }
 
@@ -349,7 +452,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     margin: responsiveHeight(2.5),
-    backgroundColor: "rgba(10,76,118,1)",
+    //backgroundColor: "rgba(10,76,118,1)",
     borderRadius: responsiveHeight(5),
     padding: 20,
     alignItems: "center",
@@ -365,7 +468,7 @@ const styles = StyleSheet.create({
 
   Complain_Container: {
     flexDirection: "row",
-    backgroundColor: "rgba(24,154,180,1)",
+    // backgroundColor: "rgba(24,154,180,1)",
     height: responsiveHeight(15),
     marginLeft: responsiveWidth(5),
     marginTop: responsiveHeight(3.5),

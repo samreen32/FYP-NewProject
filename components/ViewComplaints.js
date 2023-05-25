@@ -1,4 +1,4 @@
-import { React, useState, useEffect, useRef } from "react";
+import { React, useState, useEffect, useRef, useCallback } from "react";
 import {
   Text,
   View,
@@ -10,17 +10,22 @@ import {
   ScrollView,
 } from "react-native";
 import { Entypo, Ionicons } from "@expo/vector-icons";
-
 import {
   responsiveHeight,
   responsiveWidth,
   responsiveFontSize,
 } from "react-native-responsive-dimensions";
-import { COMPLAINT_API_URL } from "../Custom_Api_Calls/api_calls";
+import {
+  COMPLAINT_API_URL,
+  LANG_API_URL,
+  THEME_API_URL,
+} from "../Custom_Api_Calls/api_calls";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Card, Paragraph } from "react-native-paper";
 import { globalStyles } from "../styles/globalStyles";
 import NoComplaint_Box from "../Loader/NoComplaint_Box";
+import { useFocusEffect } from "@react-navigation/native";
+import { translation } from "../components/translation";
 
 export default function ViewComplaints({ navigation }) {
   const [complaints, setComplaints] = useState([]);
@@ -30,6 +35,8 @@ export default function ViewComplaints({ navigation }) {
   const animation = useRef(new Animated.Value(0)).current;
   const scrollView = useRef();
   let number_id = 0;
+  const [selectedlang, setselectedlang] = useState(0);
+  const [selectedApp, setselectedApp] = useState(0);
 
   /************** View all the Complaint Function ****************/
   const viewComplaints = async () => {
@@ -63,9 +70,69 @@ export default function ViewComplaints({ navigation }) {
     setModalVisible(true);
   };
 
+  /********** Method to fetch Warden Language **********/
+  const fetchLanguage = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${LANG_API_URL}/warden_languageId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const langs = data.language;
+
+      setselectedlang(langs);
+      console.log("chk" + selectedlang);
+      console.log("lang is" + langs);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  /********** Method to fetch Warden Theme **********/
+  const fetchTheme = async () => {
+    try {
+      const authToken = await AsyncStorage.getItem("token");
+      const response = await fetch(`${THEME_API_URL}/warden_themeId`, {
+        headers: {
+          "auth-token": authToken,
+        },
+      });
+      const data = await response.json();
+      console.log(data);
+      const themes = data.theme;
+      setselectedApp(themes);
+
+      console.log("theme is" + themes);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchLanguage();
+      fetchTheme();
+    }, [])
+  );
+
   return (
-    <>
-      <View style={globalStyles.header}>
+    <View
+      style={[
+        selectedApp == 1
+          ? { backgroundColor: "#333333", flex: 1 }
+          : { backgroundColor: "white", flex: 1 },
+      ]}
+    >
+      <View
+        style={
+          selectedApp == 1
+            ? [{ backgroundColor: "black" }, globalStyles.header]
+            : [{ backgroundColor: "rgba(10,76,118,1)" }, globalStyles.header]
+        }
+      >
         <Ionicons
           name="arrow-back"
           size={24}
@@ -74,14 +141,23 @@ export default function ViewComplaints({ navigation }) {
             navigation.goBack();
           }}
         />
-        <Text style={globalStyles.headerText}>COMPLAINTS</Text>
+        <Text style={[globalStyles.headerText, { textTransform: "uppercase" }]}>
+          {selectedlang == 0 ? translation[39].English : translation[39].Urdu}{" "}
+        </Text>
         <View style={{ width: 24 }}></View>
       </View>
 
       <FlatList
         data={complaints}
         renderItem={({ item }) => (
-          <View style={styles.Complain_Container}>
+          <View
+            style={[
+              selectedApp == 1
+                ? { backgroundColor: "grey" }
+                : { backgroundColor: "rgba(24,154,180,1)" },
+              styles.Complain_Container,
+            ]}
+          >
             <TouchableOpacity onPress={() => viewSingleComplaint(item._id)}>
               <View style={styles.Image} resizeMode="contain">
                 <Text style={styles.imageText}>View Image</Text>
@@ -155,7 +231,7 @@ export default function ViewComplaints({ navigation }) {
         </View>
       </Modal>
       {complaints.length === 0 && <NoComplaint_Box />}
-    </>
+    </View>
   );
 }
 
@@ -186,7 +262,6 @@ const styles = StyleSheet.create({
   },
   Complain_Container: {
     flexDirection: "row",
-    backgroundColor: "rgba(24,154,180,1)",
     height: responsiveHeight(15),
     marginLeft: responsiveWidth(5),
     marginTop: responsiveHeight(3),

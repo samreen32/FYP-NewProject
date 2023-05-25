@@ -6,7 +6,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LANG_API_URL, THEME_API_URL } from "../Custom_Api_Calls/api_calls";
 
-const ContactScreen = ({ navigation }) => {
+const ContactScreen_Warden = ({ navigation }) => {
   const [selectedlang, setselectedlang] = useState(0);
   const [selectedApp, setselectedApp] = useState(0);
 
@@ -14,7 +14,7 @@ const ContactScreen = ({ navigation }) => {
   const fetchLanguage = async () => {
     try {
       const authToken = await AsyncStorage.getItem("token");
-      const response = await fetch(`${LANG_API_URL}/citizen_languageId`, {
+      const response = await fetch(`${LANG_API_URL}/warden_languageId`, {
         headers: {
           "auth-token": authToken,
         },
@@ -31,11 +31,11 @@ const ContactScreen = ({ navigation }) => {
     }
   };
 
-  /********** Method to fetch Citizen Theme **********/
+  /********** Method to fetch warden Theme **********/
   const fetchTheme = async () => {
     try {
       const authToken = await AsyncStorage.getItem("token");
-      const response = await fetch(`${THEME_API_URL}/citizen_themeId`, {
+      const response = await fetch(`${THEME_API_URL}/warden_themeId`, {
         headers: {
           "auth-token": authToken,
         },
@@ -142,7 +142,9 @@ const ContactScreen = ({ navigation }) => {
           <Ionicons name="car" size={20} color="white" />
           <Text style={styles.appName}>
             {" "}
-            {selectedlang == 0 ? translation[146].English : translation[146].Urdu}
+            {selectedlang == 0
+              ? translation[146].English
+              : translation[146].Urdu}
           </Text>
         </View>
       </View>
@@ -206,4 +208,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ContactScreen;
+export default ContactScreen_Warden;
